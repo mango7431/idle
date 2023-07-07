@@ -32,7 +32,7 @@
 						tag_vos += `
 					    <tr>
 					      <td scope="row" class="text-center align-middle">
-					      	<img width="35px" src="resources/uploadimg/\${vo.member_savename}">
+					      	<img width="35px" src="resources/img/\${vo.member_savename}">
 					      </td>
 					      <td scope="row" class="text-center align-middle">\${vo.id}</td>
 					      <td scope="row" class="text-center align-middle">\${vo.name}</td>
@@ -96,7 +96,7 @@
 						tag_vos += `
 					    <tr>
 					      <td scope="row" class="text-center align-middle">
-					      	<img width="50px" src="resources/uploadimg/\${vo.member_savename}">
+					      	<img width="50px" src="resources/img/\${vo.member_savename}">
 					      </td>
 					      <td scope="row" class="text-center align-middle">\${vo.id}</td>
 					      <td scope="row" class="text-center align-middle">\${vo.name}</td>

@@ -14,11 +14,5 @@
 <body>
 <jsp:include page="top_menu.jsp"></jsp:include>
 	<h1>Hello, world! ${user_id}</h1>
-	<P>The time on the server is ${serverTime}.</P>
-	
-	<a href="testlogin1.do">tester1</a>
-	<a href="testlogin2.do">tester2</a>
-	<a href="testlogin123.do">tester123</a>
-	<a href="testlogout.do">로그아웃</a>
 </body>
 </html>

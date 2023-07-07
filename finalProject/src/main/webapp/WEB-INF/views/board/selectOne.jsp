@@ -22,7 +22,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(vo2){
-				console.log('ajax success:',vo2);
+				console.log('test ajax success:',vo2);
 				
 				let board_type = ``;
 				if(vo2.board_type==1){

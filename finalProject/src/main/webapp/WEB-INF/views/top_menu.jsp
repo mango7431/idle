@@ -30,6 +30,7 @@
 	          </a>
 	          <ul class="dropdown-menu text-small">
 	            <li><a class="dropdown-item" href="buySelectAll.do">내 상점</a></li>
+	            <li><hr class="dropdown-divider"></li>
 	            <li><a class="dropdown-item" href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
 	            <li><hr class="dropdown-divider"></li>
 	            <li id="logout"><a class="dropdown-item" href="logout.do">로그아웃</a></li>
@@ -65,4 +66,23 @@
 	        
 	      </div>
 	    </div>
-  </header>
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script type="text/javascript">
+		if ('${user_id}' === '') {//섹션 없을떄(로그인정보 없을때)
+			$('#login').show();
+			$('#memberInsert').show();
+			$('#logout').hide();
+			$('.dropdown').hide();
+
+		} else {//섹션 있을떄(로그인정보 있을때)
+			$('#login').hide();
+			$('#memberInsert').hide();
+			$('#logout').show();
+			$('.dropdown').show();
+		}
+	</script>
+</header>
+  

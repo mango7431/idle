@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -54,8 +55,13 @@ public class MemberController {
 		} else {
 			vo.setMember_savename(getOriginalFilename);
 			// 웹 어플리케이션이 갖는 실제 경로: 이미지를 업로드할 대상 경로를 찾아서 파일저장.
-			String realPath = sContext.getRealPath("resources/uploadimg");
+			String realPath = sContext.getRealPath("resources/img");
+			String adminRealPath = realPath.replaceAll("finalProject", "finalAdmin");
 			log.info("realPath : {}", realPath);
+			
+			// 관리자 프로젝트쪽에도 이미지 생성
+			File adminf = new File(adminRealPath+"\\"+vo.getMember_savename());
+			FileCopyUtils.copy(vo.getMultipartFile().getBytes(),adminf);
 
 			// 오리지날 사진저장
 			File f = new File(realPath + "\\" + vo.getMember_savename());
@@ -73,6 +79,11 @@ public class MemberController {
 			String formatName = vo.getMember_savename().substring(vo.getMember_savename().lastIndexOf(".") + 1);
 			log.info("formatName : {}", formatName);
 			ImageIO.write(thumb_buffer_img, formatName, thumb_file);
+			
+			// 관리자쪽에 썸네일 추가
+			File admin_thumb_file = new File(adminRealPath + "/thumb_" + vo.getMember_savename());
+			log.info("{}",formatName);
+			ImageIO.write(thumb_buffer_img, formatName, admin_thumb_file);
 
 		} // end else
 		log.info("{}", vo);

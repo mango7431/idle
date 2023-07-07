@@ -41,11 +41,8 @@
 				<ul class="mypage-floating-menu px-0">
 					<li class="fw-bold"><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
 					<li><a href="#">회원정보수정</a></li>
-					<li><a href="#">찜목록</a></li>
-					<li><a href="#">내가 쓴 글</a></li>
-					<li><a href="#">내 거래 목록</a></li>
 					<li><a href="#">내동네설정</a></li>
-					<li><a href="#">내 Q&A 목록</a></li>
+					<li><a href="qnaSelectAll.do">내 Q&A 목록</a></li>
 					<!-- 사용자 정보 수정하기 -->
 				</ul>
 			</div>
