@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.idle.vo">
+	<select id="S_SELECT_ALL" resultType="test.com.idle.vo.SellVO">
+		select * from (select rownum rnum, sell_num, board_num, id
+		from (select sell_num, board_num, id
+		from sell order by sell_num desc))
+		where rnum &gt;= #{startRow} and rnum &lt;= #{endRow}
+	</select>
+	
+	<select id="S_ROW_COUNT" resultType="Integer">
+		select count(*) cnt from sell
+	</select>
+	
+	<delete id="S_DELETE">
+		delete from sell where sell_num = #{sell_num}
+	</delete>
+	
+</mapper>

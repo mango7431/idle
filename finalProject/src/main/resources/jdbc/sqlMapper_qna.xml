@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.idle">
+	<resultMap id="qnaResultMap" type="test.com.idle.vo.QnaVO">
+        <id property="qna_num" column="qna_num" />
+        <id property="qna_title" column="qna_title" />
+        <id property="qna_content" column="qna_content" />
+        <id property="writer" column="writer" />
+        <id property="qna_date" column="qna_date" />
+        <id property="qna_status" column="qna_status" />
+        <id property="qna_category" column="qna_category" />
+        <association property="qnareplyVO" resultMap="qnareplyResultMap" />
+    </resultMap>
+
+    <resultMap id="qnareplyResultMap" type="test.com.idle.vo.QnaReplyVO">
+        <id property="qnareply_num" column="qnareply_num" />
+        <id property="qna_num" column="qna_num" />
+        <id property="qnareply_title" column="qnareply_title" />
+        <id property="qnareply_content" column="qnareply_content" />
+        <id property="qnareply_date" column="qnareply_date" />
+    </resultMap>
+
+	<select id="Q_SELECT_ALL" resultType="test.com.idle.vo.QnaVO">
+    select * from qna where writer=#{writer} 
+    <if test="qna_category!=0">
+        and qna_category = #{qna_category}
+    </if>
+    order by qna_num desc
+	</select>	
+	
+	<select id="Q_PAGING" resultType="test.com.idle.vo.QnaVO">
+	  <![CDATA[
+	    SELECT *
+	    FROM (
+	      SELECT /*+INDEX_DESC(qna qna_pk)*/ 
+	        rownum rn, qna_num, qna_title, qna_content, writer, qna_date, qna_status, qna_category
+	      FROM qna
+	      WHERE rownum <= #{criteria.pageNum} * #{criteria.amount}
+	        AND writer = #{qnaVO.writer}
+	      ]]>
+	        <if test="qnaVO.qna_category != 0">
+	          AND qna_category = #{qnaVO.qna_category}
+	        </if>
+	    ) 
+	  <![CDATA[
+	    WHERE rn > (#{criteria.pageNum} - 1) * #{criteria.amount}
+	  ]]>
+	</select>
+
+	<select id="Q_TOTAL_COUNT" resultType="int">
+		select count(*) from qna 
+		where qna_num > 0 
+		and writer = #{qnaVO.writer}
+		<if test="qnaVO.qna_category != 0">
+    	AND qna_category = #{qnaVO.qna_category}
+    </if>
+	</select>
+	
+	<select id="Q_SELECT_ONE" resultMap="qnaResultMap">
+		select * from qna q 
+		left outer join qnareply qr 
+		on q.qna_num = qr.qna_num 
+		where q.qna_num = #{qna_num}
+	</select>
+	
+	<insert id="Q_INSERT" parameterType="test.com.idle.vo.QnaVO">
+		insert into qna(qna_num,qna_title,qna_content,writer,qna_category)
+		values(seq_qna.nextval,#{qna_title},#{qna_content},#{writer},#{qna_category})
+	</insert>
+	
+	<update id="Q_UPDATE" parameterType="test.com.idle.vo.QnaVO">
+		update qna set qna_title=#{qna_title}, qna_content=#{qna_content}, 
+		qna_date=sysdate, qna_category=#{qna_category}
+		where qna_num = #{qna_num}
+	</update>
+	
+	<delete id="Q_DELETE">
+		delete from qna where qna_num = #{qna_num}
+	</delete>
+	
+</mapper>

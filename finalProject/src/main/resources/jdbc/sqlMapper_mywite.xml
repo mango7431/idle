@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.idle">
+	<select id="MY_WRITE_BUY_SELECT_ALL" resultType="test.com.idle.vo.BoardVO">
+        SELECT *
+        FROM board
+        WHERE writer = #{userId} AND board_type = 1
+        ORDER BY board_date desc
+    </select>
+    
+    <select id="MY_WRITE_SELL_SELECT_ALL" resultType="test.com.idle.vo.BoardVO">
+        SELECT *
+        FROM board
+        WHERE writer = #{userId} AND board_type = 2
+        ORDER BY board_date desc
+    </select>
+</mapper>

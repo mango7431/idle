@@ -1,0 +1,39 @@
+.submit-btn {
+	border-radius: 12px;
+	background-color: #0156FF;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+}
+
+.border-btn {
+	border-radius: 12px;
+	background-color: #fff;
+  padding: 8px 15px;
+  border: 3px solid #0156FF;
+}
+
+.page-num.active a {
+	font-weight: bold;
+	color: blue;
+}
+
+.notification-btn {
+	background: none;
+  border: none;
+  padding: 0;
+}
+
+.notification-btn {
+  position: relative;
+}
+
+.badge {
+  position: absolute;
+ 	top: -4px;
+  right: -4px;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #dc3545;
+  border-radius: 50%;
+}

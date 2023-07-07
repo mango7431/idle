@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.idle">
+
+	<insert id="BLACK_INSERT">
+		insert into black(black_num,black_type,reporterid,targetid,board_num,comments,black_category)
+		values(seq_black.nextval,#{black_type},#{reporterid},#{targetid},#{board_num},#{comments},#{black_category})
+	</insert>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.admin">
+
+	<select id="QNA_SELECT_ALL"
+		resultType="test.com.admin.vo.QnaVO">
+		select qna_num,qna_status,qna_category,qna_title,qna_content,writer,
+			TO_CHAR(qna_date, 'YYYY-MM-DD') qna_date from qna  
+			order by qna_num desc
+	</select>
+	
+	<select id="QNA_SELECT_ONE"
+		resultType="test.com.admin.vo.QnaVO">
+		select * from qna where qna_num = #{qna_num}
+	</select>
+	
+	<update id="QNA_STATUS_UPDATE">
+		update qna set qna_status=2 where qna_num=#{qna_num}
+	</update>
+	
+	<update id="QNA_STATUS_DOWN_UPDATE">
+		update qna set qna_status=1 where qna_num=#{qna_num}
+	</update>
+	
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.com.idle">
+	<select id="B_SELECTALL" resultType="test.com.idle.vo.BoardVO">
+		select b.*, nvl(l.likecount, 0) as likecount 
+		from board b
+        left join (
+            select board_num, count(*) as likecount
+            from likes
+            group by board_num
+        ) l
+        on b.board_num = l.board_num
+		<where>
+            <if test="category != null and category != ''">
+                AND category = #{category}
+            </if>
+            <if test="minPrice != null">
+                AND price &gt;= #{minPrice}
+            </if>
+            <if test="maxPrice != null">
+                AND price &lt;= #{maxPrice}
+            </if>
+            <if test="board_type != null">
+                AND board_type = #{board_type}
+            </if>
+        </where>
+        order by board_date desc
+	</select>
+	
+	<select id="B_SELECTALL_VIEWS" resultType="test.com.idle.vo.BoardVO">
+		select b.*, nvl(l.likecount, 0) as likecount 
+		from board b
+        left join (
+            select board_num, count(*) as likecount
+            from likes
+            group by board_num
+        ) l
+        on b.board_num = l.board_num
+		<where>
+            <if test="category != null">
+                AND category = #{category}
+            </if>
+            <if test="minPrice != null">
+                AND price &gt;= #{minPrice}
+            </if>
+            <if test="maxPrice != null">
+                AND price &lt;= #{maxPrice}
+            </if>
+            <if test="board_type != null">
+                AND board_type = #{board_type}
+            </if>
+        </where>
+        order by view_count desc, likecount desc
+	</select>
+
+	<select id="B_SELECT_ONE" resultType="test.com.idle.vo.BoardVO">
+		select b.*,
+		m.id,m.name,m.address,m.member_savename, nvl(l.likecount, 0) as
+		likecount, nvl(r.chatcount, 0) as chatcount
+		from board b join member m
+		on b.writer = m.id
+		left join(
+		select board_num, count(*) as likecount
+		from likes
+		group by board_num
+		) l on b.board_num = l.board_num
+		left join(
+		select board_num, count(*) as chatcount
+		from room r
+		group by board_num
+		) r on b.board_num = r.board_num
+		where b.board_num = #{board_num}
+	</select>
+	
+	<update id="VIEW_COUNT_UP">
+		update board set view_count = view_count+1 where board_num=#{board_num}
+	</update>
+	
+	<update id="B_UPDATE">
+		update board set board_title = #{board_title}, price = #{price}, board_content = #{board_content}, category = #{category},
+		deal_region=#{deal_region}, board_type=#{board_type}, board_savename1=#{board_savename1}, board_savename2=#{board_savename2}, board_savename3=#{board_savename3}
+		where board_num = #{board_num}
+	</update>
+	
+	<update id="BOARD_CHANGE_STATUS">
+		update board set board_status = #{board_status} where board_num=#{board_num}
+	</update>
+	
+	<insert id="B_INSERT">
+		INSERT INTO board(board_num,board_title,board_content,writer,category,deal_region,price,board_status,board_type,board_savename1,board_savename2,board_savename3)
+		VALUES (seq_board.nextval,#{board_title},#{board_content},#{writer},#{category},#{deal_region},#{price},#{board_status},#{board_type},#{board_savename1},#{board_savename2},#{board_savename3})
+	</insert>
+	
+	<delete id="B_DELETE">
+		delete from board where board_num=#{board_num}
+	</delete>
+	
+</mapper>

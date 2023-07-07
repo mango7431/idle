@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.admin">
+
+	<select id="BLACK_SELECT_ALL" resultType="test.com.admin.vo.BlackVO">
+		SELECT r.*, b.board_num, b.board_title, b.board_report, m.id, m.member_report
+		FROM black r
+		LEFT JOIN BOARD b ON b.BOARD_NUM = r.BOARD_NUM
+		LEFT JOIN MEMBER m ON m.ID = r.TARGETID
+		ORDER BY black_num desc
+	</select>
+	
+	<!-- 경고+1 -->
+	<update id="BOARD_REPORT_UP">
+        UPDATE board
+        SET board_report = board_report + 1
+        WHERE board_num = #{board_num}
+    </update>
+    
+    <update id="MEMBER_REPORT_UP">
+        UPDATE member
+        SET member_report = member_report + 1
+        WHERE id = #{targetid}
+    </update>
+    
+    <!-- 신고 게시글 및 회원 삭제 -->
+    <delete id="REMOVE_BOARD">
+        DELETE FROM board WHERE board_num = #{board_num}
+    </delete>
+    
+    <delete id="REMOVE_MEMBER">
+        DELETE FROM member WHERE id = #{targetid}
+    </delete>
+</mapper>

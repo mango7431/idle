@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.com.idle">
+
+	<select id="R_SELECT_ALL" resultType="test.com.idle.vo.RoomVO">
+		select r.*, b.board_title,
+		b.price, m.member_savename, nvl(msg.latest_message_num,0) as
+		last_m_num,
+        nvl(rc.readcount,0) as readcount
+		from room r
+		join board b on b.board_num = r.board_num
+		join member m on m.id = case when r.buyer = #{buyer} then r.seller else
+		r.buyer end
+		left join (
+		select room_num, max(message_num) as latest_message_num
+		from message
+		group by room_num
+		) msg on msg.room_num = r.room_num
+        left join(
+        select room_num, count(case when readcount = 1 then 1 end) as readcount
+        from message
+        where sender!=#{buyer}
+        group by room_num
+        ) rc on rc.room_num = r.room_num
+		where r.buyer = #{buyer} or r.seller = #{buyer}
+		order by last_m_num desc, r.room_num desc
+	</select>
+
+	<select id="R_CHECK" resultType="test.com.idle.vo.RoomVO">
+		select * from room where
+		board_num=#{board_num} and seller=#{seller} and buyer=#{buyer}
+	</select>
+	
+	<select id="R_READ_CHECK" resultType="test.com.idle.vo.RoomVO">
+		select r.room_num,count(m.readcount) as readcount 
+		from room r join message m on m.room_num = r.room_num and m.readcount = 1
+		group by r.room_num
+	</select>
+
+	<insert id="R_INSERT">
+		insert into room(room_num,board_num,buyer,seller)
+		values(seq_room.nextval,#{board_num},#{buyer},#{seller})
+	</insert>
+
+	<delete id="R_DELETE">
+		delete from room where room_num=#{room_num}
+	</delete>
+
+</mapper>

@@ -1,0 +1,15 @@
+@charset "UTF-8";
+form,h1{
+	padding-left: 20px;
+}
+
+input{
+	height: 30px;
+}
+select{
+	height: 30px;
+	margin-left: 20px;
+}
+label{
+	font-size: 15pt;
+}
