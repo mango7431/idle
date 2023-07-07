@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.com.admin">
+
+	<select id="QNAREPLY_SELECT_ALL"
+		resultType="test.com.admin.vo.QnaReplyVO">
+		select qnareply_num,qnareply_content,TO_CHAR(qnareply_date, 'YYYY-MM-DD HH24:MI:SS') qnareply_date 
+		from qnareply 
+		where qna_num=#{qna_num} 
+	</select>
+	
+	<insert id="QNAREPLY_INSERT">
+		insert into qnareply(qnareply_num,qna_num,qnareply_content)
+		values(seq_qnareply.nextval,#{qna_num},#{qnareply_content})
+	</insert>
+
+	<update id="QNAREPLY_UPDATE">
+		update qnareply set qnareply_content=#{qnareply_content},qnareply_date=sysdate
+		where qnareply_num=#{qnareply_num}
+	</update>
+	
+	<delete id="QNAREPLY_DELETE">
+		delete from qnareply where qnareply_num=#{qnareply_num}
+	</delete>
+	
+	
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="test.com.idle">
+
+	<insert id="MESSAGE_INSERT">
+		insert into
+		message(message_num,room_num,sender,message)
+		values
+		(seq_message.nextval,#{room_num},#{sender},#{message})
+	</insert>
+
+	<select id="MESSAGE_SELECT_ALL"
+		resultType="test.com.idle.vo.MessageVO">
+		select message.*,member.member_savename as sender_savename
+		from message join member
+		on message.sender = member.id
+		where message.room_num=#{room_num}
+		order by message_num
+	</select>
+	
+	<select id="READ_COUNT" resultType="int">
+		select count(*) from message where room_num = #{room_num} and sender != #{sender} and readcount=1
+	</select>
+	
+	<update id="MESSAGE_READ_CHECK">
+		UPDATE message SET readcount = readcount-1 where room_num=#{room_num} and sender != #{sender} and readcount=1
+	</update>
+
+</mapper>

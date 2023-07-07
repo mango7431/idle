@@ -1,0 +1,135 @@
+@charset "UTF-8";
+#memberList {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+#memberList td, #memberList th {
+	border: 1px solid rgb(219, 210, 210);
+	padding: 8px;
+}
+
+#memberList tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#memberList tr:hover {
+	background-color: rgb(250, 224, 224);
+}
+
+#memberList th {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	background-color: #0db477;
+	color: white;
+}
+
+
+#boardList {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+#boardList td, #boardList th {
+	border: 1px solid rgb(219, 210, 210);
+	padding: 8px;
+}
+
+#boardList tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#boardList tr:hover {
+	background-color: rgb(250, 224, 224);
+}
+
+#boardList th {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	background-color: #D1B2FF;
+	color: white;
+}
+#commentsList {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+#commentsList td, #boardList th {
+	border: 1px solid rgb(219, 210, 210);
+	padding: 8px;
+}
+
+#commentsList tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#commentsList tr:hover {
+	background-color: rgb(250, 224, 224);
+}
+
+#commentsList th {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	background-color: #D1B2FF;
+	color: white;
+}
+#reservationList {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+#reservationList td, #boardList th {
+	border: 1px solid rgb(219, 210, 210);
+	padding: 8px;
+}
+
+#reservationList tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#reservationList tr:hover {
+	background-color: rgb(250, 224, 224);
+}
+
+#reservationList th {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	background-color: #D9E5FF;
+	color: black;
+}
+
+#noticeList {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+#noticeList td, #noticeList th {
+	border: 1px solid #eaeaea;
+	padding: 8px;
+}
+
+#noticeList noticeList(even) {
+	background-color: #000000;
+}
+
+#noticeList tr:hover {
+	background-color: #eaeaea;
+}
+
+#noticeList th {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	background-color: #000000;
+	color: white;
+}
+
