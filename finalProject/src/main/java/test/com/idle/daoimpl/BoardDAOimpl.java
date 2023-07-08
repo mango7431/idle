@@ -76,7 +76,12 @@ public class BoardDAOimpl implements BoardDAO {
 	public int viewCountUp(BoardVO vo) {
 		log.info("viewCountUp()...{}",vo);
 		
-		int flag = sqlSession.update("VIEW_COUNT_UP",vo);
+		int flag = 0;
+		try {
+			flag = sqlSession.update("VIEW_COUNT_UP",vo);			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
 	}
@@ -85,7 +90,12 @@ public class BoardDAOimpl implements BoardDAO {
 	public int insert(BoardVO vo) {
 		log.info("insert()...{}",vo);
 		
-		int flag = sqlSession.insert("B_INSERT",vo);
+		int flag = 0;
+		try {			
+			flag = sqlSession.insert("B_INSERT",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
 	}
@@ -93,8 +103,12 @@ public class BoardDAOimpl implements BoardDAO {
 	@Override
 	public int update(BoardVO vo) {
 		log.info("update()...{}",vo);
-		
-		int flag = sqlSession.update("B_UPDATE",vo);
+		int flag = 0;
+		try {
+			flag = sqlSession.update("B_UPDATE",vo);			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
 	}
@@ -102,8 +116,12 @@ public class BoardDAOimpl implements BoardDAO {
 	@Override
 	public int delete(BoardVO vo) {
 		log.info("delete()...{}",vo);
-		
-		int flag = sqlSession.delete("B_DELETE",vo);
+		int flag = 0;
+		try {
+			flag = sqlSession.delete("B_DELETE",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
 	}
@@ -112,7 +130,12 @@ public class BoardDAOimpl implements BoardDAO {
 	public int changeStatus(BoardVO vo) {
 		log.info("changeStatus()...{}",vo);
 		
-		int flag = sqlSession.update("BOARD_CHANGE_STATUS",vo);
+		int flag = 0;
+		try {
+			flag = sqlSession.update("BOARD_CHANGE_STATUS",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
 	}
