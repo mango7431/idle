@@ -74,6 +74,45 @@
 		where b.board_num = #{board_num}
 	</select>
 	
+	<select id="B_SELECTALL_MAIN" resultType="test.com.idle.vo.BoardVO">
+		select b.*, nvl(l.likecount, 0) as likecount 
+		from board b
+        left join (
+            select board_num, count(*) as likecount
+            from likes
+            group by board_num
+        ) l
+        on b.board_num = l.board_num
+        where <![CDATA[rownum <= 8 and board_status != 3 ]]>
+        order by board_date desc
+	</select>
+	
+	<select id="B_SELECTALL_BUY" resultType="test.com.idle.vo.BoardVO">
+		select b.*, nvl(l.likecount, 0) as likecount 
+		from board b
+        left join (
+            select board_num, count(*) as likecount
+            from likes
+            group by board_num
+        ) l
+        on b.board_num = l.board_num
+        where <![CDATA[rownum <= 8 and board_type = 1 ]]>
+        order by board_date desc
+	</select>
+	
+	<select id="B_SELECTALL_SELL" resultType="test.com.idle.vo.BoardVO">
+		select b.*, nvl(l.likecount, 0) as likecount 
+		from board b
+        left join (
+            select board_num, count(*) as likecount
+            from likes
+            group by board_num
+        ) l
+        on b.board_num = l.board_num
+        where <![CDATA[rownum <= 8 and board_type = 2 ]]>
+        order by board_date desc
+	</select>
+	
 	<update id="VIEW_COUNT_UP">
 		update board set view_count = view_count+1 where board_num=#{board_num}
 	</update>

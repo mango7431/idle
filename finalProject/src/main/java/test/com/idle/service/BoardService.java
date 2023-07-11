@@ -56,4 +56,16 @@ public class BoardService {
 		return dao.changeStatus(vo);
 	}
 
+	public List<BoardVO> selectAllMain() {
+		return dao.selectAllMain();
+	}
+
+	public List<BoardVO> selectAllBuy() {
+		return dao.selectAllBuy();
+	}
+
+	public List<BoardVO> selectAllSell() {
+		return dao.selectAllSell();
+	}
+
 }

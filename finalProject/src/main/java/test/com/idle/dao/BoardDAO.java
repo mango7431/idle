@@ -24,4 +24,10 @@ public interface BoardDAO {
 
 	int changeStatus(BoardVO vo);
 
+	public List<BoardVO> selectAllMain();
+
+	public List<BoardVO> selectAllBuy();
+
+	public List<BoardVO> selectAllSell();
+
 }
