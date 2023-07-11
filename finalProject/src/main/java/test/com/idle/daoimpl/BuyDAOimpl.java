@@ -48,6 +48,29 @@ public class BuyDAOimpl implements BuyDAO {
 		return sqlSession.selectOne("BUY_ROW_COUNT");
 	}
 
+	@Override
+	public int insert(BuyVO vo) {
+		log.info("insert()...{}",vo);
+		
+		int flag = 0;
+		try {
+			flag = sqlSession.insert("BUY_INSERT",vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+
+	@Override
+	public BuyVO selectOne(BuyVO vo) {
+		log.info("selectOne()...{}",vo);
+		
+		BuyVO vo2 = sqlSession.selectOne("BUY_SELECT_ONE",vo);
+		
+		return vo2;
+	}
+
 	
 
 }

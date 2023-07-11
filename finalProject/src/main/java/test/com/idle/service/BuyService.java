@@ -32,4 +32,12 @@ public class BuyService {
 		return dao.buyRowCount();
 	}
 
+	public int insert(BuyVO vo) {
+		return dao.insert(vo);
+	}
+
+	public BuyVO selectOne(BuyVO vo) {
+		return dao.selectOne(vo);
+	}
+
 }

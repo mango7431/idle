@@ -16,5 +16,7 @@ public class RoomVO {
 	private String board_title;
 	private int price;
 	private int readcount;
+	private int board_type;
+	private int board_status;
 
 }

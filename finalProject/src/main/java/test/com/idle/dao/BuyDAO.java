@@ -12,4 +12,8 @@ public interface BuyDAO {
 
 	public int buyRowCount();
 
+	public int insert(BuyVO vo);
+
+	public BuyVO selectOne(BuyVO vo);
+
 }

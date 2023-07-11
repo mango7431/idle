@@ -54,6 +54,15 @@ public class RoomDAOimpl implements RoomDAO {
 		
 		return flag;
 	}
+
+	@Override
+	public RoomVO selectOne(RoomVO vo) {
+		log.info("selectOne()...{}",vo);
+		
+		RoomVO vo2 = sqlSession.selectOne("R_SELECT_ONE",vo);
+		
+		return vo2;	
+	}
 	
 	
 

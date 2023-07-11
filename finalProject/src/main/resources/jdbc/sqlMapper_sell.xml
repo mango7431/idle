@@ -15,8 +15,17 @@
 		select count(*) cnt from sell
 	</select>
 	
+	<select id="SELL_SELECT_ONE" resultType="test.com.idle.vo.SellVO">
+		select * from sell where board_num=#{board_num} and id=#{id}
+	</select>
+	
 	<delete id="S_DELETE">
 		delete from sell where sell_num = #{sell_num}
 	</delete>
+	
+	<insert id="SELL_INSERT">
+		insert into sell(sell_num,board_num,id)
+		values (seq_sell.nextval,#{board_num},#{id})
+	</insert>
 	
 </mapper>

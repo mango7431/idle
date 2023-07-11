@@ -3,6 +3,7 @@ package test.com.idle.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,9 @@ public class MessageRestController {
 	
 	@Autowired
 	MessageService service;
+	
+	@Autowired
+	SimpMessagingTemplate template;
 	
 	@ResponseBody
 	@RequestMapping(value = "/jsonMessageSelectAll.do", method = RequestMethod.GET)
@@ -47,6 +51,24 @@ public class MessageRestController {
 		
 		int result = service.readCount(vo);
 		log.info("result : {}",result);
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/jsonBuyRequest.do", method = RequestMethod.GET)
+	public int jsonBuyRequest(MessageVO vo) {
+		log.info("jsonBuyRequest : {}",vo);
+		
+		int result = 0;
+		
+		MessageVO vo2 = service.buyMessageCheck(vo);
+		
+		if(vo2==null) {
+			result = service.buyRequestInsert(vo);
+			log.info("result : {}",result);
+			template.convertAndSend("/sub/chat/buyRequest"+vo.getRoom_num(),vo);
+		}
 		
 		return result;
 	}

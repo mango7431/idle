@@ -14,5 +14,7 @@ public class MessageVO {
 	private Timestamp message_date;
 	private String sender_savename;
 	private int readcounts;
+	private int message_type;
+	private int board_num;
 
 }

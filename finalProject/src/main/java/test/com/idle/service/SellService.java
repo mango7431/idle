@@ -32,6 +32,14 @@ public class SellService {
 		return dao.sellRowCount();
 	}
 
+	public SellVO selectOne(SellVO vo) {
+		return dao.selectOne(vo);
+	}
+
+	public int insert(SellVO vo) {
+		return dao.insert(vo);
+	}
+
 	
 
 }
