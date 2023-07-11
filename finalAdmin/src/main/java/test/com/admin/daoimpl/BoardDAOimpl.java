@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import test.com.admin.dao.BoardDAO;
 import test.com.admin.vo.BoardVO;
 import test.com.admin.vo.Criteria;
-import test.com.admin.vo.PagingVO;
 
 @Repository
 @Slf4j

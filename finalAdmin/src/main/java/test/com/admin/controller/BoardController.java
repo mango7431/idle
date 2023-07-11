@@ -13,7 +13,6 @@ import test.com.admin.service.BoardService;
 import test.com.admin.vo.BoardVO;
 import test.com.admin.vo.Criteria;
 import test.com.admin.vo.PageVO;
-import test.com.admin.vo.PagingVO;
 
 @Controller
 @Slf4j

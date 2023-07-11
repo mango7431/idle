@@ -4,7 +4,6 @@ import java.util.List;
 
 import test.com.admin.vo.BoardVO;
 import test.com.admin.vo.Criteria;
-import test.com.admin.vo.PagingVO;
 
 public interface BoardDAO {
 
