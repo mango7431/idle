@@ -12,13 +12,13 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <script type="text/javascript">
-	
+	var result = '<'
 </script>
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<section style="padding-left: 100px; padding-right: 100px;">
 		<h1>중고거래(관리자)</h1>
-		<p>게시글 총 갯수 : <label id="totalCount">${page.totalCount}</label></p>
+		<p>게시글 총 갯수 : <label id="total">${total}</label></p>
 		
 		<form action="boardSearchList.do">
 			<select name="searchKey" id="searchKey">
@@ -34,6 +34,7 @@
 			<thead>
 				<tr>
 					<th scope="col">글번호</th>
+					<th scope="col">메인사진</th>
 					<th scope="col">제목</th>
 					<th scope="col">작성자</th>
 					<th scope="col">가격</th>
@@ -45,6 +46,7 @@
 				<c:forEach var="vo" items="${vos }">
 					<tr onClick="location.href='boardSelectOne.do?board_num=${vo.board_num}'" onmouseover="this.style.background='silver'" onmouseout="this.style.background='white'">
 						<td>${vo.board_num }</td>
+						<td><img width="35px" src="resources/img/${vo.board_savename1}"></td>
 						<td>${vo.board_title }</td>
 						<td>${vo.writer }</td>
 						<td>${vo.price }</td>
@@ -57,27 +59,39 @@
 				<tr>
 					<c:if test="${empty param.searchKey}">
 						<td colspan="6" align="center">
-							<c:if test="${page.startPage > 1}">
-								<a href="boardSelectAll.do?page=${page.startPage - 1}">&lt;</a>
+							<c:if test="${page.prev}">
+								<li class="list-inline-item prev pagenate_button">
+									<a href="boardSelectAll.do?pageNum=${page.startPage -1}">&laquo;</a>
+								</li>
 							</c:if> 
 								<c:forEach begin="${page.startPage}" end="${page.endPage}" var="num">
-									<a href="boardSelectAll.do?page=${num}">${num}</a>
+									<li class="list-inline-item ${page.cri.pageNum == num ? "active":""}">
+										<a href="boardSelectAll.do?pageNum=${num}">${num}</a>
+									</li>
 								</c:forEach> 
-							<c:if test="${page.endPage < page.totalPage}">
-								<a href="boardSelectAll.do?page=${page.endPage + 1}">&gt;</a>
+							<c:if test="${page.next}">
+								<li class="list-inline-item next pagenate_button">
+									<a href="boardSelectAll.do?pageNum=${page.endPage + 1}">&raquo;</a>
+								</li>
 							</c:if>
 						</td>
 					</c:if>
 					<c:if test="${not empty param.searchKey}">
 						<td colspan="6" align="center">
-							<c:if test="${page.startPage > 1}">
-								<a href="boardSearchList.do?searchKey=${param.searchKey}&searchWord=${param.searchWord}&page=${page.startPage - 1}">&lt;</a>
+							<c:if test="${page.prev}">
+								<li class="list-inline-item prev pagenate_button">
+									<a href="boardSearchList.do?searchKey=${param.searchKey}&searchWord=${param.searchWord}&pageNum=${page.startPage -1}">&laquo;</a>
+								</li>
 							</c:if> 
 								<c:forEach begin="${page.startPage}" end="${page.endPage}" var="num">
-									<a href="boardSearchList.do?searchKey=${param.searchKey}&searchWord=${param.searchWord}&page=${num}">${num}</a>
+									<li class="list-inline-item ${page.cri.pageNum == num ? "active":""}">
+										<a href="boardSearchList.do?searchKey=${param.searchKey}&searchWord=${param.searchWord}&pageNum=${num}">${num}</a>
+									</li>
 								</c:forEach> 
-							<c:if test="${page.endPage < page.totalPage}">
-								<a href="boardSearchList.do?searchKey=${param.searchKey}&searchWord=${param.searchWord}&page=${page.endPage + 1}">&gt;</a>
+							<c:if test="${page.next}">
+								<li class="list-inline-item next pagenate_button">
+									<a href="boardSearchList.do?searchKey=${param.searchKey}&searchWord=${param.searchWord}&pageNum=${page.endPage + 1}">&raquo;</a>
+								</li>
 							</c:if>
 						</td>
 					</c:if>

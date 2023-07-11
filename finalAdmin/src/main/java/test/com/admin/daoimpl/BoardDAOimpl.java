@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.dao.BoardDAO;
 import test.com.admin.vo.BoardVO;
+import test.com.admin.vo.Criteria;
 import test.com.admin.vo.PagingVO;
 
 @Repository
@@ -28,13 +29,6 @@ public class BoardDAOimpl implements BoardDAO {
 	public List<BoardVO> selectAll() {
 		log.info("selectAll()...");
 		List<BoardVO> vos = sqlSession.selectList("B_SELECT_ALL");
-		return vos;
-	}
-
-	@Override
-	public List<BoardVO> selectAllPage(PagingVO vo) {
-		log.info("selectAllPage()...{}", vo);
-		List<BoardVO> vos = sqlSession.selectList("B_SELECT_ALL_PAGE", vo);
 		return vos;
 	}
 
@@ -88,28 +82,6 @@ public class BoardDAOimpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> searchList(String searchKey, String searchWord, PagingVO vo) {
-		log.info("searchList() ...");
-		log.info("searchKey : {}",searchKey);
-		log.info("searchWord : {}",searchWord);
-		log.info("PageVO : {}",vo);
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("searchWord", "%"+searchWord+"%");
-		params.put("start", vo.getStart());
-		params.put("end", vo.getEnd());
-		
-		List<BoardVO> vos = null;
-		if(searchKey.equals("board_title")) {
-			vos = sqlSession.selectList("B_SEARCH_LIST_TITLE",params);
-		}else if(searchKey.equals("writer")) {
-			vos = sqlSession.selectList("B_SEARCH_LIST_WRITER",params);
-		}
-		
-		return vos;
-	}
-
-	@Override
 	public int boardSearchCount(String searchKey, String searchWord) {
 		log.info("boardSearchCount()...{},{}",searchKey,searchWord);
 		int result = 0;
@@ -121,6 +93,35 @@ public class BoardDAOimpl implements BoardDAO {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public List<BoardVO> selectAllPage(Criteria cri) {
+		log.info("selectAllPage()...{}", cri);
+		List<BoardVO> vos = sqlSession.selectList("B_SELECT_ALL", cri);
+		return vos;
+	}
+
+	@Override
+	public List<BoardVO> searchList(String searchKey, String searchWord, Criteria cri) {
+		log.info("searchList() ...");
+		log.info("searchKey : {}",searchKey);
+		log.info("searchWord : {}",searchWord);
+		log.info("PageVO : {}",cri);
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("searchWord", "%"+searchWord+"%");
+		params.put("pageNum", cri.getPageNum());
+		params.put("amount", cri.getAmount());
+		
+		List<BoardVO> vos = null;
+		if(searchKey.equals("board_title")) {
+			vos = sqlSession.selectList("B_SEARCH_LIST_TITLE",params);
+		}else if(searchKey.equals("writer")) {
+			vos = sqlSession.selectList("B_SEARCH_LIST_WRITER",params);
+		}
+		
+		return vos;
 	}
 
 }
