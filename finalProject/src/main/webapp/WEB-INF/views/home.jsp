@@ -56,25 +56,29 @@
 	<jsp:include page="top_menu.jsp"></jsp:include>
 	<h1>${user_id}님반갑습니다.</h1>
 	<section style="padding-left: 100px; padding-right: 100px;">
-		<h3>공지사항</h3>
-<!-- 		<table class="table"> -->
-<!-- 			<thead> -->
-<!-- 				<tr> -->
-<!-- 					<th scope="col">제목</th> -->
-<!-- 					<th scope="col">작성자</th> -->
-<!-- 					<th scope="col">작성일</th> -->
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody class="table-group-divider" id="vos"> -->
-<%-- 				<c:forEach var="vo" items="${noticevos }"> --%>
-<%-- 					<tr onClick="location.href='noticeSelectOne.do?notice_num=${vo.notice_num}'" onmouseover="this.style.background='silver'" onmouseout="this.style.background='white'"> --%>
-<%-- 						<td>${vo.notice_title }</td> --%>
-<!-- 						<td>관리자</td> -->
-<%-- 						<td>${vo.notice_date }</td> --%>
-<!-- 					</tr> -->
-<%-- 				</c:forEach> --%>
-<!-- 			</tbody> -->
-<!-- 		</table> -->
+		<div style="margin: 50px;">
+		<h3>
+			공지사항<a href="noticeSelectAll.do" style="float: right;">더보기</a>
+		</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+				</tr>
+			</thead>
+			<tbody class="table-group-divider" id="vos">
+				<c:forEach var="vo" items="${nvos }">
+					<tr onClick="location.href='noticeSelectOne.do?notice_num=${vo.notice_num}'" onmouseover="this.style.background='silver'" onmouseout="this.style.background='white'">
+						<td>${vo.notice_title }</td>
+						<td>관리자</td>
+						<td>${vo.notice_date }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+		</div>
 		<hr style="padding-left: 30%; padding-right: 30%;">
 		<br/>
 		<div class="sellingItemsContainer">
