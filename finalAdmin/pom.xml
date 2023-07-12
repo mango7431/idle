@@ -131,6 +131,27 @@
 			<artifactId>ojdbc8</artifactId>
 			<version>21.10.0.0</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.oracle.database.security/oraclepki -->
+		<dependency>
+			<groupId>com.oracle.database.security</groupId>
+			<artifactId>oraclepki</artifactId>
+			<version>21.10.0.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.oracle.database.security/osdt_cert -->
+		<dependency>
+			<groupId>com.oracle.database.security</groupId>
+			<artifactId>osdt_cert</artifactId>
+			<version>21.10.0.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.oracle.database.security/osdt_core -->
+		<dependency>
+			<groupId>com.oracle.database.security</groupId>
+			<artifactId>osdt_core</artifactId>
+			<version>21.10.0.0</version>
+		</dependency>
 
 		<!-- BasicDataSource -->
 		<dependency>
