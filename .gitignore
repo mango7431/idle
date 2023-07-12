@@ -21,6 +21,8 @@ local.properties
 .classpath
 .settings/
 .springBeans
+finalProject/src/main/resources/jdbc/oracle.properties
+finalAdmin/src/main/resources/jdbc/oracle.properties
 
 # External tool builders
 .externalToolBuilders/
