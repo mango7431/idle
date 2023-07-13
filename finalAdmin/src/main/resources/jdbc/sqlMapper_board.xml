@@ -85,6 +85,13 @@
 		where b.board_num = #{board_num}
 	</select>
 	
+	<select id="B_SELECT_BLACK" resultType="test.com.admin.vo.BoardVO">
+		select board.board_num, black.* 
+		from board left join black
+		on board.board_num = black.board_num
+		where board.board_num = #{board_num}
+	</select>
+	
 	<update id="B_REPORT_DOWN">
 		update board set board_report = board_report-1 where board_num=#{board_num}
 	</update>

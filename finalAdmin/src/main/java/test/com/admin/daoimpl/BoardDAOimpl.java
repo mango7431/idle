@@ -123,4 +123,11 @@ public class BoardDAOimpl implements BoardDAO {
 		return vos;
 	}
 
+	@Override
+	public List<BoardVO> selectBlack(BoardVO vo) {
+		log.info("selectBlack()...{}", vo);
+		List<BoardVO> vos = sqlSession.selectList("B_SELECT_BLACK", vo);
+		return vos;
+	}
+
 }

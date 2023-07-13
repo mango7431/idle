@@ -57,4 +57,8 @@ public class BoardService {
 		return dao.searchList(searchKey,searchWord,cri);
 	}
 
+	public List<BoardVO> selectBlack(BoardVO vo) {
+		return dao.selectBlack(vo);
+	}
+
 }

@@ -25,4 +25,6 @@ public interface BoardDAO {
 
 	List<BoardVO> searchList(String searchKey, String searchWord, Criteria cri);
 
+	List<BoardVO> selectBlack(BoardVO vo);
+
 }

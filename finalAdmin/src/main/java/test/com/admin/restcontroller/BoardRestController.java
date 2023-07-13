@@ -1,5 +1,8 @@
 package test.com.admin.restcontroller;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +29,21 @@ public class BoardRestController {
 		log.info("{}",vo2);
 		
 		return vo2;
+	}
+	
+	@RequestMapping(value = "/jsonBoardBlack.do", method = RequestMethod.GET)
+	@ResponseBody
+	public List<BoardVO> jsonBoardBlack(BoardVO vo) {
+		log.info("/jsonBoardBlack.do...{}",vo);
+		
+		List<BoardVO> vos = service.selectBlack(vo);
+		log.info("{}",vos);
+		
+		if(vos.size()==1&&vos.get(0).getBlack_num()==0) {
+			return Collections.emptyList();
+		}
+		
+		return vos;
 	}
 
 }
