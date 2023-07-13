@@ -1,16 +1,19 @@
+@charset "UTF-8";
+
+/* Q&A 목록 버튼 */
+.border-btn {
+	border-radius: 12px;
+	background-color: #fff;
+	padding: 8px 15px;
+	border: 2px solid #bec5cd;
+}
+
 .submit-btn {
 	border-radius: 12px;
 	background-color: #0156FF;
   color: #fff;
   padding: 8px 15px;
   border: none;
-}
-
-.border-btn {
-	border-radius: 12px;
-	background-color: #fff;
-  padding: 8px 15px;
-  border: 3px solid #0156FF;
 }
 
 .page-num.active a {
