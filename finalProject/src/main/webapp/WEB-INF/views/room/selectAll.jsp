@@ -42,12 +42,6 @@
 		var boardNum = null;
 		var boardStatus = null;
 		
-		function handleMessageReceived(message) {
-		    var msg = JSON.parse(message.body);
-		    // 메시지를 받은 방의 roomNum과 unreadCount 정보를 사용하여 업데이트
-		    updateReadCount(msg.room_num, msg.unread_count);
-		  }
-		
 		$('.chat_list #delete').click(function(event) {
 		    event.stopPropagation();
 		    console.log('Button clicked');
