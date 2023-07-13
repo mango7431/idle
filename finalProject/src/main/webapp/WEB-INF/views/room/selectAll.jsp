@@ -337,9 +337,9 @@
 	function buyRequest(roomNum,seller){
 		console.log('buyRequest() 클릭',roomNum,seller);
 		
-		var result = confirm("구매 요청을 보내시겠습니까?")
+		var resultok = confirm("구매 요청을 보내시겠습니까?")
 		
-		if(result){
+		if(resultok){
 			$.ajax({
 				url:'jsonBuyRequest.do',
 				data:{
@@ -368,9 +368,9 @@
 	function buyInsert(boardNum,user_id,boardType){
 		console.log('buyInsert',boardNum,user_id,boardType);
 		
-		var result = confirm("구매 확정 하시겠습니까?")
+		var resultok = confirm("구매 확정 하시겠습니까?")
 		
-		if(result){
+		if(resultok){
 			if(boardType==1){
 				console.log('구해요글');
 				$.ajax({
