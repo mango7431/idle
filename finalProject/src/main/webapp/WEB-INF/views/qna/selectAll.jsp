@@ -73,7 +73,7 @@
 						+"&pageNum=" + $('input[name="pageNum"]').val()
 						+"&amount=" + $('input[name="amount"]').val()
 						+"&qna_category=" + $('input[name="qna_category"]').val()
-						+"&writer=tester1";
+						+"&writer="+"${user_id}";
 				//사용자 정보 수정하기
 				
 				$(this).attr("href", url);
@@ -85,7 +85,7 @@
 			console.log("initCategory:" , initCategory);
 			$.ajax({
 				url: "jsonQnaSelectAll.do",
-				data: {writer: "tester1", //사용자 정보 수정하기
+				data: {writer: "${user_id}",
 							 qna_category: initCategory,
 							 pageNum : $('input[name="pageNum"]').val(),
 							 amount : $('input[name="amount"]').val()
@@ -151,7 +151,7 @@
 		function renderQnAListPagination(initCategory=0) {
 			$.ajax({
 				url: "jsonQnaSelectCount.do",
-				data: {writer: "tester1", //사용자 정보 수정하기
+				data: {writer: "${user_id}",
 							 qna_category: initCategory,
 							 pageNum : $('input[name="pageNum"]').val(),
 							 amount : $('input[name="amount"]').val()
@@ -168,7 +168,7 @@
 			    	</li>
 		    	`;
 
-					for (let num = vo.startPage; num <= vo.endPage+1; num++) {
+					for (let num = vo.startPage; num <= vo.endPage; num++) {
 						tag_page += `
 							<li class="list-inline-item \${vo.cri.pageNum == num ? "active":""} page-num">
 								<a class="page-link" href="">\${num}</a>
@@ -276,7 +276,7 @@
 		    	<li><a href="#">찜목록</a></li>
 		    	<li><a href="#">내 거래 목록</a></li>
 		    	<li><a href="#">내동네설정</a></li>
-		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=tester1">내 Q&A 목록</a></li>
+		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 		    	<!-- 사용자 정보 수정하기 -->
 		    </ul>
    		</div>
@@ -315,7 +315,7 @@
 					<input type="hidden" name="pageNum" value="${cri.pageNum}">
 					<input type="hidden" name="amount" value="${cri.amount}">
 					<input type="hidden" name="qna_category" value="">
-					<input type="hidden" name="writer" value="tester1">
+					<input type="hidden" name="writer" value="${user_id}">
 					<!-- 유저 정보 수정하기 -->
 				</form>  
   		</div>      

@@ -118,7 +118,7 @@
 		    	<li><a href="#">찜목록</a></li>
 		    	<li><a href="#">내 거래 목록</a></li>
 		    	<li><a href="#">내동네설정</a></li>
-		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=tester1">내 Q&A 목록</a></li>
+		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 		    	<!-- 사용자 정보 수정하기 -->
 		    </ul>
    		</div>
@@ -154,7 +154,7 @@
 					<input type="hidden" name="pageNum" value="${cri.pageNum}">
 					<input type="hidden" name="amount" value="${cri.amount}">
 					<input type="hidden" name="qna_category" value="${qna_category}">
-					<input type="hidden" name="writer" value="tester1">
+					<input type="hidden" name="writer" value="${user_id}">
 					<!-- 유저 정보 수정하기 -->
 				</form>  
 

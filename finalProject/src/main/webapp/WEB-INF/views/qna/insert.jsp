@@ -53,12 +53,12 @@
 		    
 		    if(totalByte>maxByte){
 		    	alert('최대 3000Byte까지만 입력가능합니다.');
-        	document.getElementById("nowByte").innerText = totalByte;
-        	document.getElementById("nowByte").style.color = "red";
-        }else{
-        	document.getElementById("nowByte").innerText = totalByte;
-        	document.getElementById("nowByte").style.color = "green";
-        }
+	        	document.getElementById("nowByte").innerText = totalByte;
+	        	document.getElementById("nowByte").style.color = "red";
+        	}else{
+	        	document.getElementById("nowByte").innerText = totalByte;
+	        	document.getElementById("nowByte").style.color = "green";
+        	}
 		}
 		
 	</script>
@@ -87,7 +87,7 @@
       	</div>
       	<form action="qnaInsertOK.do" method="get">
 			    <div class="row align-items-start justify-content-center">
-		        <input type="hidden" name="writer" value="tester1">
+		        <input type="hidden" name="writer" value="${user_id}">
 		        <div class="col-md-5 col-lg-3 mb-3 mb-md-0">
 		            <select id="category" name="qna_category" class="form-select" aria-label="Default select example">
 		                <option>카테고리</option>
