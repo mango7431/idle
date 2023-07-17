@@ -15,8 +15,8 @@
 	          <li><a href="roomSelectAll.do" class="nav-link px-2 link-dark">채팅목록</a></li>
 	        </ul>
 	
-	        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-	          <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+	        <form action="b_searchList.do" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+	          <input type="search" name="searchWord" id="searchWord" class="form-control" placeholder="Search..." aria-label="Search">
 	        </form>
 	        
 	        <div>
@@ -83,6 +83,16 @@
 			$('#logout').show();
 			$('.dropdown').show();
 		}
+		
+		//검색
+		document.getElementById("searchWord").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            var searchWord = document.getElementById("searchWord").value;
+            var url = "b_searchList.do?searchWord=" + encodeURIComponent(searchWord);
+            window.location.href = url;
+        }
+    });
 	</script>
 </header>
   

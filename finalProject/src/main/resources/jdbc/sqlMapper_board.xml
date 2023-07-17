@@ -4,14 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test.com.idle">
 	<select id="B_SELECTALL" resultType="test.com.idle.vo.BoardVO">
-		select b.*, nvl(l.likecount, 0) as likecount 
+		select b.*, nvl(l.likecount, 0) as likecount, NVL(r.chatcount, 0) AS chatcount
 		from board b
         left join (
             select board_num, count(*) as likecount
             from likes
             group by board_num
-        ) l
-        on b.board_num = l.board_num
+        ) l on b.board_num = l.board_num
+        left join(
+			select board_num, count(*) as chatcount
+			from room r
+			group by board_num
+		) r on b.board_num = r.board_num
 		<where>
             <if test="category != null and category != ''">
                 AND category = #{category}
@@ -25,19 +29,26 @@
             <if test="board_type != null">
                 AND board_type = #{board_type}
             </if>
+            <if test="deal_region != null">
+                AND deal_region = #{deal_region}
+            </if>
         </where>
-        order by board_date desc
+	        order by board_date DESC
 	</select>
 	
 	<select id="B_SELECTALL_VIEWS" resultType="test.com.idle.vo.BoardVO">
-		select b.*, nvl(l.likecount, 0) as likecount 
+		select b.*, nvl(l.likecount, 0) as likecount, NVL(r.chatcount, 0) AS chatcount
 		from board b
         left join (
             select board_num, count(*) as likecount
             from likes
             group by board_num
-        ) l
-        on b.board_num = l.board_num
+        ) l on b.board_num = l.board_num
+        left join(
+			select board_num, count(*) as chatcount
+			from room r
+			group by board_num
+		) r on b.board_num = r.board_num
 		<where>
             <if test="category != null">
                 AND category = #{category}
@@ -51,8 +62,17 @@
             <if test="board_type != null">
                 AND board_type = #{board_type}
             </if>
+            <if test="deal_region != null">
+                AND deal_region = #{deal_region}
+            </if>
         </where>
         order by view_count desc, likecount desc
+	</select>
+	
+	
+	<select id="B_SEARCH_LIST" resultType="test.com.idle.vo.BoardVO">
+		select * from board where board_content like #{searchWord}
+		or board_title like #{searchWord} 
 	</select>
 
 	<select id="B_SELECT_ONE" resultType="test.com.idle.vo.BoardVO">
