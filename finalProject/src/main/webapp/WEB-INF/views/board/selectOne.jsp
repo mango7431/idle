@@ -381,7 +381,11 @@
 		<form action="blackInsertOK.do" method="get" onsubmit="return blackInsertForm()" id="blackInsert">
 			<div class="reportBoard">
 				<input type="hidden" name="targetid" value="${vo2.writer}"/>
+<<<<<<< Updated upstream
 <%-- 				<input type="hidden" name="reporterid" value="${user_id}"/> --%>
+=======
+				<%-- <input type="hidden" name="reporterid" value="${user_id}"/> --%>
+>>>>>>> Stashed changes
 				<input type="hidden" name="reporterid" value="tester3"/>
 				<input type="hidden" name="board_num" value="${vo2.board_num}"/>
 				<input type="hidden" name="black_type" value=""/>
