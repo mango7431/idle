@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="test.com.idle">
 	
 	<insert id="L_INSERT">
@@ -15,6 +16,20 @@
 	
 	<select id="L_SELECT_ONE" resultType="test.com.idle.vo.LikesVO">
 		select * from likes where id=#{id} and board_num=#{board_num}
+	</select>
+	
+	<select id="L_SELECT_ALL" resultType="test.com.idle.vo.LikesVO">
+		SELECT l.*, b.*, NVL((SELECT COUNT(*) FROM likes WHERE board_num = b.board_num), 0) AS likecount
+		, NVL(r.chatcount, 0) AS chatcount 
+		FROM likes l
+		LEFT JOIN Board b ON b.board_num = l.board_num
+		LEFT JOIN (
+		    SELECT board_num, COUNT(*) AS chatcount
+		    FROM room
+		    GROUP BY board_num
+		) r ON b.board_num = r.board_num
+		WHERE l.id = #{user_id}
+		ORDER BY l.likes_num desc
 	</select>
 	
 </mapper>

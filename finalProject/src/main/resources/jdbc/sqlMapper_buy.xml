@@ -57,5 +57,5 @@
 	<delete id="BUY_DELETE">
 		delete from board where board_num = #{board_num}
 	</delete>
-	
+
 </mapper>
