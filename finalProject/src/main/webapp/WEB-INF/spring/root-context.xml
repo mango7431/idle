@@ -31,11 +31,11 @@
 				<value>classpath:jdbc/sqlMapper_room.xml</value>
 				<value>classpath:jdbc/sqlMapper_message.xml</value>
 				<value>classpath:jdbc/sqlMapper_buy.xml</value>
-				<value>classpath:jdbc/sqlMapper_sell.xml</value>
 				<value>classpath:jdbc/sqlMapper_member.xml</value>
 				<value>classpath:jdbc/sqlMapper_qna.xml</value>
 				<value>classpath:jdbc/sqlMapper_black.xml</value>
 				<value>classpath:jdbc/sqlMapper_mywite.xml</value>
+				<value>classpath:jdbc/sqlMapper_notice.xml</value>
 			</list>
 		</property>
 	</bean>
