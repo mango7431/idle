@@ -79,4 +79,7 @@ public class NoticeDAOimpl implements NoticeDAO {
 		return sqlSession.selectOne("N_ROW_COUNT");
 	}
 
+	
+	
+
 }
