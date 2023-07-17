@@ -23,10 +23,8 @@
 		<![CDATA[
 		SELECT *
 		FROM notification n
-		LEFT JOIN room rb ON n.id = rb.buyer
-		LEFT JOIN room rs ON n.id = rs.seller
 		WHERE rownum <= 5
-		AND n.id = #{id}
+		AND id = #{id}
 		]]>
 	</select>
 

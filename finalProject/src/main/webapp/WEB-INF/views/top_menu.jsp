@@ -100,7 +100,7 @@
 								<li class="px-3 notification-link">
 								 	<a href="#">
 								 		\${vo.notification_title}
-								 		tester1234님께서 채팅을 남기셨습니다.
+								 		\${vo.notification_content}
 								 		<span class="alarm-time" style="color:#737373;">\${formattedDate}</span>
 									</a>
 								</li>
@@ -118,7 +118,7 @@
 								<hr>
 							`;	
 						}				    
-					});
+					}); //each
 					
 					tag_vos += `
 						<li style="color:#737373;" class="px-3">

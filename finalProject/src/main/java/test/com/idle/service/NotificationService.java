@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.extern.slf4j.Slf4j;
+import test.com.idle.config.StompWebSocketConfig;
 import test.com.idle.dao.NotificationDAO;
 import test.com.idle.dto.NotificationDTO;
 import test.com.idle.repository.EmitterRepository;
@@ -22,10 +25,13 @@ public class NotificationService {
     
     private final EmitterRepository emitterRepository;
     private final NotificationDAO notificationDAO;
+    private final StompWebSocketConfig webSocketConfig;
     
-    public NotificationService(EmitterRepository emitterRepository, NotificationDAO notificationDAO) {
+    @Autowired
+    public NotificationService(EmitterRepository emitterRepository, NotificationDAO notificationDAO, StompWebSocketConfig webSocketConfig) {
         this.emitterRepository = emitterRepository;
         this.notificationDAO = notificationDAO;
+        this.webSocketConfig = webSocketConfig;
     }
     
     // 클라이언트가 구독을 위해 메소드
@@ -43,7 +49,9 @@ public class NotificationService {
         
         // 503 에러를 방지하기 위한 더비 에벤트 전송
         String eventId = makeTimeIncludeId(memberId);
-        sendNotification(emitter, eventId, emitterId, "EventStream Created. [memberId :" + memberId + "]");
+        
+    	sendNotification(emitter, eventId, emitterId, "EventStream Created. [memberId :" + memberId + "]");
+
         
         // 클라이언트가 미수신한 Event 목록이 존재할 경우 전송하여 Event 유실을 예방
         if (!lastEventId.isEmpty()) {
@@ -65,9 +73,7 @@ public class NotificationService {
     	
     	log.info("vo:{}", createNotification(receiver, title, content,type, link));
     	
-    	NotificationVO notificationVO = notificationDAO.insert(
-	 										createNotification(receiver, title, content,
-	 									    	type, link));
+    	NotificationVO notificationVO = insertNotification(receiver, title, content, type, link);
     	
 		String receiverId = String.valueOf(receiver.getId());
 		String eventId = receiverId + "_" + System.currentTimeMillis();
@@ -95,7 +101,8 @@ public class NotificationService {
                                     .data(data));
          } catch (IOException exception) {
              emitterRepository.deleteById(emitterId);
-             throw new RuntimeException("연결 오류!");
+             log.info("연결 오류!");
+             //throw new RuntimeException("연결 오류!");
          }
     }
 
@@ -116,4 +123,14 @@ public class NotificationService {
     	return notificationDAO.selectAll(vo);
     }
     
+    public Set<String> getChattingUser() {
+    	return webSocketConfig.getChattingUser();
+    }
+    
+    public NotificationVO insertNotification(MemberVO receiver, String title, String content,
+    		int type, String link) {
+    	return notificationDAO.insert(
+					createNotification(receiver, title, content,
+						    	type, link));
+	}
 }
