@@ -4,12 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="test.com.admin">
-
+	
 	<select id="QNA_SELECT_ALL"
 		resultType="test.com.admin.vo.QnaVO">
 		select qna_num,qna_status,qna_category,qna_title,qna_content,writer,
 			TO_CHAR(qna_date, 'YYYY-MM-DD') qna_date from qna  
 			order by qna_num desc
+	</select>
+	
+	<select id="QNA_PAGING" resultType="test.com.admin.vo.QnaVO">
+		<![CDATA[
+		select *from
+			(
+			select /*+ INDEX_DESC(QNA qna_pk) */ 
+    			rownum rn, qna_num, qna_status, qna_category, qna_title, writer, TO_CHAR(qna_date, 'YYYY-MM-DD') qna_date
+			from 
+    			qna 
+			where rownum <= #{pageNum} * #{amount}
+			)
+			where rn > (#{pageNum}-1) * #{amount}
+		]]>
+	</select>
+	
+	<select id="QNA_TOTAL_COUNT" resultType="int">
+		select count(*) from qna 
 	</select>
 	
 	<select id="QNA_SELECT_ONE"

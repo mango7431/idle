@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.service.QnaService;
+import test.com.admin.vo.Criteria;
+import test.com.admin.vo.PageVO;
 import test.com.admin.vo.QnaVO;
 
 
@@ -20,20 +22,42 @@ public class QnaRestController {
 	@Autowired
 	QnaService service;
 	
-	@RequestMapping(value = "/jsonQnaSelectAll.do", method = RequestMethod.GET)
+//	@ResponseBody
+//	@RequestMapping(value = "/jsonQnaSelectAll.do", method = RequestMethod.GET)
+//	public List<QnaVO> jsonQnaSelectAll() {
+//		log.info("/jsonQnaSelectAll.do");
+//		
+//		List<QnaVO> vos = service.selectAll();
+//		log.info("vos.size():{}", vos.size());
+//		return vos;
+//	}// end jsonQnaSelectAll
+	
 	@ResponseBody
-	public List<QnaVO> jsonQnaSelectAll() {
+	@RequestMapping(value = "/jsonQnaSelectAll.do", method = RequestMethod.GET)
+	public List<QnaVO> jsonQnaSelectAll(Criteria cri) {
 		log.info("/jsonQnaSelectAll.do");
+		log.info("Criteria:{}", cri);
 		
-		List<QnaVO> vos = service.selectAll();
+		List<QnaVO> vos = service.qnaPaging(cri);
 		log.info("vos.size():{}", vos.size());
 		return vos;
 	}// end jsonQnaSelectAll
 	
-
-	
-	@RequestMapping(value = "/jsonQnaSelectOne.do", method = RequestMethod.GET)
 	@ResponseBody
+	@RequestMapping(value = {"/jsonQnaSelectCount.do"}, method = RequestMethod.GET)
+	public PageVO jsonQnaSelectCount(Criteria cri) {
+		log.info("/jsonQnaSelectCount.do");
+		log.info("Criteria:{}", cri);
+		
+		int total = service.getTotalCount(cri);
+		log.info("total:{}", total);
+		
+		PageVO pageVO = new PageVO(cri, total);
+		return pageVO;
+	}//end jsonQnaSelectCount
+	
+	@ResponseBody
+	@RequestMapping(value = "/jsonQnaSelectOne.do", method = RequestMethod.GET)
 	public QnaVO jsonQnaSelectOne(QnaVO vo) {
 		log.info("/jsonQnaSelectOne.do...{}",vo);
 		log.info("{}", vo);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.dao.QnaDAO;
+import test.com.admin.vo.Criteria;
 import test.com.admin.vo.QnaVO;
 
 @Service
@@ -19,18 +20,25 @@ public class QnaService {
 	public QnaService() {
 		log.info("QnaService()...");
 	}
-	
+
 	public List<QnaVO> selectAll() {
 		return dao.selectAll();
+	}
+
+	public List<QnaVO> qnaPaging(Criteria cri) {
+		return dao.qnaPaging(cri);
+	}
+
+	public int getTotalCount(Criteria cri) {
+		return dao.getTotalCount(cri);
 	}
 
 	public QnaVO selectOne(QnaVO vo) {
 		return dao.selectOne(vo);
 	}
 
-	public List<QnaVO> selectAll2() {
-		return dao.selectAll2();
-	}
+
+
 
 	
 }
