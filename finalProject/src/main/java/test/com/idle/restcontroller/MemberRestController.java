@@ -46,7 +46,14 @@ public class MemberRestController {
 		log.info("{}",vo);
 		
 		MemberVO vo2 = service.selectOne(vo);
+		int buy_count = service.buyCount(vo);
+		int sell_count = service.sellCount(vo);
+
+		vo2.setBuy_count(buy_count);
+		vo2.setSell_count(sell_count);
+		
 		log.info("vo2:{}", vo2);
+		
 		return vo2;
 	}//end jsonMemberSelectOne
 	
