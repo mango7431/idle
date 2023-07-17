@@ -12,4 +12,13 @@ public interface MemberDAO {
 
 	public MemberVO selectOne(MemberVO vo);
 	
+	public int buyCount(MemberVO vo);
+	
+	public int sellCount(MemberVO vo);
+
+	public int update(MemberVO vo);
+
+	public int delete(MemberVO vo);
+	
+	
 }
