@@ -61,8 +61,7 @@ public class MessageController {
 				memberVO.setId(recipient); 
 				log.info("memberVO recipient:{}", recipient);
 				String content = vo.getSender() + "님에게 채팅이 왔습니다."; 
-				//url 주소 수정해야함.
-				notificationService.send(memberVO, "[채팅 알림]", content, 1, "/idle/sub/chat/room/"+vo.getRoom_num());
+				notificationService.send(memberVO, "[채팅 알림]", content, 1, "/idle/roomSelectAll.do");
 			}
 		} else {
 			log.info("메세지 전송 에러");
