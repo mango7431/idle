@@ -36,4 +36,8 @@ public class RoomService {
 		return dao.delete(vo);
 	}
 
+	public RoomVO selectOne(RoomVO vo) {
+		return dao.selectOne(vo);
+	}
+
 }

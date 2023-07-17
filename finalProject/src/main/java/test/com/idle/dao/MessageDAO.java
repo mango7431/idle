@@ -16,4 +16,8 @@ public interface MessageDAO {
 
 	int readCount(MessageVO vo);
 
+	int buyRequestInsert(MessageVO vo);
+
+	MessageVO buyMessageCheck(MessageVO vo);
+
 }

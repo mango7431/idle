@@ -19,4 +19,8 @@ public interface BuyDAO {
 	
 	public int sellRowCount(String userId);
 
+	public int insert(BuyVO vo);
+
+	public BuyVO selectOne(BuyVO vo);
+
 }

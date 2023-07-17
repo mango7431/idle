@@ -45,4 +45,12 @@ public class BuyService {
 		return dao.sellRowCount(userId);
 	}
 
+	public int insert(BuyVO vo) {
+		return dao.insert(vo);
+	}
+
+	public BuyVO selectOne(BuyVO vo) {
+		return dao.selectOne(vo);
+	}
+
 }

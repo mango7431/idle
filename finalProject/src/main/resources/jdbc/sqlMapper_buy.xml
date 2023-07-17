@@ -53,9 +53,18 @@
 		board
 		WHERE writer = #{userId} AND board_type = 2
 	</select>
+	
+	<select id="BUY_SELECT_ONE" resultType="test.com.idle.vo.BuyVO">
+		select * from buy where board_num=#{board_num} and id=#{id}
+	</select>
 
 	<delete id="BUY_DELETE">
 		delete from board where board_num = #{board_num}
 	</delete>
+	
+	<insert id="BUY_INSERT">
+		insert into buy(buy_num,board_num,id)
+		values (seq_buy.nextval,#{board_num},#{id})
+	</insert>
 
 </mapper>
