@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8"%> 
 	<header class="p-3 mb-3 border-bottom">
 	    <div class="container">
 	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -95,4 +94,3 @@
     });
 	</script>
 </header>
-  

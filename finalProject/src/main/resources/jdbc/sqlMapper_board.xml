@@ -116,5 +116,5 @@
 	<delete id="B_DELETE">
 		delete from board where board_num=#{board_num}
 	</delete>
-	
+
 </mapper>

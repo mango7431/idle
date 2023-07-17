@@ -10,6 +10,11 @@
 		values(#{id},#{pw},#{name},#{address},#{member_savename})
 	</insert>
 	
+	<update id="MEMBER_UPDATE" parameterType="test.com.idle.vo.MemberVO">
+		update member set pw=#{pw} , name=#{name} , address=#{address} , member_savename=#{member_savename}
+		where id = #{id}
+	</update>
+	
 	<select id="ID_CHECK" resultType="test.com.idle.vo.MemberVO">
 		select * from member where id = #{id}
 	</select>
@@ -23,5 +28,20 @@
 		select * from member where id = #{id}
 	</select>
 	
+	<select id="MEMBER_BUY_COUNT"
+		resultType="int">
+		select COUNT(*) from buy where id= #{id}
+	</select>
+	
+	<select id="MEMBER_SELL_COUNT"
+		resultType="int">
+		select COUNT(*) from sell where id= #{id}
+	</select>
+	
+	<delete id="MEMBER_DELETE">
+		delete from member where id = #{id}
+	</delete>
+	
+		
 	
 </mapper>
