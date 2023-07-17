@@ -3,8 +3,10 @@ package test.com.idle.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,17 +23,6 @@ public class QnaRestController {
 	
 	@Autowired
 	private QnaService service;
-	
-	
-	/*@ResponseBody
-	@RequestMapping(value = "/jsonQnaSelectAll.do", method = RequestMethod.GET)
-	public List<QnaVO> jsonQnaSelectAll(QnaVO vo) {
-		log.info("/jsonQnaSelectAll.do...vo:{}", vo);
-		
-		List<QnaVO> vos = service.qnaSelectAll(vo);
-		log.info("vos.size:{}", vos.size());
-		return vos;
-	}*/
 	
 	@ResponseBody
 	@RequestMapping(value = "/jsonQnaSelectAll.do", method = RequestMethod.GET)
