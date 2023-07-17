@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.dao.BlackDAO;
 import test.com.admin.vo.BlackVO;
+import test.com.admin.vo.Criteria;
 
 @Repository
 @Slf4j
@@ -21,14 +22,28 @@ public class BlackDAOimpl implements BlackDAO {
 		log.info("BlackDAOimpl...");
 	}
 
+//	@Override
+//	public List<BlackVO> jsonBlackSelectAll() {
+//		log.info("jsonBlackSelectAll");
+//		
+//		List<BlackVO> vos = sqlSession.selectList("BLACK_SELECT_ALL");
+//		log.info("vos:",vos);
+//		return vos;
+//	}
 	@Override
-	public List<BlackVO> jsonBlackSelectAll() {
-		log.info("jsonBlackSelectAll()");
+	public List<BlackVO> jsonBlackSelectAll(Criteria cri) {
+		log.info("jsonBlackSelectAll..{}",cri);
 		
-		List<BlackVO> vos = sqlSession.selectList("BLACK_SELECT_ALL");
+		List<BlackVO> vos = sqlSession.selectList("BLACK_SELECT_ALL",cri);
+		log.info("vos:{}",vos);
 		return vos;
 	}
-
+	
+	@Override
+	public int getTotal() {
+		return sqlSession.selectOne("getTotal");
+	}
+	
 	@Override
 	public void boardreportUp(BlackVO vo) {
 		log.info("boardreportUp:{}",vo);

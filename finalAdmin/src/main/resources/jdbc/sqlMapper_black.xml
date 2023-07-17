@@ -5,12 +5,42 @@
 
 <mapper namespace="test.com.admin">
 
+<!-- 	<select id="BLACK_SELECT_ALL" resultType="test.com.admin.vo.BlackVO"> -->
+<!-- 		SELECT r.*, b.board_num, b.board_title, b.board_report, m.id, m.member_report -->
+<!-- 		FROM black r -->
+<!-- 		LEFT JOIN BOARD b ON b.BOARD_NUM = r.BOARD_NUM -->
+<!-- 		LEFT JOIN MEMBER m ON m.ID = r.TARGETID -->
+<!-- 		ORDER BY black_num desc -->
+<!-- 	</select> -->
+	
+<!-- 	<select id="BLACK_SELECT_ALL" resultType="test.com.admin.vo.BlackVO"> -->
+<!-- 	  <![CDATA[ -->
+<!-- 		SELECT *  -->
+<!-- 		FROM ( SELECT ROWNUM rn, r.* -->
+<!-- 		    FROM (SELECT * FROM BLACK ORDER BY black_num desc) R ) -->
+<!-- 		WHERE rn > (#{pageNum}-1) * #{amount} AND rn <= #{pageNum} * #{amount} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+	
 	<select id="BLACK_SELECT_ALL" resultType="test.com.admin.vo.BlackVO">
-		SELECT r.*, b.board_num, b.board_title, b.board_report, m.id, m.member_report
-		FROM black r
-		LEFT JOIN BOARD b ON b.BOARD_NUM = r.BOARD_NUM
-		LEFT JOIN MEMBER m ON m.ID = r.TARGETID
-		ORDER BY black_num desc
+		<![CDATA[
+			SELECT *
+			FROM (
+			    SELECT ROWNUM rn, t.*
+			    FROM (
+			        SELECT r.*, b.board_title, b.board_report, m.id, m.member_report
+			        FROM black r
+			        LEFT JOIN BOARD b ON b.BOARD_NUM = r.BOARD_NUM
+			        LEFT JOIN MEMBER m ON m.ID = r.TARGETID
+			        ORDER BY black_num DESC
+			    ) t
+			)
+			WHERE rn > (#{pageNum}-1) * #{amount} AND rn <= #{pageNum} * #{amount}
+		]]>
+	</select>
+	
+	<select id="getTotal" resultType="int">
+		select count(*) as total from black
 	</select>
 	
 	<!-- 경고+1 -->

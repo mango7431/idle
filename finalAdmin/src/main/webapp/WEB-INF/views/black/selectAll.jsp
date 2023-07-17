@@ -48,18 +48,21 @@ $(function(){
 				const date = new Date(vo.black_date).toISOString().replace(/T/,' ').replace(/\..+/,'');
 				
 				const categories = {1: "광고", 2: "거래금지품목", 3: "정보부족", 4: "사기", 5: "기타", 6: "사용자신고"};
-					
+				const comments = vo.comments !== null ? `<span><b>사유 : </b>\${vo.comments}</span>` : "";
+				const targetid = vo.targetid !== null ? vo.targetid : "탈퇴한 회원";
+				const boardTitle = vo.board_title !== null ? vo.board_title : "삭제된 게시글";	
+				
 				tag_vos += `
 					<tr>
 						<td><a href="#" class="ReportOne">\${vo.black_num}</a></td>
 						<td>\${report}</td>
 						<td>\${vo.reporterid}</td>
 						<td>
-						<span><b>신고대상 :</b> \${vo.targetid}</span><br />
+						<span><b>신고대상 :</b> \${targetid}</span><br />
 						<span><b>신고일자 :</b> \${date}</span><br />
-						<span><b>게시글명 : </b>\${vo.board_title}</span><br />
+						<span><b>게시글명 : </b>\${boardTitle}</span><br />
 						<span><b>신고유형 :</b> \${categories[vo.black_category]}</span><br />
-						<span><b>사유 : </b>\${vo.comments}</span>
+						\${comments}
 						<td>
 							\${boardReport}
 							\${memberReport}
@@ -162,7 +165,7 @@ main {
 }
 
 .headerTitle {
-	margin: 30px 0 0 50px;
+	margin: 50px 0 50px 50px;
 }
 
 .reportContainer{
@@ -178,23 +181,23 @@ table{
 
 th, td {
     border-bottom: 1px solid black;
-    border-left: 1px solid #444444;
+/*     border-left: 1px solid #444444; */
     padding: 10px;
 }
 
-th:first-child, td:first-child{
-	border-left: none;
-	text-align: center;
-}
-
-th{
-	text-align: center;
-}
-
-/* td:nth-child(3){ */
-/* 	width: 30%; */
+/* th:first-child, td:first-child{ */
 /* 	border-left: none; */
+/* 	text-align: center; */
 /* } */
+
+th, td{
+	text-align: center;
+}
+
+td:nth-child(4){
+	padding-left: 80px;
+	text-align: left;
+}
 
 
 .ReportOne:hover{
@@ -206,7 +209,7 @@ th{
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
 	<header>
-		<div>
+		<div class="headerTitle">
 			<h4>
 				<b>신고목록</b>
 			</h4>
@@ -215,8 +218,6 @@ th{
 
 	<main>
 		<div class="reportContainer">
-			<h5>신고목록</h5>
-			<hr />
 			<table>
 				<thead>
 					<tr>
@@ -230,11 +231,46 @@ th{
 
 				</tbody>
 				<tfoot>
-				
+				<tr>
+			    <td>
+			      <div class="pagination">
+					<!-- 이전버튼 -->
+<%-- 					<c:if test="${pageVO.prev}"></c:if> --%>
+					<c:choose>
+						<c:when test="${1 == pageVO.cri.pageNum}">
+							<a href="#" class="btnPrev"></a>
+						</c:when>
+						<c:otherwise>
+							<a href="blackSelectAll.do?pageNum=${pageVO.startPage-1}$amount=${pageVO.cri.amount}"><</a>
+						</c:otherwise>
+					</c:choose>
+					<!-- 페이지번호 -->
+			       	<c:forEach var="num" begin="${pageVO.startPage}" end="${pageVO.endPage}">
+<%-- 			       		<li class="${pageVO.pageNum eq num? 'active' : '' }">${num}</li> --%>
+			       		<c:choose>
+							<c:when test="${pageVO.cri.pageNum eq num}">
+								<a href="#" class="pageOn"><c:out value="${pageVO.cri.pageNum}" /></a> 
+							</c:when>
+							<c:otherwise>
+								<a href="blackSelectAll.do?pageNum=${num}&amount=${pageVO.cri.amount}">${num}</a>
+							</c:otherwise>
+						</c:choose>
+			       	</c:forEach>
+			       	<!-- 다음버튼 -->
+			       	<c:choose>
+						<c:when test="${pageVO.cri.pageNum == pageVO.total}">
+							<a href="#" class="btnNext"></a> 
+						</c:when>
+						<c:otherwise>
+							<a href="blackSelectAll.do?pageNum=${pageVO.endPage+1}$amount=${pageVO.cri.amount}">></a>
+						</c:otherwise>
+					</c:choose>		
+			      </div>
+			    </td>
+			  </tr>
 				</tfoot>
 			</table>
 		</div>
 	</main>
-	
 </body>
 </html>
