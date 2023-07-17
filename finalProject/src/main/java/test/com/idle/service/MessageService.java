@@ -39,5 +39,4 @@ public class MessageService {
 	public int readCount(MessageVO vo) {
 		return dao.readCount(vo);
 	}
-
 }

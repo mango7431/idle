@@ -8,6 +8,11 @@
 	
 /* } */
 
+/* 탑메뉴 - 알림*/
+.visited-link {
+	color: purple;
+}
+
 ul:after {
 	content: '';
 	display: block;
