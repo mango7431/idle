@@ -30,6 +30,11 @@
 		select * from notice where notice_content like
 		#{searchWord}
 	</select>
+	
+	<select id="N_SELECT_ALL_MAIN"
+		resultType="test.com.idle.vo.NoticeVO">
+		select * from notice where <![CDATA[rownum <= 5 ]]> order by notice_num desc
+	</select>
 
 	<insert id="N_INSERT" parameterType="test.com.idle.vo.NoticeVO">
 		insert into notice(notice_num,notice_title,notice_content)

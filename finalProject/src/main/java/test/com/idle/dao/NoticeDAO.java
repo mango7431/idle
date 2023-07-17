@@ -13,6 +13,7 @@ public interface NoticeDAO {
 	public List<NoticeVO> searchList(String searchKey, String searchWord);
 
 	public int noticeRowCount();
-
+	
+	List<NoticeVO> selectAllMain();
 
 }

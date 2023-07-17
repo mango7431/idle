@@ -94,6 +94,63 @@
 		where b.board_num = #{board_num}
 	</select>
 	
+	<select id="B_SELECTALL_MAIN" resultType="test.com.idle.vo.BoardVO">
+		SELECT *
+		FROM (
+    		SELECT rownum AS rnum, sub.*
+    		FROM (
+        		SELECT b.*, TO_CHAR(b.board_date, 'yyyy-mm-dd HH:MI:SS') AS dates, NVL(l.likecount, 0) AS likecount
+        		FROM board b
+        		LEFT JOIN (
+            		SELECT board_num, COUNT(*) AS likecount
+            		FROM likes
+            		GROUP BY board_num
+        		) l ON b.board_num = l.board_num
+        		WHERE <![CDATA[ board_status != 3 ]]>
+        		ORDER BY dates DESC
+    		) sub
+		)
+		WHERE <![CDATA[ rnum <= 8 ]]>
+	</select>
+	
+	<select id="B_SELECTALL_BUY" resultType="test.com.idle.vo.BoardVO">
+		SELECT *
+		FROM (
+    		SELECT rownum AS rnum, sub.*
+    		FROM (
+        		SELECT b.*, TO_CHAR(b.board_date, 'yyyy-mm-dd HH:MI:SS') AS dates, NVL(l.likecount, 0) AS likecount
+        		FROM board b
+        		LEFT JOIN (
+            		SELECT board_num, COUNT(*) AS likecount
+            		FROM likes
+            		GROUP BY board_num
+        		) l ON b.board_num = l.board_num
+        		WHERE <![CDATA[ board_type = 1 and board_status != 3 ]]>
+        		ORDER BY dates DESC
+    		) sub
+		)
+		WHERE <![CDATA[ rnum <= 8 ]]>
+	</select>
+	
+	<select id="B_SELECTALL_SELL" resultType="test.com.idle.vo.BoardVO">
+		SELECT *
+		FROM (
+    		SELECT rownum AS rnum, sub.*
+    		FROM (
+        		SELECT b.*, TO_CHAR(b.board_date, 'yyyy-mm-dd HH:MI:SS') AS dates, NVL(l.likecount, 0) AS likecount
+        		FROM board b
+        		LEFT JOIN (
+            		SELECT board_num, COUNT(*) AS likecount
+            		FROM likes
+            		GROUP BY board_num
+        		) l ON b.board_num = l.board_num
+        		WHERE <![CDATA[ board_type = 2 and board_status != 3 ]]>
+        		ORDER BY dates DESC
+    		) sub
+		)
+		WHERE <![CDATA[ rnum <= 8 ]]>
+	</select>
+	
 	<update id="VIEW_COUNT_UP">
 		update board set view_count = view_count+1 where board_num=#{board_num}
 	</update>

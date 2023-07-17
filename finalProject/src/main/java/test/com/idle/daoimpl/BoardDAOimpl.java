@@ -150,4 +150,25 @@ public class BoardDAOimpl implements BoardDAO {
 		return flag;
 	}
 
+	@Override
+	public List<BoardVO> selectAllMain() {
+		log.info("selectAllMain()...");
+		List<BoardVO> list = sqlSession.selectList("B_SELECTALL_MAIN");
+		return list;
+	}
+
+	@Override
+	public List<BoardVO> selectAllBuy() {
+		log.info("selectAllBuy()...");
+		List<BoardVO> list = sqlSession.selectList("B_SELECTALL_BUY");
+		return list;
+	}
+
+	@Override
+	public List<BoardVO> selectAllSell() {
+		log.info("selectAllSell()...");
+		List<BoardVO> list = sqlSession.selectList("B_SELECTALL_SELL");
+		return list;
+	}
+
 }

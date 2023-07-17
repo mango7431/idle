@@ -61,6 +61,15 @@ public class NoticeDAOimpl implements NoticeDAO {
 		log.info("noticeRowCount()...");
 		return sqlSession.selectOne("N_ROW_COUNT");
 	}
+	
+	@Override
+	public List<NoticeVO> selectAllMain() {
+		log.info("selectAllMain()...");
+		
+		List<NoticeVO> vos = sqlSession.selectList("N_SELECT_ALL_MAIN");
+		
+		return vos;
+	}
 
 	
 	

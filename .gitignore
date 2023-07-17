@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /.metadata/
 /Servers/
 
@@ -21,6 +22,68 @@ local.properties
 .classpath
 .settings/
 .springBeans
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# PyDev specific (Python IDE for Eclipse)
+*.pydevproject
+
+# CDT-specific (C/C++ Development Tooling)
+.cproject
+
+# CDT- autotools
+.autotools
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific (PHP Development Tools)
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# Tern plugin
+.tern-project
+
+# TeXlipse plugin
+.texlipse
+
+# STS (Spring Tool Suite)
+.springBeans
+
+# Code Recommenders
+.recommenders/
+
+/.metadata/
+/Servers/
+
+# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,eclipse,java
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,eclipse,java
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+*/target/*
+.project
+.classpath
+.settings/
+.springBeans
+finalProject/src/main/resources/jdbc/oracle.properties
+finalAdmin/src/main/resources/jdbc/oracle.properties
 
 # External tool builders
 .externalToolBuilders/

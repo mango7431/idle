@@ -37,6 +37,9 @@ public class NoticeService {
 	public int noticeRowCount() {
 		return dao.noticeRowCount();
 	}
-
 	
+	public List<NoticeVO> selectAllMain() {
+		return dao.selectAllMain();
+	}
+
 }
