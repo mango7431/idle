@@ -27,15 +27,14 @@
 		where r.buyer = #{buyer} or r.seller = #{buyer}
 		order by last_m_num desc, r.room_num desc
 	</select>
+	
+	<select id="R_SELECT_ONE" resultType="test.com.idle.vo.RoomVO">
+		select * from room where room_num = #{room_num}
+	</select>
 
 	<select id="R_CHECK" resultType="test.com.idle.vo.RoomVO">
 		select * from room where
 		board_num=#{board_num} and seller=#{seller} and buyer=#{buyer}
-	</select>
-	
-	<select id="R_SELECT_ONE" resultType="test.com.idle.vo.RoomVO">
-		select * from room where
-		room_num=#{room_num}
 	</select>
 	
 	<select id="R_READ_CHECK" resultType="test.com.idle.vo.RoomVO">

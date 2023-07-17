@@ -24,6 +24,7 @@
 		</init-param>
 		<async-supported>true</async-supported> <!-- 비동기 지원 활성화 -->
 		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported> <!-- 비동기 지원 활성화 -->
 	</servlet>
 		
 	<servlet-mapping>

@@ -35,12 +35,18 @@
 <script type="text/javascript">
 	
 	$(function(){
-		
+		var headers = null;
 		var roomNum = null;
 		var user_id = '${user_id}';
 		var boardType = null;
 		var boardNum = null;
 		var boardStatus = null;
+		
+		function handleMessageReceived(message) {
+		    var msg = JSON.parse(message.body);
+		    // 메시지를 받은 방의 roomNum과 unreadCount 정보를 사용하여 업데이트
+		    updateReadCount(msg.room_num, msg.unread_count);
+		  }
 		
 		$('.chat_list #delete').click(function(event) {
 		    event.stopPropagation();
@@ -84,18 +90,24 @@
 			console.log('boardNum : ',boardNum);
 			console.log('boardStatus : ',boardStatus);
 			
-			
 			if (currentStompConnection !== null) {
-		        currentStompConnection.disconnect();
+				currentStompConnection.disconnect();
 		        currentStompConnection = null;
 		        $(".msg_send_btn").off("click");
 		    }
 
-				var sockJs = new SockJS('/idle/chat/'+roomNum+'/info');
-				var stomp = Stomp.over(sockJs);
-				currentStompConnection = stomp;
+			var sockJs = new SockJS('/idle/chat/'+roomNum+'/info');
+			var stomp = Stomp.over(sockJs);
+			currentStompConnection = stomp;
+			
+			var otherId = selectOneRoom(roomNum, user_id);
+			
+			headers = {
+					'connect-user-id': user_id
+			};
+			console.log("header:", headers)
 				
-				stomp.connect({},function(frame){
+				stomp.connect(headers,function(frame){
 					console.log('Connected : '+frame);
 					console.log('연결 성공!');
 					
@@ -334,6 +346,8 @@
 		});
 	}
 	
+	
+	
 	function buyRequest(roomNum,seller){
 		console.log('buyRequest() 클릭',roomNum,seller);
 		
@@ -444,6 +458,33 @@
 		});
 	}
 	
+	//동기로 처리
+	function selectOneRoom(roomNum, user_id) {
+	    var otherId = null;
+	    console.log('채팅 참여자 확인');
+	    $.ajax({
+	      url: 'jsonRoomSelectOne.do',
+	      data: {
+	        room_num: roomNum
+	      },
+	      method: 'GET',
+	      async: false,
+	      dataType: 'json',
+	      success: function(vo2) {
+	        console.log("chatUsers vo2:", vo2);
+	        if (vo2.buyer === user_id) {
+	          otherId = vo2.seller;
+	        } else {
+	          otherId = vo2.buyer;
+	        }
+	      },
+	      error: function(xhr, status, error) {
+	        console.log('xhr:', xhr.status);
+	      }
+	    });
+	    return otherId;
+	}
+	
 </script>
 </head>
 <body>
@@ -520,7 +561,6 @@
 
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>

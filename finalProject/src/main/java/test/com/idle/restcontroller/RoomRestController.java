@@ -72,4 +72,15 @@ public class RoomRestController {
 		
 		return vo2;
 	}
+	
+	@RequestMapping(value = "/jsonRoomSelectOne.do", method = RequestMethod.GET)
+	@ResponseBody
+	public RoomVO jsonRoomSelectOne(RoomVO vo) {
+		log.info("/jsonRoomSelectOne.do...{}",vo);
+		
+		RoomVO vo2 = service.selectOne(vo);
+		log.info("vo2:{}",vo2);
+		
+		return vo2;
+	}
 }
