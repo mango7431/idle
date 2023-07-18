@@ -3,33 +3,59 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test.com.admin">
-	<select id="B_SELECT_ALL" resultType="test.com.admin.vo.BoardVO">
-		select * from board order by board_num desc
-	</select>
 	
 	<select id="B_COUNT" resultType="int">
 		select count(*) from board
 	</select>
-
-	<select id="B_SELECT_ALL_PAGE" resultType="test.com.admin.vo.BoardVO">
-		select * from(
-		select rownum as r, b.* from
-		(select * from board order by board_num desc) b)
-		where r between #{start} and #{end}
+	
+	<select id="B_SELECT_ALL" resultType="test.com.admin.vo.BoardVO">
+		<![CDATA[
+			select rn, board_num,board_title,writer,price,board_report,board_date,board_savename1
+			from (
+				select /*+INDEX_DESC(board board_pk)*/
+					rownum rn, board_num,board_title,writer,price,board_report,board_date,board_savename1
+				from (
+                SELECT board_num, board_title, writer, price, board_report, board_date, board_savename1
+                    FROM board b
+                    ORDER BY board_num desc
+                )
+                where rownum <= #{pageNum} * #{amount}
+			) where rn > (#{pageNum}-1) * #{amount}
+		]]>
 	</select>
 	
 	<select id="B_SEARCH_LIST_TITLE" resultType="test.com.admin.vo.BoardVO" parameterType="map">
-		select * from(
-		select rownum as r,b.* from
-		(select * from board where board_title like #{searchWord} order by board_num desc) b)
-		where r between #{start} and #{end}
+		<![CDATA[
+			select rn, board_num,board_title,writer,price,board_report,board_date,board_savename1
+			from (
+				select /*+INDEX_DESC(board board_pk)*/
+					rownum rn, board_num,board_title,writer,price,board_report,board_date,board_savename1
+				from (
+                SELECT board_num, board_title, writer, price, board_report, board_date, board_savename1
+                    FROM board b
+                    WHERE board_title LIKE #{searchWord}
+                    ORDER BY board_num desc
+                )
+                where rownum <= #{pageNum} * #{amount}
+			) where rn > (#{pageNum}-1) * #{amount}
+		]]>
 	</select>
 	
 	<select id="B_SEARCH_LIST_WRITER" resultType="test.com.admin.vo.BoardVO" parameterType="map">
-		select * from(
-		select rownum as r,b.* from
-		(select * from board where writer like #{searchWord} order by board_num desc) b)
-		where r between #{start} and #{end}
+		<![CDATA[
+			select rn, board_num,board_title,writer,price,board_report,board_date,board_savename1
+			from (
+				select /*+INDEX_DESC(board board_pk)*/
+					rownum rn, board_num,board_title,writer,price,board_report,board_date,board_savename1
+				from (
+                SELECT board_num, board_title, writer, price, board_report, board_date, board_savename1
+                    FROM board b
+                    WHERE writer like #{searchWord}
+                    ORDER BY board_num desc
+                )
+                where rownum <= #{pageNum} * #{amount}
+			) where rn > (#{pageNum}-1) * #{amount}
+		]]>
 	</select>
 	
 	<select id="B_COUNT_TITLE" resultType="int">
@@ -57,6 +83,13 @@
 		group by board_num
 		) r on b.board_num = r.board_num
 		where b.board_num = #{board_num}
+	</select>
+	
+	<select id="B_SELECT_BLACK" resultType="test.com.admin.vo.BoardVO">
+		select board.board_num, black.* 
+		from board left join black
+		on board.board_num = black.board_num
+		where board.board_num = #{board_num}
 	</select>
 	
 	<update id="B_REPORT_DOWN">

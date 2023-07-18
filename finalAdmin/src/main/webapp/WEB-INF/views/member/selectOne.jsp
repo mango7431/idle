@@ -29,7 +29,7 @@
 				let tag_vo = `
 		      <tr>
 		        <th scope="col">프로필</th>
-		        <td><img width="200px" src="resources/uploadimg/\${vo.member_savename}"></td>
+		        <td><img width="200px" src="resources/img/\${vo.member_savename}"></td>
 		      </tr>
 		      <tr>
 		        <th scope="col">ID</th>

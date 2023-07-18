@@ -29,6 +29,13 @@
   border: none;
 }
 
+/* 페이지 관련 */
+.page-num.active a {
+	font-weight: bold;
+	color: blue; /* 메인 컬러로 수정하기 */
+}
+
+
 /* 가영님꺼 */
 
 /* .myButton { */
