@@ -35,9 +35,12 @@
 <script type="text/javascript">
 	
 	$(function(){
-		
+		var headers = null;
 		var roomNum = null;
 		var user_id = '${user_id}';
+		var boardType = null;
+		var boardNum = null;
+		var boardStatus = null;
 		
 		function handleMessageReceived(message) {
 		    var msg = JSON.parse(message.body);
@@ -49,10 +52,14 @@
 		    event.stopPropagation();
 		    console.log('Button clicked');
 		    
-		    var roomNum = $(this).data('roomnum');
+		    roomNum = $(this).data('roomnum');
 		    console.log(roomNum);
 		    
 		    if(confirm('채팅방을 정말 삭제하시겠습니까? 채팅 내역이 다 사라집니다. ')){
+		    	if('${user_id}'===''){
+					console.log('널입니다.');
+					location.href = 'login.do';
+				}
 		    	$.ajax({
 					url:"jsonRoomDelete.do",
 					data:{room_num:roomNum},
@@ -78,21 +85,38 @@
 		var currentStompConnection = null;
 		$('.chat_list').click(function(){
 			roomNum = $(this).data('roomnum');
+			boardType = $(this).data('boardtype');
+			boardNum = $(this).data('boardnum');
+			boardStatus = $(this).data('boardstatus');
 			console.log('chat_list click ',roomNum);
 			console.log('user_id : ',user_id);
+			console.log('boardType : ',boardType);
+			console.log('boardNum : ',boardNum);
+			console.log('boardStatus : ',boardStatus);
 			
+			if('${user_id}'===''){
+				console.log('널입니다.');
+				location.href = 'login.do';
+			}
 			
 			if (currentStompConnection !== null) {
-		        currentStompConnection.disconnect();
+				currentStompConnection.disconnect();
 		        currentStompConnection = null;
 		        $(".msg_send_btn").off("click");
 		    }
 
-				var sockJs = new SockJS('/idle/chat/'+roomNum+'/info');
-				var stomp = Stomp.over(sockJs);
-				currentStompConnection = stomp;
+			var sockJs = new SockJS('/idle/chat/'+roomNum+'/info');
+			var stomp = Stomp.over(sockJs);
+			currentStompConnection = stomp;
+			
+			var otherId = selectOneRoom(roomNum, user_id);
+			
+			headers = {
+					'connect-user-id': user_id
+			};
+			console.log("header:", headers)
 				
-				stomp.connect({},function(frame){
+				stomp.connect(headers,function(frame){
 					console.log('Connected : '+frame);
 					console.log('연결 성공!');
 					
@@ -101,6 +125,29 @@
 					readCount(roomNum,user_id);
 					
 					$('.msg_history').empty();
+					$('#buyCheck').empty();
+					
+					if(boardStatus==2){
+						let buyCheck = `<h3>거래완료된 채팅입니다.</h3>`;
+						$('#buyCheck').html(buyCheck);
+					}
+					
+					$.ajax({
+						url:"jsonRoomCheck.do",
+						data:{room_num:roomNum},
+						method:'GET',
+						dataType:'json',
+						success:function(vo){
+							if(user_id===vo.seller&&boardStatus==1){
+								console.log('구매확정요청 생성!');
+								let buyCheck = `<button class="btn btn-primary" type="button" onclick="buyRequest(\${roomNum},'\${vo.seller}')">구매확정요청</button>`;
+								$('#buyCheck').html(buyCheck);
+							}
+						},
+						error:function(xhr,status,error){
+							console.log('xhr:',xhr.status);
+						}
+					});
 					
 					$.ajax({
 						url:"jsonMessageSelectAll.do",
@@ -114,27 +161,34 @@
 							
 							$.each(vos,function(index,vo){
 								let date = new Date(vo.message_date).toLocaleString();
-								if (vo.sender === user_id) {
-									str += `
-										<div class="outgoing_msg">
-							              <div class="sent_msg">
-							             	<div align="right">\${vo.sender}</div>
-							                <p>\${vo.message}</p>
-							                <span class="time_date">\${date}</span> </div>
-							            </div>
-									`;
-								} else {
-									str += `
-										<div class="incoming_msg">
-							              <div class="incoming_msg_img"> <img src="resources/img/thumb_\${vo.sender_savename }"> </div>
-							              <div class="received_msg">
-							              	<p>\${vo.sender}</p>
-							                <div class="received_withd_msg">
-							                  <p>\${vo.message}</p>
-							                  <span class="time_date">\${date}</span></div>
-							              </div>
-							            </div>
-									`;
+								if(vo.message_type==1){
+									if (vo.sender === user_id) {
+										str += `
+											<div class="outgoing_msg">
+								              <div class="sent_msg">
+								             	<div align="right">\${vo.sender}</div>
+								                <p>\${vo.message}</p>
+								                <span class="time_date">\${date}</span> </div>
+								            </div>
+										`;
+									} else {
+										str += `
+											<div class="incoming_msg">
+								              <div class="incoming_msg_img"> <img src="resources/img/thumb_\${vo.sender_savename }"> </div>
+								              <div class="received_msg">
+								              	<p>\${vo.sender}</p>
+								                <div class="received_withd_msg">
+								                  <p>\${vo.message}</p>
+								                  <span class="time_date">\${date}</span></div>
+								              </div>
+								            </div>
+										`;
+									}
+								}else{
+									if(vo.sender!==user_id&&boardStatus==1){
+										let buyCheck = `<button class="btn btn-primary" type="button" onclick="buyInsert(\${boardNum},'\${user_id}',\${boardType})">구매확정하기</button>`;
+										$('#buyCheck').html(buyCheck);
+									}
 								}
 							});
 							$('.msg_history').append(str);
@@ -205,6 +259,19 @@
 						prepareScroll();
 					});
 					
+					stomp.subscribe("/sub/chat/buyRequest" + roomNum, function(message){
+						console.log(message);
+						var msg = JSON.parse(message.body);
+						
+						if(msg.sender!==user_id&&boardStatus==1){
+							let buyCheck = `<button class="btn btn-primary" type="button" onclick="buyInsert(\${boardNum},'\${user_id}',\${boardType})">구매확정하기</button>`;
+							$('#buyCheck').html(buyCheck);
+						}
+						readCheck(roomNum);
+						readCount(roomNum,'${user_id}');
+						
+					});
+					
 					
 					
 					prepareScroll();
@@ -224,7 +291,8 @@
 					readCheck(roomNum);
 					readCount(roomNum,user_id);
 					prepareScroll();
-				});	
+				});
+				
 
 		});
 		
@@ -287,6 +355,145 @@
 		});
 	}
 	
+	
+	
+	function buyRequest(roomNum,seller){
+		console.log('buyRequest() 클릭',roomNum,seller);
+		
+		var resultok = confirm("구매 요청을 보내시겠습니까?")
+		
+		if(resultok){
+			$.ajax({
+				url:'jsonBuyRequest.do',
+				data:{
+					room_num:roomNum,
+					message:'구매확정요청',
+					sender:seller
+				},
+				method: 'GET',
+				dataType:'json',
+				success:function(result){
+					console.log(result);
+					if(result==0){
+						alert("이미 구매요청을 보냈습니다.");
+					}
+				},
+				error: function(xhr, status, error) {
+				      console.log('xhr:', xhr.status);
+				}
+			});
+			
+			readCheck(roomNum);
+			readCount(roomNum,'${user_id}');
+		}
+	}
+	
+	function buyInsert(boardNum,user_id,boardType){
+		console.log('buyInsert',boardNum,user_id,boardType);
+		
+		var resultok = confirm("구매 확정 하시겠습니까?")
+		
+		if(resultok){
+			if(boardType==1){
+				console.log('구해요글');
+				$.ajax({
+					url:'jsonBuyInsert.do',
+					data:{
+						board_num:boardNum,
+						id:user_id
+					},
+					method:'GET',
+					dataType:'json',
+					success:function(result){
+						console.log(result);
+						if(result==1){
+							boardStatusChange(boardNum);
+						}else if(result==0){
+							alert("이미 구매 확정 하셨습니다.");
+						}
+					},
+					error: function(xhr, status, error) {
+					      console.log('xhr:', xhr.status);
+					}
+				});
+			}else if(boardType==2){
+				console.log('팔아요글');
+				$.ajax({
+					url:'jsonSellInsert.do',
+					data:{
+						board_num:boardNum,
+						id:user_id
+					},
+					method:'GET',
+					dataType:'json',
+					success:function(result){
+						console.log(result);
+						if(result==1){
+							boardStatusChange(boardNum);
+						}if(result==0){
+							alert("이미 구매 확정 하셨습니다.");
+						}
+					},
+					error: function(xhr, status, error) {
+					      console.log('xhr:', xhr.status);
+					}
+				});
+			}	
+		}
+	}
+	
+	function boardStatusChange(boardNum){
+		console.log('거래완료로 변경하기',boardNum);
+		$.ajax({
+			url:'jsonChangeStatus.do',
+			data:{
+				board_num:boardNum,
+				board_status:2
+			},
+			method:'GET',
+			dataType:'json',
+			success:function(result){
+				console.log(result);
+				if(result==1){
+					alert("거래가 완료되었습니다.");
+					location.reload(true);
+				}else if(result==0){
+					alert("이미 거래가 완료된 상품입니다.");
+				}
+			},
+			error: function(xhr, status, error) {
+			      console.log('xhr:', xhr.status);
+			}
+		});
+	}
+	
+	//동기로 처리
+	function selectOneRoom(roomNum, user_id) {
+	    var otherId = null;
+	    console.log('채팅 참여자 확인');
+	    $.ajax({
+	      url: 'jsonRoomSelectOne.do',
+	      data: {
+	        room_num: roomNum
+	      },
+	      method: 'GET',
+	      async: false,
+	      dataType: 'json',
+	      success: function(vo2) {
+	        console.log("chatUsers vo2:", vo2);
+	        if (vo2.buyer === user_id) {
+	          otherId = vo2.seller;
+	        } else {
+	          otherId = vo2.buyer;
+	        }
+	      },
+	      error: function(xhr, status, error) {
+	        console.log('xhr:', xhr.status);
+	      }
+	    });
+	    return otherId;
+	}
+	
 </script>
 </head>
 <body>
@@ -305,7 +512,7 @@
 						</div>
 						<div class="inbox_chat" id="roomList">
 							<c:forEach var="vo" items="${vos }">
-								<div class="chat_list" data-roomnum="${vo.room_num }">
+								<div class="chat_list" data-roomnum="${vo.room_num }" data-boardtype="${vo.board_type }" data-boardnum="${vo.board_num }" data-boardstatus="${vo.board_status }">
 									<div class="chat_people">
 										<div class="chat_img">
 											<img src="resources/img/thumb_${vo.member_savename }"
@@ -348,7 +555,8 @@
 					</div>
 
 					<div class="mesgs">
-
+						<div id="buyCheck" class="d-grid gap-2 col-6 mx-auto"></div>
+						<hr>
 						<div class="msg_history" id="scroll"></div>
 						<div class="type_msg">
 							<div class="input_msg_write">
@@ -362,7 +570,6 @@
 
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>

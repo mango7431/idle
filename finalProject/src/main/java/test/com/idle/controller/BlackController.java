@@ -17,7 +17,7 @@ public class BlackController {
 	BlackService service;
 	
 	//신고하기 기능
-	@RequestMapping(value = "/blackInsertOK.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/blackInsertOK.do", method = RequestMethod.GET)
 	public String blackInsertOK(BlackVO vo) {
 		log.info("/blackInsertOK.do:{}",vo);
 

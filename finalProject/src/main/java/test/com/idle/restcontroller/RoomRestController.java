@@ -1,7 +1,5 @@
 package test.com.idle.restcontroller;
 
-import java.util.List;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +60,27 @@ public class RoomRestController {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping(value = "/jsonRoomCheck.do", method = RequestMethod.GET)
+	@ResponseBody
+	public RoomVO jsonRoomCheck(RoomVO vo) {
+		log.info("/jsonRoomCheck.do...{}",vo);
+		
+		RoomVO vo2 = service.selectOne(vo);
+		log.info("{}",vo2);
+		
+		return vo2;
+	}
+	
+	@RequestMapping(value = "/jsonRoomSelectOne.do", method = RequestMethod.GET)
+	@ResponseBody
+	public RoomVO jsonRoomSelectOne(RoomVO vo) {
+		log.info("/jsonRoomSelectOne.do...{}",vo);
+		
+		RoomVO vo2 = service.selectOne(vo);
+		log.info("vo2:{}",vo2);
+		
+		return vo2;
 	}
 }

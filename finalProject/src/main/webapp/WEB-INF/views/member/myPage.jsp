@@ -25,10 +25,70 @@
 <script type="text/javascript">
 	$(function(){
 		console.log("onload....","${param.id}");
+		if('${user_id}'===''){
+			console.log('널입니다.');
+			location.href = 'login.do';
+		}
+		$.ajax({
+			url : "jsonMemberSelectOne.do",
+			data:{id:"${param.id}"},
+			method:'GET',
+			dataType:'json',
+			success : function(vo2) {
+				let tag_vo2 =  `
+					 <tr>
+				      	<td scope="row" class="text-center align-middle">
+						<img width="50px" src="resources/img/thumb_\${vo2.member_savename}">
+						</td>
+				      
+				      <td>
+					        <div>이름: \${vo2.name}</div>
+					        <div>주소: \${vo2.address}</div>
+					        <div>
+					        <span>상품구매 \${vo2.buy_count}회</span>
+					        <span>상품판매 \${vo2.sell_count}회</span>
+					        <span>신고누적 \${vo2.member_report}</span>회
+					        </div>
+					
+				      </td>
+				    </tr>
+				`;
+				
+				$("#vo2").html(tag_vo2);
+			},
+			error:function(xhr,status,error){
+				console.log('xhr.status:', xhr.status);
+			}
+		});//end $.ajax()...
+		
 	});//end onload..
 
 </script>
+<style type="text/css">
+ .sidenav {
+  z-index: 1;
+  top: 20px;
+  left: 10px;
+  background: #F6FFCC;
+  overflow-x: hidden;
+  padding: 8px 0;
+}
 
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+}
+
+ /* 마우스 오버(마우스 올렸을때) */
+.sidenav a:hover {
+  color: #064579;
+  background: #D2E5A8;
+}
+
+</style>
 
 </head>
 <body>
@@ -38,30 +98,21 @@
 		<div class="breadcrumb fs-5 fw-bold px-4">마이페이지</div>
 		<div class="row my-3">
 			<div class="col-md-3 col-lg-2">
-				<ul class="mypage-floating-menu px-0">
-					<li class="fw-bold"><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
-					<li><a href="#">회원정보수정</a></li>
-					<li><a href="#">내동네설정</a></li>
-					<li><a href="qnaSelectAll.do">내 Q&A 목록</a></li>
-					<!-- 사용자 정보 수정하기 -->
-				</ul>
+				<div class="sidenav">
+					<ul class="mypage-floating-menu px-0">
+						<li class="fw-bold"><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
+						<li><a href="memberUpdate.do?id=${user_id}">회원정보수정</a></li>
+						<li><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
+					</ul>
+				</div>
 			</div>
 			<div class="col-md-9 col-lg-10 px-5">
 				<div class="row">
-					<h4>${user_id}님마이페이지</h4>
+					<h4>${user_id}님 마이페이지</h4>
 					<hr>
 
 					<table>
 						<thead>
-							<tr>
-								<th>id</th>
-								<th>pw</th>
-								<th>name</th>
-								<th>address</th>
-								<th>member_report</th>
-								<th>프로필이미지</th>
-								<th></th>
-							</tr>
 						</thead>
 						<tbody id="vo2">
 						</tbody>

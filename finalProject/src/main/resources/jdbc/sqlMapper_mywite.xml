@@ -4,17 +4,44 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="test.com.idle">
-	<select id="MY_WRITE_BUY_SELECT_ALL" resultType="test.com.idle.vo.BoardVO">
-        SELECT *
-        FROM board
-        WHERE writer = #{userId} AND board_type = 1
-        ORDER BY board_date desc
+	<select id="MY_WRITE_SELECT_ALL" resultType="test.com.idle.vo.BoardVO">
+        SELECT b.*, NVL(l.likecount, 0) AS likecount, NVL(r.chatcount, 0) AS chatcount, r.buyer, r.seller
+		FROM board b
+		LEFT JOIN (
+		    SELECT board_num, COUNT(*) AS likecount
+		    FROM likes
+		    GROUP BY board_num
+		) l ON b.board_num = l.board_num
+		LEFT JOIN (
+		    SELECT board_num, COUNT(*) AS chatcount, LISTAGG(buyer, ', ') WITHIN GROUP (ORDER BY buyer) AS buyer, LISTAGG(seller, ', ') WITHIN GROUP (ORDER BY seller) AS seller
+		    FROM room
+		    GROUP BY board_num
+		) r ON b.board_num = r.board_num
+		WHERE b.writer = #{userId} AND b.board_type = #{boardType}
+		ORDER BY b.board_date desc
     </select>
     
-    <select id="MY_WRITE_SELL_SELECT_ALL" resultType="test.com.idle.vo.BoardVO">
-        SELECT *
-        FROM board
-        WHERE writer = #{userId} AND board_type = 2
-        ORDER BY board_date desc
-    </select>
+    <update id="W_DATE_UPDATE">
+    	update board set board_date = sysdate
+    	where board_num = #{board_num}
+    </update>
+    
+    <update id="W_STATUS_UPDATE">
+    	update board set board_status = #{board_status}
+    	where board_num = #{board_num}
+    </update>
+    
+    <insert id="W_DONE_INSERT">
+    	insert into sell(sell_num,board_num, id)
+    	values (seq_sell.nextval,#{board_num},#{seller})
+    </insert>
+    
+    <insert id="W_DONESELL_INSERT">
+    	insert into buy(buy_num,board_num, id)
+    	values (seq_buy.nextval,#{board_num},#{buyer})
+    </insert>
+    
+    <delete id="W_DELETE">
+		delete from board where board_num = #{board_num}
+	</delete>
 </mapper>

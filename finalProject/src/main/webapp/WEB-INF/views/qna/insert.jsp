@@ -72,12 +72,9 @@
  		<div class="row my-3">
      	<div class="col-md-3 col-lg-2">     
 		    <ul class="mypage-floating-menu px-0">
-		    	<li><a href="#">마이페이지</a></li>
-		    	<li><a href="#">회원정보수정</a></li>
-		    	<li><a href="#">찜목록</a></li>
-		    	<li><a href="#">내 거래 목록</a></li>
-		    	<li><a href="#">내동네설정</a></li>
-		    	<li class="fw-bold"><a href="qnaSelectAll.do">내 Q&A 목록</a></li>
+		    	<li><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
+		    	<li><a href="memberUpdate.do?id=${user_id}">회원정보수정</a></li>
+		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 		    </ul>
    		</div>
    		<div class="col-md-9 col-lg-10 px-5">

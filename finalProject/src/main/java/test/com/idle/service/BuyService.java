@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import test.com.idle.dao.BuyDAO;
+import test.com.idle.vo.BoardVO;
 import test.com.idle.vo.BuyVO;
 
 @Slf4j
@@ -20,6 +21,14 @@ public class BuyService {
 		log.info("BuyService");
 	}
 	
+	public List<BoardVO> buySelectAll(int cpage,String userId) {
+		return dao.buySelectAll(cpage, userId);
+	}
+	
+	public List<BoardVO> sellSelectAll(int cpage,String userId) {
+		return dao.sellSelectAll(cpage, userId);
+	}
+	
 	public List<BuyVO> selectAll(int cpage) {
 		return dao.selectAll(cpage);
 	}
@@ -28,8 +37,20 @@ public class BuyService {
 		return dao.delete(vo);
 	}
 
-	public int buyRowCount() {
-		return dao.buyRowCount();
+	public int buyRowCount(String userId) {
+		return dao.buyRowCount(userId);
+	}
+	
+	public int sellRowCount(String userId) {
+		return dao.sellRowCount(userId);
+	}
+
+	public int insert(BuyVO vo) {
+		return dao.insert(vo);
+	}
+
+	public BuyVO selectOne(BuyVO vo) {
+		return dao.selectOne(vo);
 	}
 
 }

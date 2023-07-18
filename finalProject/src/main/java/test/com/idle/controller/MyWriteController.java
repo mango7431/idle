@@ -2,6 +2,8 @@ package test.com.idle.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +21,14 @@ public class MyWriteController {
 	@Autowired
 	MyWriteService service;
 	
+	@Autowired
+	HttpSession session;
+	
 	@RequestMapping(value = "/myWriteBuySelectAll.do", method = RequestMethod.GET)
 	public String myWriteBuySelectAll(Model model) {
 		log.info("/myWriteBuySelectAll.do");
 		
-		String userId = "tester3"; //임시로 tester3값 넣어놓음. 로그인유저로 바꿀예정.
+		String userId=(String)session.getAttribute("user_id");
 		
 		List<BoardVO> buyvos = service.myWriteBuySelectAll(userId);
 		model.addAttribute("buyvos",buyvos);			

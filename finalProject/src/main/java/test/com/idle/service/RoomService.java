@@ -36,4 +36,21 @@ public class RoomService {
 		return dao.delete(vo);
 	}
 
+	public RoomVO selectOne(RoomVO vo) {
+		return dao.selectOne(vo);
+	}
+	
+	public String getRecipient(int roomNum, String sender) {
+		RoomVO vo = new RoomVO();
+		vo.setRoom_num(roomNum);
+		
+		RoomVO vo2 = dao.selectOne(vo);
+		
+		if (vo2.getBuyer().equals(sender)) {
+			return vo2.getSeller();
+		} else {
+			return vo2.getBuyer();
+		}
+	}
+
 }

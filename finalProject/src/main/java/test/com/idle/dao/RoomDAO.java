@@ -14,4 +14,6 @@ public interface RoomDAO {
 
 	int delete(RoomVO vo);
 
+	RoomVO selectOne(RoomVO vo);
+
 }

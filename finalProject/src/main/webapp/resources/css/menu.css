@@ -1,6 +1,31 @@
 @charset "UTF-8";
 
-/* 전체 */
+.visited-link {
+	color: purple;
+}
+
+ul:after {
+	content: '';
+	display: block;
+	clear: both;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover:not(.active) {
+	background-color: #111;
+}
+
 a {
 	text-decoration: none;
 	color: #000;

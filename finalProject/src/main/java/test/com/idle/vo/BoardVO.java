@@ -32,5 +32,7 @@ public class BoardVO {
 	private String address;
 	private String member_savename;
 	private List<MultipartFile> multipartFiles;
+	private String buyer;
+	private String seller;
 
 }

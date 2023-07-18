@@ -31,7 +31,7 @@ public class MyWriteDAOimpl implements MyWriteDAO {
 		filters.put("userId", userId);
 		filters.put("boardType", 1);
 		
-		List<BoardVO> vos = sqlSession.selectList("MY_WRITE_BUY_SELECT_ALL",filters);
+		List<BoardVO> vos = sqlSession.selectList("MY_WRITE_SELECT_ALL",filters);
 		
 		return vos;
 	}
@@ -44,8 +44,74 @@ public class MyWriteDAOimpl implements MyWriteDAO {
 		filters.put("userId", userId);
 		filters.put("boardType", 2);
 		
-		List<BoardVO> vos = sqlSession.selectList("MY_WRITE_SELL_SELECT_ALL",filters);
+		List<BoardVO> vos = sqlSession.selectList("MY_WRITE_SELECT_ALL",filters);
 		
 		return vos;
+	}
+
+	//상위로이동
+	@Override
+	public int dateupdate(int board_num) {
+		log.info("dateupdate:{}",board_num);
+		
+		int flag = sqlSession.update("W_DATE_UPDATE",board_num);
+		return flag;
+	}
+
+	//비공개
+	@Override
+	public int statusupdate(int board_num, int board_status) {
+		log.info("hiddenupdate:{},{}",board_num,board_status);
+		
+		Map<String, Object> filters = new HashMap<>();
+		filters.put("board_num", board_num);
+		filters.put("board_status", board_status);
+		
+		int flag = sqlSession.update("W_STATUS_UPDATE",filters);
+		return flag;
+	}
+
+	//board_status를 2로 변경  //이거 지우고 위에껄로 바꿔도 될듯
+	@Override
+	public void updateBoardStatus(int board_num, int board_status) {
+		log.info("updateBoardStatus:{},{}",board_num,board_status);
+		
+		Map<String, Object> filters = new HashMap<>();
+		filters.put("board_num", board_num);
+		filters.put("board_status", board_status);
+		
+		sqlSession.update("W_STATUS_UPDATE",filters);
+	}
+
+	@Override
+	public int doneinsert(int board_num, String seller) {
+		log.info("doneinsert:{},{}",board_num,seller);
+		
+		Map<String, Object> filters = new HashMap<>();
+		filters.put("board_num", board_num);
+		filters.put("seller", seller);
+		
+		int flag = sqlSession.insert("W_DONE_INSERT",filters);
+		return flag;
+	}
+
+	@Override
+	public int donesellinsert(int board_num, String buyer) {
+		log.info("donesellinsert:{},{}",board_num,buyer);
+		
+		Map<String, Object> filters = new HashMap<>();
+		filters.put("board_num", board_num);
+		filters.put("buyer", buyer);
+		
+		int flag = sqlSession.insert("W_DONESELL_INSERT",filters);
+		return flag;
+	}
+
+	@Override
+	public int delete(int board_num) {
+		log.info("donesellinsert:{},{}",board_num);
+
+		int flag = sqlSession.insert("W_DELETE",board_num);
+		return flag;
 	}
 }

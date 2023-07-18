@@ -93,13 +93,13 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vos){
-					console.log('ajax...success:', vos);	
-				  let tag_vos = '';
+					console.log('ajax...success: vos', vos);	
+				  	let tag_vos = '';
 					let status = '';
 					let txtCategory = '';
 					let date = '';
 					
-					$("#vos").empty();
+					$("#qvos").empty();
 					
 					if(vos.length === 0) {
 						tag_vos = `
@@ -109,7 +109,7 @@
 					      </td>
 					    </tr>
 						`;
-						$("#vos").html(tag_vos);
+						$("#qvos").html(tag_vos);
 					} else {
 						$.each(vos, function(index, vo) {						
 							if (vo.qna_status === 1) {
@@ -137,7 +137,7 @@
 						    </tr>
 						  `;
 							
-							$("#vos").html(tag_vos);
+							$("#qvos").html(tag_vos);
 						});
 					}
 				},
@@ -272,11 +272,8 @@
      	<div class="col-md-3 col-lg-2">    
      		<!-- 분리하는 것이 좋을 것 같음 분리하게 되면 동적으로 표시할 수 있게 수정해야함.--> 
 		    <ul class="mypage-floating-menu px-0">
-		    	<li><a href="#">마이페이지</a></li>
-		    	<li><a href="#">회원정보수정</a></li>
-		    	<li><a href="#">찜목록</a></li>
-		    	<li><a href="#">내 거래 목록</a></li>
-		    	<li><a href="#">내동네설정</a></li>
+		    	<li><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
+		    	<li><a href="memberUpdate.do?id=${user_id}">회원정보수정</a></li>
 		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 		    </ul>
    		</div>
@@ -301,7 +298,8 @@
 		      <th scope="col" class="col-9 text-center py-3">내용</th>
 		    </tr>
 		  </thead>
-		  <tbody id="vos">
+		  <tbody id="qvos">
+		  	
 		  </tbody>
 		</table>
 		

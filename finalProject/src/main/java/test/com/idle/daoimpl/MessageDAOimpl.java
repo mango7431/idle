@@ -29,6 +29,7 @@ public class MessageDAOimpl implements MessageDAO {
 			flag = sqlSession.insert("MESSAGE_INSERT",vo);			
 		}catch (Exception e) {
 			log.info("방삭제됨 ㅅㄱ");
+			e.printStackTrace();
 		}
 		return flag;
 	}
@@ -54,7 +55,13 @@ public class MessageDAOimpl implements MessageDAO {
 	public int readCheck(MessageVO vo) {
 		log.info("readCheck()...{}",vo);
 		
-		int flag = sqlSession.update("MESSAGE_READ_CHECK",vo);
+		int flag = 0;
+		
+		try {			
+			flag = sqlSession.update("MESSAGE_READ_CHECK",vo);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
 	}
@@ -62,10 +69,39 @@ public class MessageDAOimpl implements MessageDAO {
 	@Override
 	public int readCount(MessageVO vo) {
 		log.info("readCount()...{}",vo);
+		int flag = 0;
 		
-		int flag = sqlSession.selectOne("READ_COUNT",vo);
+		try {
+			flag = sqlSession.selectOne("READ_COUNT",vo);	
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return flag;
+	}
+
+	@Override
+	public int buyRequestInsert(MessageVO vo) {
+		log.info("buyRequestInsert()...{}",vo);
+		
+		int flag = 0;
+		
+		try {
+			flag = sqlSession.insert("MESSAGE_BUY_INSERT",vo);	
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+
+	@Override
+	public MessageVO buyMessageCheck(MessageVO vo) {
+		log.info("buyMessageCheck()...{}",vo);
+		
+		MessageVO vo2 = sqlSession.selectOne("BUY_MESSAGE_CHECK",vo);
+		
+		return vo2;
 	}
 
 }

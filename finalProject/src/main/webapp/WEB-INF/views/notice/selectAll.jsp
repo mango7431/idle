@@ -9,48 +9,53 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
-<title>내 거래 목록</title>
+<title>공지사항</title>
 <jsp:include page="../css.jsp"></jsp:include>
-
-
 </head>
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<h1>내 거래 목록 - 팔아요</h1>
-	<a href="buySelectAll.do" class="myButton" style="float: left;">구해요</a>
+	<h1>공지사항</h1>
+	
+	<div style="float:right;">
+		<form action="noticeSearchList.do">
+			<select name="searchKey" id=searchKey">
+				<option value="notice_title">제목</option>
+				<option value="notice_content">내용</option>
+			</select>
+			<input type="text" name="searchWord" id="searchWord" placeholder="키워드를 입력하세요.">
+			<input type="submit" value="검색">
+		</form>
+	</div>
 	
 	<table id="noticeList">
 	<thead>
-		<tr>	
-			<th>판매 번호</th>
-			<th>게시글 번호</th>
-			<th>상대방 ID</th>
-			<th>삭제하기</th>
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>내용</th>
+			<th>날짜</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="vo" items="${vos}">
 			<tr>
-				<td>${vo.sell_num}</td>
-				<td><a href="boardSelectOne.do?board_num=${vo.board_num}">${vo.board_num}</a></td>
-				<td>${vo.id}</td>
-				<td>
-				<a href="sellDeleteOK.do?sell_num=${vo.sell_num}" class="myButton" style="display: inline-block">삭제</a>
-				</td>
+				<td><a href="noticeSelectOne.do?notice_num=${vo.notice_num}">${vo.notice_num}</a></td>
+				<td>${vo.notice_title}</td>
+				<td>${vo.notice_content}</td>
+				<td>${vo.notice_date}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 	<tfoot>
 		<tr>
 			<td colspan="4">
-				<c:forEach var="i" begin="1"
+					<c:forEach var="i" begin="1"
 							end="${totalPageCount }" step="1">
-							<a href="sellSelectAll.do?cpage=${i }${params}">${i }</a>&nbsp;
-				</c:forEach>
+							<a href="noticeSelectAll.do?cpage=${i }${params}">${i }</a>&nbsp;
+					</c:forEach>
 			</td>
 		</tr>
 	</tfoot>
 	</table>
-
 </body>
 </html>

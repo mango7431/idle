@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -35,29 +37,75 @@ public class BoardController {
 	ServletContext sContext;
 	
 	//수정
-	// 중고거래 목록
+	//중고거래 목록
 	@RequestMapping(value = "/boardSelectAll.do", method = RequestMethod.GET)
-	public String boardSelectAll(Model model, @RequestParam(value = "category", required = false) String category,
-			@RequestParam(value = "minPrice", required = false) Integer minPrice,
-			@RequestParam(value = "maxPrice", required = false) Integer maxPrice,
-			@RequestParam(value = "sortType", required = false) String sortType,
-			@RequestParam(value = "board_type", required = false) Integer board_type) {
-		log.info("/boardSelectAll.do,{},{}", category, minPrice);
-		log.info("/boardSelectAll.do,{},{}", sortType, board_type);
+	public String boardSelectAll(Model model, @RequestParam(value="category", required=false) String category,
+			 @RequestParam(value = "minPrice", required = false) Integer minPrice,
+             @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
+             @RequestParam(value = "sortType", required = false) String sortType,
+             @RequestParam(value = "board_type", required = false) Integer board_type,
+             @RequestParam(value = "deal_region", required = false) String deal_region) {
+		log.info("/boardSelectAll.do,{},{}",category,deal_region);
+		log.info("/boardSelectAll.do,{},{}",sortType,board_type);
+		
+		if ("선택".equals(deal_region)) {
+	        deal_region = null;
+	    }
 
-		if (category == null || category.equals("all")) {
-			if (sortType == null || sortType.equals("latest")) {
-				List<BoardVO> vos = service.boardSelectAll(minPrice, maxPrice, board_type);
-				model.addAttribute("vos", vos);
-			} else if (sortType.equals("views")) {
-				List<BoardVO> vos = service.boardSelectAllViews(minPrice, maxPrice, board_type);
-				model.addAttribute("vos", vos);
-			}
-		} else {
-			List<BoardVO> vos = service.boardSelectAll(category, minPrice, maxPrice, board_type);
-			model.addAttribute("vos", vos);
-		}
+	    List<BoardVO> vos;
 
+	    //필터 초기화버튼때문에 category=null 따로 만들어줌.
+	    if (category == null || category.equals("all")) {
+	        if (sortType == null || sortType.equals("latest")) {
+	            vos = service.boardSelectAll(minPrice, maxPrice, board_type, deal_region);
+	        } else if (sortType.equals("views")) {
+	            vos = service.boardSelectAllViews(minPrice, maxPrice, board_type, deal_region);
+	        } else {
+	            vos = service.boardSelectAll(minPrice, maxPrice, board_type, deal_region);
+	        }
+	    } else {
+	        vos = service.boardSelectAll(category, minPrice, maxPrice, board_type, deal_region);
+	    }
+
+	    // 인기순 정렬 적용
+	    if (sortType != null && sortType.equals("views")) {
+	    	//view_count,likecount 내림차순
+	    	Collections.sort(vos, Comparator.comparingInt(BoardVO::getView_count).thenComparingInt(BoardVO::getLikecount).reversed());
+	    }
+
+	    model.addAttribute("vos", vos);
+	    
+	    //전체게시글 개수(비공개제외)
+	    List<BoardVO> countVos = new ArrayList<>();
+
+	    for (BoardVO vo : vos) {
+	        if (vo.getBoard_status() != 3) { // 비공개 게시글은 제외
+	        	countVos.add(vo);
+	        }
+	    }
+	    model.addAttribute("countVos", countVos);
+	     
+	    return "board/selectAll";
+	}
+	
+	@RequestMapping(value = "/b_searchList.do", method = RequestMethod.GET)
+	public String b_searchList(Model model, String searchWord) {
+		log.info("searchWord:{}",searchWord);
+		
+		List<BoardVO> vos = service.searchList(searchWord);
+		
+		model.addAttribute("vos", vos);
+		
+		//전체게시글 개수(비공개제외)
+	    List<BoardVO> countVos = new ArrayList<>();
+
+	    for (BoardVO vo : vos) {
+	        if (vo.getBoard_status() != 3) { // 비공개 게시글은 제외
+	        	countVos.add(vo);
+	        }
+	    }
+	    model.addAttribute("countVos", countVos);
+		
 		return "board/selectAll";
 	}
 

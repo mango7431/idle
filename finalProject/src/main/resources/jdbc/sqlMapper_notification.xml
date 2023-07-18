@@ -2,17 +2,29 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="test.com.idle">
+	
+	<insert id="NOTIFICATION_INSERT" parameterType="test.com.idle.vo.NotificationVO">
+	    <selectKey keyProperty="notification_num" resultType="int" order="BEFORE">
+	        SELECT seq_notification.nextval FROM dual
+	    </selectKey>
+	    <![CDATA[
+	    insert into notification (notification_num, id, notification_title, notification_content, notification_type, notification_link)
+	    values (#{notification_num}, #{id}, #{notification_title}, #{notification_content}, #{notification_type}, #{notification_link})
+	    ]]>
+	</insert>
+
+
+	<select id="NOTIFICATION_SELECT_BY_KEY" parameterType="int" resultType="test.com.idle.vo.NotificationVO">
+	    SELECT * FROM notification WHERE notification_num = #{notification_num}
+	</select>
+	
 	<select id="NOTIFICATION_SELECT_ALL" resultType="test.com.idle.vo.NotificationVO">
-    	select * from notification
-	</select>	
-
-	
-<!-- 	<insert id="Q_INSERT" parameterType="test.com.idle.vo.QnaVO">
-		insert into qna(qna_num,qna_title,qna_content,writer,qna_category)
-		values(seq_qna.nextval,#{qna_title},#{qna_content},#{writer},#{qna_category})
-	</insert> -->
-
-	
+		<![CDATA[
+		SELECT *
+		FROM notification n
+		WHERE rownum <= 5
+		AND id = #{id}
+		]]>
+	</select>
 </mapper>

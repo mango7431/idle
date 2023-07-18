@@ -128,6 +128,10 @@
 	
 	function likeButton(){
 		console.log("likeButton()");
+		if('${user_id}'===''){
+			console.log('널입니다.');
+			location.href = 'login.do';
+		}
 		$.ajax({
 			url:"jsonLikeSelectOne.do",
 			data:{
@@ -195,6 +199,11 @@
 		console.log("chat()");
 		console.log(writer);
 		
+		if('${user_id}'===''){
+			console.log('널입니다.');
+			location.href = 'login.do';
+		}
+		
 		$.ajax({
 			url:"jsonRoomInsert.do",
 			data:{
@@ -221,6 +230,11 @@
 	
 	function changeStatus(status){
 		console.log("changeStatus",status);
+		
+		if('${user_id}'===''){
+			console.log('널입니다.');
+			location.href = 'login.do';
+		}
 		
 		$.ajax({
 			url:"jsonChangeStatus.do",
@@ -300,6 +314,11 @@
 .reportBoard label{
 	margin-bottom: 18px;
 }
+
+.reportBoard textarea{
+	display: none;
+	width: 90%;
+}
 </style>
 </head>
 <body>
@@ -373,21 +392,20 @@
 	<p>아래 신고 사유를 선택해주세요</p>
 	<hr>
 	<div class="modalContent">
-		<form action="blackInsertOK.do" method="post" onsubmit="return blackInsertForm()">
+		<form action="blackInsertOK.do" method="get" onsubmit="return blackInsertForm()" id="blackInsert">
 			<div class="reportBoard">
 				<input type="hidden" name="targetid" value="${vo2.writer}"/>
-				<%-- <input type="hidden" name="reporterid" value="${userId}"/> --%>
-				<input type="hidden" name="reporterid" value="tester3"/>
+				<input type="hidden" name="reporterid" value="${user_id}"/>
 				<input type="hidden" name="board_num" value="${vo2.board_num}"/>
 				<input type="hidden" name="black_type" value=""/>
 				<input type="radio" name="black_category" id="black_category1" value="1"/><label for="black_category1">광고성 게시글이에요</label><br />
 				<input type="radio" name="black_category" id="black_category2" value="2"/><label for="black_category2">거래금지품목(술,약류,담배 등)을 팔아요</label><br />
 				<input type="radio" name="black_category" id="black_category3" value="3"/><label for="black_category3">상품정보가 부정확해요</label><br />
 				<input type="radio" name="black_category" id="black_category4" value="4"/><label for="black_category4">사기인 것 같아요</label><br />
-				<input type="radio" name="black_category" onclick="toggleText(this.value)" id="black_category5" value="5"/><label for="black_category5">기타 사유 입력</label><br />
-				<textarea rows="3" cols="40" name="comments" id="comments1" style="display: none;" placeholder="게시글 신고 내용을 작성해주세요."></textarea>	
-				<input type="radio" name="black_category" onclick="toggleText(this.value)" id="black_category6" value="6"/><label for="black_category6">'${vo2.name}'님을 신고할래요</label><br />	
-				<textarea rows="3" cols="40" name="comments" id="comments2" style="display: none;" placeholder="사용자 신고 내용을 작성해주세요."></textarea>	
+				<input type="radio" name="black_category" id="black_category5" value="5"/><label for="black_category5">기타 사유 입력</label><br />
+				<textarea rows="3" cols="40" name="comments" id="comments1" placeholder="게시글 신고 내용을 작성해주세요."></textarea>	
+				<input type="radio" name="black_category" id="black_category6" value="6"/><label for="black_category6">'${vo2.name}'님을 신고할래요</label><br />	
+				<textarea rows="3" cols="40" name="comments" id="comments2" placeholder="사용자 신고 내용을 작성해주세요."></textarea>	
 			</div>
 			<hr />
 			<div class="modalBtn">
@@ -399,19 +417,20 @@
 
 <script type="text/javascript">
 //신고모달창 show&hide
+//신고모달창 show&hide
 $(document).ready(function() {
   $('input[name="black_category"]').on('change', function() {
     var value = $(this).val();
     
     if (value === '5') {
-      $('#comments1').show();
-      $('#comments2').hide();
+    	$('#comments1').prop('disabled', false).show();
+        $('#comments2').prop('disabled', true).hide(); //comments 제출을 막음
     } else if (value === '6') {
-      $('#comments1').hide();
-      $('#comments2').show();
+    	$('#comments2').prop('disabled', false).show();
+        $('#comments1').prop('disabled', true).hide();
     } else {
-      $('#comments1').hide();
-      $('#comments2').hide();
+		$('#comments1').prop('disabled', false).hide(); //comments 하나는 되도록..
+		$('#comments2').prop('disabled', true).hide();
     }
   });
   
@@ -435,28 +454,35 @@ $(function() {
    $('input[name="black_category"]').on('change', function() {
      var value = $(this).val();
      if (value >= 1 && value <= 5) {
-       $('input[name="black_type"]').val(1);
+       $('input[name="black_type"]').val(2);
       } else if (value == 6) {
-        $('input[name="black_type"]').val(2);
+        $('input[name="black_type"]').val(1);
      }
    });
 });
 
 //신고하기 버튼 눌렀을 때
 function blackInsertForm() {
-  const blackCategoryChecked = document.querySelector('input[name="black_category"]:checked');
-   if (!blackCategoryChecked) {
-    alert('신고 사유를 선택해주세요.');
-      return false; // 폼 전송 막기
-    }
-   
-  const reportConfirm = confirm('허위신고 시 중고링 이용이 제한될 수 있습니다. 정말로 신고하시겠습니까?');
-   if (!reportConfirm) {
-     return false;
-   }
-   
- alert('신고가 등록되었습니다.');
- return true;
+	 const blackCategoryChecked = document.querySelector('input[name="black_category"]:checked');
+	 
+	 if (!`${user_id}`) {
+			window.location.href = "login.do";
+			return false;
+		}
+	 
+	if (!blackCategoryChecked) {
+		alert('신고 사유를 선택해주세요.');
+		  return false; // 폼 전송 막기
+	}
+	 
+	const reportConfirm = confirm('허위신고 시 중고링 이용이 제한될 수 있습니다. 정말로 신고하시겠습니까?');
+	if (!reportConfirm) {
+	  return false;
+	}
+	  
+	alert('신고가 등록되었습니다.');
+	
+	return true;
 }
 </script>
 </body>

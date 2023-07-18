@@ -10,6 +10,13 @@
 		values
 		(seq_message.nextval,#{room_num},#{sender},#{message})
 	</insert>
+	
+	<insert id="MESSAGE_BUY_INSERT">
+		insert into
+		message(message_num,room_num,sender,message,message_type)
+		values
+		(seq_message.nextval,#{room_num},#{sender},#{message},2)
+	</insert>
 
 	<select id="MESSAGE_SELECT_ALL"
 		resultType="test.com.idle.vo.MessageVO">
@@ -18,6 +25,11 @@
 		on message.sender = member.id
 		where message.room_num=#{room_num}
 		order by message_num
+	</select>
+	
+	<select id="BUY_MESSAGE_CHECK"
+		resultType="test.com.idle.vo.MessageVO">
+		select * from message where room_num=#{room_num} and message_type=2
 	</select>
 	
 	<select id="READ_COUNT" resultType="int">

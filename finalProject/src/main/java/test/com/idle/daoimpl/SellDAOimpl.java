@@ -48,5 +48,28 @@ public class SellDAOimpl implements SellDAO {
 		return sqlSession.selectOne("S_ROW_COUNT");
 	}
 
+	@Override
+	public SellVO selectOne(SellVO vo) {
+		log.info("selectOne()...{}",vo);
+		
+		SellVO vo2 = sqlSession.selectOne("SELL_SELECT_ONE",vo);
+		
+		return vo2;
+	}
+
+	@Override
+	public int insert(SellVO vo) {
+		log.info("insert()...{}",vo);
+		
+		int flag = 0;
+		try {
+			flag = sqlSession.insert("SELL_INSERT",vo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return flag;
+	}
+
 	
 }

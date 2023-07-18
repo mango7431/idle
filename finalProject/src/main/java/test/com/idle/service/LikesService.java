@@ -1,5 +1,7 @@
 package test.com.idle.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import test.com.idle.vo.LikesVO;
 @Service
 @Slf4j
 public class LikesService {
-	
+
 	@Autowired
 	LikesDAO dao;
 	
@@ -30,4 +32,7 @@ public class LikesService {
 		return dao.delete(vo);
 	}
 
+	public List<LikesVO> selectAll(String user_id) {
+		return dao.selectAll(user_id);
+	}
 }
