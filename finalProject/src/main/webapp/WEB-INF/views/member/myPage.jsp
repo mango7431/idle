@@ -24,9 +24,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		console.log("onload....","${param.id}");
+// 		console.log("onload....","${param.id}");
 		if('${user_id}'===''){
-			console.log('널입니다.');
+// 			console.log('널입니다.');
 			location.href = 'login.do';
 		}
 		$.ajax({

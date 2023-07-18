@@ -211,7 +211,8 @@ public class MemberController {
 			return "redirect:login.do?message=fail";
 		} else {
 			session.setAttribute("user_id", vo2.getId());
-			session.setAttribute("address", vo2.getAddress());			
+			session.setAttribute("address", vo2.getAddress());	
+			session.setAttribute("name", vo2.getName());	
 			return "redirect:home.do";
 		}
 

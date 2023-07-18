@@ -30,12 +30,12 @@
 	let box;
 
 	$(function() {
-		console.log('onload....');
+// 		console.log('onload....');
 
 		$('#insert_form').submit(
 				function() {
-					console.log("insert_form!", $("#idCheck_flag").val(), $(
-							"#idCheck_flag").val() === '1');
+// 					console.log("insert_form!", $("#idCheck_flag").val(), $(
+// 							"#idCheck_flag").val() === '1');
 					if(!validationId()){ 
 	                    return false;
 	                }else if(!validationPw()){
@@ -53,7 +53,7 @@
 				});
 
 		$('#btn_idCheck').click(function() {
-			console.log("btn_idCheck!");
+// 			console.log("btn_idCheck!");
 			if(!validationId()){ 
                 return false;
             }
@@ -65,9 +65,9 @@
 	});
 
 	function idCheck() {
-		console.log('idCheck()....');
+// 		console.log('idCheck()....');
 
-		console.log('id:', $("#id").val());
+// 		console.log('id:', $("#id").val());
 		$.ajax({
 			url : "jsonIdCheck.do",
 			data : {
@@ -76,7 +76,7 @@
 			method : 'GET',
 			dataType : 'json',
 			success : function(response) {
-				console.log('ajax...success:', response);
+// 				console.log('ajax...success:', response);
 
 				let msg = '';
 				if (response.result === 'OK') {

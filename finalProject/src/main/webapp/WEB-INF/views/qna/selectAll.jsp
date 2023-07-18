@@ -22,7 +22,7 @@
 			var selectedCategory = convertNumToCategory(parseInt(parameterCategory));
 		  $("#q-category-" + convertCategoryToEng(selectedCategory)).addClass('selected');
 		  
-		  console.log("parameterCategory", parameterCategory);
+// 		  console.log("parameterCategory", parameterCategory);
 		  
 		  renderQnAListPagination(parameterCategory);
 		  
@@ -67,7 +67,7 @@
 			$(document).on("click", ".page-detail", function(e) {
 				$('input[name="qna_category"]').val(parameterCategory);
 				var qnaNum = $(this).closest("tr").find(".qna-num").text().trim();
-				console.log(qnaNum);
+// 				console.log(qnaNum);
 				//e.preventDefault();
 				var url = "qnaSelectOne.do?qna_num=" + qnaNum
 						+"&pageNum=" + $('input[name="pageNum"]').val()
@@ -82,7 +82,7 @@
 		
 		// Q&A 리스트 ajax
 		function renderQnAList(initCategory=0){
-			console.log("initCategory:" , initCategory);
+// 			console.log("initCategory:" , initCategory);
 			$.ajax({
 				url: "jsonQnaSelectAll.do",
 				data: {writer: "${user_id}",
@@ -93,7 +93,7 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vos){
-					console.log('ajax...success: vos', vos);	
+// 					console.log('ajax...success: vos', vos);	
 				  	let tag_vos = '';
 					let status = '';
 					let txtCategory = '';
@@ -159,7 +159,7 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vo){
-					console.log('ajax...success:', vo);					
+// 					console.log('ajax...success:', vo);					
 					$("#pagination").empty();
 					
 					let tag_page = `   					

@@ -6,3 +6,5 @@
 <link rel="stylesheet" href="resources/css/form.css">
 <link rel="stylesheet" href="resources/css/btn.css">
 <link rel="stylesheet" href="resources/css/board.css">
+<link rel="stylesheet" href="resources/css/hover.css">
+<link rel="stylesheet" href="resources/css/roomSelectOne.css">

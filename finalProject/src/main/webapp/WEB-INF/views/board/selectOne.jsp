@@ -11,10 +11,11 @@
   	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<jsp:include page="../css.jsp"></jsp:include>
 <script type="text/javascript">
 	
 	$(function(){
-		console.log('onload...');
+// 		console.log('onload...');
 		
 		$.ajax({
 			url:"jsonBoardSelectOne.do",
@@ -22,7 +23,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(vo2){
-				console.log('test ajax success:',vo2);
+// 				console.log('test ajax success:',vo2);
 				
 				let board_type = ``;
 				if(vo2.board_type==1){
@@ -32,9 +33,9 @@
 				}
 				$('#board_type').html(board_type);
 				
-				let img1 = `<img src="resources/img/\${vo2.board_savename1 }" height="300px" class="d-block w-100">`;
-				let img2 = `<img src="resources/img/\${vo2.board_savename2 }" height="300px" class="d-block w-100">`;
-				let img3 = `<img src="resources/img/\${vo2.board_savename3 }" height="300px" class="d-block w-100">`;
+				let img1 = `<img src="resources/img/\${vo2.board_savename1 }" height="400px" class="d-block w-100">`;
+				let img2 = `<img src="resources/img/\${vo2.board_savename2 }" height="400px" class="d-block w-100">`;
+				let img3 = `<img src="resources/img/\${vo2.board_savename3 }" height="400px" class="d-block w-100">`;
 				
 				$('#img1').html(img1);
 				$('#img2').html(img2);
@@ -42,11 +43,11 @@
 				
 				let board_title = ``;
 				if(vo2.board_status==1){
-					board_title = `거래중 \${vo2.board_title}`;
+					board_title = `<span class="spancolor">거래중</span> \${vo2.board_title}`;
 				}else if(vo2.board_status==2){
-					board_title = `거래완료 \${vo2.board_title}`;
+					board_title = `<span class="spancolor">거래완료</span> \${vo2.board_title}`;
 				}else{
-					board_title = `숨기기 \${vo2.board_title}`;
+					board_title = `<span class="spancolor">숨기기</span> \${vo2.board_title}`;
 				}
 				$('#board_title').html(board_title);
 				
@@ -54,8 +55,8 @@
 				
 				let board_date = `작성날짜 : \${date}`;
 				$('#board_date').html(board_date);
-				
-				let price = `가격 : \${vo2.price}원`;
+
+				let price = `가격 : \${vo2.price.toLocaleString('ko-KR')}원`;
 				$('#price').html(price);
 				
 				let category = `카테고리 : \${vo2.category}`;
@@ -69,9 +70,9 @@
 				
 				if('${user_id}'!=vo2.writer){
 					let buttons = `
-						<button onclick="likeButton()">찜</button>
-						<button onclick="chat('\${vo2.writer}')">채팅</button>
-						<button id="reportBtn">신고하기</button>
+						<button class="myButton" onclick="likeButton()">찜</button>
+						<button class="myButton" onclick="chat('\${vo2.writer}')">채팅</button>
+						<button class="myButton" id="reportBtn">신고하기</button>
 						`;
 						$('#buttons').html(buttons);
 				}
@@ -90,8 +91,8 @@
 				
 				if('${user_id}'==vo2.writer){
 					let udbutton = `
-						<a href="boardUpdate.do?board_num=\${vo2.board_num}">수정</a>
-						<a href="boardDeleteOK.do?board_num=\${vo2.board_num}" onclick="return deleteOK()">삭제</a>
+						<a href="boardUpdate.do?board_num=\${vo2.board_num}" class="myButton">수정</a>
+						<a href="boardDeleteOK.do?board_num=\${vo2.board_num}" onclick="return deleteOK()" class="myButton">삭제</a>
 						`;
 						$('#udbutton').html(udbutton);
 						
@@ -127,9 +128,9 @@
 	});
 	
 	function likeButton(){
-		console.log("likeButton()");
+// 		console.log("likeButton()");
 		if('${user_id}'===''){
-			console.log('널입니다.');
+// 			console.log('널입니다.');
 			location.href = 'login.do';
 		}
 		$.ajax({
@@ -141,10 +142,10 @@
 			method:'GET',
 			dataType:'json',
 			success: function(obj){
-				console.log(obj);
+// 				console.log(obj);
 				
 				if(obj.result=='OK'){
-					console.log('찜하기');
+// 					console.log('찜하기');
 					
 					$.ajax({
 						
@@ -167,7 +168,7 @@
 					});
 					
 				}else{
-					console.log('찜해제');
+// 					console.log('찜해제');
 					$.ajax({
 						
 						url:"jsonLikeDelete.do",
@@ -196,11 +197,11 @@
 	}
 	
 	function chat(writer){
-		console.log("chat()");
-		console.log(writer);
+// 		console.log("chat()");
+// 		console.log(writer);
 		
 		if('${user_id}'===''){
-			console.log('널입니다.');
+// 			console.log('널입니다.');
 			location.href = 'login.do';
 		}
 		
@@ -214,7 +215,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(result){
-				console.log(result);
+// 				console.log(result);
 				if(result==1){
 					location.href = 'roomSelectAll.do';
 				}
@@ -229,10 +230,10 @@
 	}
 	
 	function changeStatus(status){
-		console.log("changeStatus",status);
+// 		console.log("changeStatus",status);
 		
 		if('${user_id}'===''){
-			console.log('널입니다.');
+// 			console.log('널입니다.');
 			location.href = 'login.do';
 		}
 		
@@ -245,7 +246,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(result){
-				console.log(result);
+// 				console.log(result);
 				if(result==1){
 					location.href = 'boardSelectOne.do?board_num=${param.board_num}';
 				}
@@ -363,8 +364,8 @@
 					<p class="card-text" id="deal_region"></p>
 					<p class="card-text" id="count"></p>
 					<p class="card-text" id="udbutton"></p>
-					<p class="card-text" id="buttons" align="right"></p>
 					<p class="card-text" id="board_status"></p>
+					<p class="card-text" id="buttons" align="right"></p>
 				</div>
 			</div>
 		</div>

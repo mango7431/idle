@@ -22,13 +22,14 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<jsp:include page="css.jsp"></jsp:include>
 <style type="text/css">
 .sellingItemsContainer {
 	margin-left: 2%;
 	float: left;
-	background-image:
-		url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQgYL6VmQR5PdxDoQh-p27Cnvb4q8WH34NgQ&usqp=CAU');
-	background-size: cover;
+/* 	background-image: */
+/* 		url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQgYL6VmQR5PdxDoQh-p27Cnvb4q8WH34NgQ&usqp=CAU'); */
+/* 	background-size: cover; */
 	margin-bottom: 50px;
 }
 
@@ -74,15 +75,8 @@
 }
 
 .mainbody {
-	background-image:
-		url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShtZB3PI-VBlkjuHZZGzoe3ujz0c0MtI_w7w&usqp=CAU');
-	background-size: cover;
-}
-
-#boardhover:hover {
-	border-radius: 10%;
-	background: springgreen;
-	cursor: pointer;
+/* 	background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShtZB3PI-VBlkjuHZZGzoe3ujz0c0MtI_w7w&usqp=CAU'); */
+/*  	background-size: cover; */
 }
 
 </style>
@@ -90,13 +84,10 @@
 <body class="mainbody">
 	<jsp:include page="top_menu.jsp"></jsp:include>
 	<section style="padding-left: 100px; padding-right: 100px;">
-		<c:if test="${not empty user_id}">
-			<h1>${user_id}님반갑습니다.</h1>
-		</c:if>
 		<div>
 			<div style="margin: 50px;">
 				<h3>
-					공지사항<a href="noticeSelectAll.do" style="float: right;">더보기</a>
+					공지사항<a href="noticeSelectAll.do" style="float: right;" class="plushover">더보기</a>
 				</h3>
 				<table class="table" id="ntable">
 					<thead>
@@ -120,8 +111,8 @@
 				</table>
 			</div>
 				<div class="sellingItemsContainer">
-					<h3>
-						최근 중고거래<a href="boardSelectAll.do" style="float: right;">더보기</a>
+					<h3 class="hover">
+						최근 중고거래<a href="boardSelectAll.do" style="float: right;" class="plushover">더보기</a>
 					</h3>
 					<c:choose>
 						<c:when test="${empty vos}">
@@ -181,7 +172,7 @@
 				<div class="sellingItemsContainer">
 					<h3>
 						최근 팔아요<a href="boardSelectAll.do?board_type=2"
-							style="float: right;">더보기</a>
+							style="float: right;" class="plushover">더보기</a>
 					</h3>
 					<c:choose>
 						<c:when test="${empty vos}">
@@ -241,7 +232,7 @@
 				<div class="sellingItemsContainer">
 					<h3>
 						최근 구해요<a href="boardSelectAll.do?board_type=1"
-							style="float: right;">더보기</a>
+							style="float: right;" class="plushover">더보기</a>
 					</h3>
 					<c:choose>
 						<c:when test="${empty vos}">

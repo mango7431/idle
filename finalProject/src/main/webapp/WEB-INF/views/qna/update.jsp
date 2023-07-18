@@ -22,7 +22,7 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(vo){
-				console.log('ajax...success:', vo);
+// 				console.log('ajax...success:', vo);
 				let category = '';
 				
 				if (vo.qna_category === 1) {
@@ -43,7 +43,7 @@
 				$('#category').val(vo.qna_category);
 				
 				var content_txt = $('#content').text();
-				console.log(content_txt);
+// 				console.log(content_txt);
 				fn_checkByte($('#content').text());
 
 			},

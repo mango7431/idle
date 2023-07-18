@@ -1,0 +1,6 @@
+@charset "UTF-8";
+
+ul.nav {
+  display: flex; /* Flexbox 컨테이너로 설정 */
+  align-items: center; /* 세로 방향으로 가운데 정렬 */
+}

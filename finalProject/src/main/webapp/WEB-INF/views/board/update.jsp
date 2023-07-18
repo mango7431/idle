@@ -110,7 +110,7 @@
 		
 		<div class="col-12">
 			<label for="multipartFiles" class="form-label">이미지사진</label> 
-			<input type="file" name="multipartFiles" id="multipartFiles" multiple="multiple" />
+			<input type="file" name="multipartFiles" id="multipartFiles" multiple="multiple" class="form-control form-control-sm"/>
 		</div>
 		
 		<div class="col-12">

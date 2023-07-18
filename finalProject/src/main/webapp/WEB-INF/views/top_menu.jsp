@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
+   <link rel="stylesheet" href="resources/css/top.css">
 	<header class="p-3 mb-3 border-bottom">
 	    <div class="container">
 	      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -8,7 +9,7 @@
 	        </a>
 	
 	        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-	          <li><a href="home.do" class="nav-link px-2 link-secondary">중고링</a></li>
+	          <li><a href="home.do" class="nav-link px-2 link-secondary"><img src="resources/img/logo1-sample.png" width=100px/></a></li>
 	          <li><a href="noticeSelectAll.do" class="nav-link px-2 link-dark">공지사항</a></li>
 	          <li><a href="boardSelectAll.do" class="nav-link px-2 link-dark">중고거래</a></li>
 	          <li><a href="roomSelectAll.do" class="nav-link px-2 link-dark">채팅목록</a></li>
@@ -25,7 +26,8 @@
 	        
 	        <div class="dropdown text-end">
 	          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+<!-- 	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"> -->
+				${name}님
 	          </a>
 	          <ul class="dropdown-menu text-small">
 	            <li><a class="dropdown-item" href="buySelectAll.do">내 상점</a></li>
@@ -87,7 +89,7 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(vos){
-				console.log('ajax...success:', vos);	
+// 				console.log('ajax...success:', vos);	
 			  	let tag_vos = '';
 				
 				if(vos.length === 0) {
@@ -156,7 +158,7 @@
 	        const eventSource = new EventSource('/idle/subscribe.do?memberId=${user_id}');
 	
 	        eventSource.addEventListener("message", function (event) {
-	            console.log(event.data);
+// 	            console.log(event.data);
 	
 	            const data = JSON.parse(event.data);
 	

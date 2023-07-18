@@ -182,7 +182,7 @@ main {
 </style>
 <script type="text/javascript">
 window.onload = function(){
-	console.log('selectAll()....');
+// 	console.log('selectAll()....');
 	
 	$(function(){
 		$.ajax({
@@ -190,11 +190,11 @@ window.onload = function(){
 			method: 'GET',
 			dataType: 'json',
 			success: function(arr){
-				console.log('jsonLikeSelectAll:',arr);
+// 				console.log('jsonLikeSelectAll:',arr);
 				let tag_vos = '';
 				
 	 	 		$.each(arr,function(index,vo){
-					console.log(index,vo);
+// 					console.log(index,vo);
 					
 					let boardStatus = '';
 						if (vo.board_status == 1) {
@@ -263,7 +263,7 @@ window.onload = function(){
 
 //찜기능
 function likeButton(likes_num){
-	console.log('찜해제');
+// 	console.log('찜해제');
 	$.ajax({
 		url:"jsonLikeOnlyDelete.do?likes_num="+likes_num,
 		method:'GET',

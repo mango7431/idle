@@ -31,7 +31,7 @@ const nameRegExp = /^[가-힣a-zA-Z]{2,20}$/; //이름
 let box;
 
 $(function() {
-	console.log("onload....");
+// 	console.log("onload....");
 
 	$('#update_form').submit(
 		function() {

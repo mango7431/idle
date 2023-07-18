@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#boardhover:hover {
+	border-radius: 10%;
+	background: #33A1FD;
+	cursor: pointer;
+}
+
+.plushover:hover{
+	background: #33A1FD;
+	cursor: pointer;
+}

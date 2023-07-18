@@ -32,7 +32,7 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vo){
-					console.log('ajax...success:', vo);
+// 					console.log('ajax...success:', vo);
 					let status = '';
 					let category = '';
 
