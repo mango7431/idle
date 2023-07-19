@@ -51,9 +51,10 @@
 	text-align: center;
 }
 
-.sellingItems .itemImage a img {
+.sellingItems .itemImage img {
 	width: 100%;
 	height: 100%;
+	
 	/* 	object-fit: cover; */
 	/* 	display: block; */
 	/*  	margin: 0 auto; */
@@ -291,4 +292,5 @@
 			</div>
 	</section>
 </body>
+
 </html>

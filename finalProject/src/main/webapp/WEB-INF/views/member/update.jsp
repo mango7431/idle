@@ -173,11 +173,13 @@
 								<label for="pw"><b>비밀번호</b></label> <br> <input
 									type="password" id="pw" name="pw" value="${vo2.pw}"
 									placeholder="비밀번호" class="memberUpdateItem" required>
+									<p>4~12자의 영문 대소문자와 숫자로만 입력</p>
 							</div>
 							<div class="memberUpdateContainer">
 								<label for="name"><b>이름</b></label> <br> <input type="text"
 									id="name" name="name" value="${vo2.name}" placeholder="이름"
 									class="memberUpdateItem" required>
+									<p>2~20자의 영문 대소문자와 한글 입력</p>
 							</div>
 							<br>
 							<div class="memberUpdateContainer">

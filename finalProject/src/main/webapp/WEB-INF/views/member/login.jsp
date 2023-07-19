@@ -78,12 +78,12 @@
 				<div class="loginContainer">
 					<div class="loginContainer">
 						<label for="id"><b>아이디</b></label> <br> <input type="text"
-							id="id" name="id" value="tester" placeholder="아이디"
+							id="id" name="id" value="" placeholder="아이디"
 							class="idPwInput" required>
 					</div>
 					<div class="loginContainer">
 						<label for="pw"><b>비밀번호</b></label> <br> <input
-							type="password" id="pw" name="pw" value="hi11" placeholder="비밀번호"
+							type="password" id="pw" name="pw" value="" placeholder="비밀번호"
 							class="idPwInput" required> <br>
 						<p>${message}</p>
 					</div>
