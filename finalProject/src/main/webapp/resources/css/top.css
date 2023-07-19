@@ -4,3 +4,23 @@ ul.nav {
   display: flex; /* Flexbox 컨테이너로 설정 */
   align-items: center; /* 세로 방향으로 가운데 정렬 */
 }
+
+.notification-btn {
+	background: none;
+	  border: none;
+	  padding: 0;
+	}
+	
+	.notification-btn {
+	  position: relative;
+	}
+	
+	.badge {
+	  position: absolute;
+	  top: -4px;
+	  right: -4px;
+	  padding: 5px;
+	  border-radius: 50%;
+	  background-color: #dc3545;
+	  border-radius: 50%;
+	}

@@ -11,6 +11,85 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 	<jsp:include page="../css.jsp"></jsp:include>
 	
+	<style>
+		/* 전체 */
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+		
+		a:hover {
+			color: inherit;
+		}
+		
+		li {
+		  list-style-type: none;
+		}
+		
+				
+		
+		
+		/* 마이페이지 breadcrumb */
+		.breadcrumb {
+			padding-top: 35px;
+			padding-bottom: 35px;
+		}
+		
+		
+		
+		
+		/* 마이페이지 서브메뉴 */
+		.mypage-floating-menu { /* 마이페이지 통일시키기 */
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border: 2px solid #33A1FD;
+		}
+		
+		.mypage-floating-menu li {
+			list-style-type: none;
+		}
+		
+		.mypage-floating-menu li a {
+			display: block;
+			text-align: center;
+			padding: 14px 16px;
+		}
+		
+		.mypage-floating-menu li a:hover{
+			color: #33A1FD;
+		}
+
+		
+		
+		/* 마이페이지 Q&A 목록 */
+		.q-filter-btn .selected { /* 카테고리 버튼 */
+			border-radius: 20px;
+			background-color: #33A1FD;
+			color: #fff;
+		}
+		
+		
+		/* 마이페이지 Q&A 목록, 상세 공통 */
+		.q-status { /* 답변 상태 */
+			color : #33A1FD;
+		}
+		
+		.q-category { /* 카테고리 */
+			color : #343a40;
+		}
+		
+		
+		
+		/* 마이페이지 페이지 표시 */
+		.page-num.active a {
+			font-weight: bold;
+			color: #33A1FD;
+		}
+	
+	
+	</style>
+	
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	
 	<script type="text/javascript">
@@ -22,7 +101,7 @@
 			var selectedCategory = convertNumToCategory(parseInt(parameterCategory));
 		  $("#q-category-" + convertCategoryToEng(selectedCategory)).addClass('selected');
 		  
-// 		  console.log("parameterCategory", parameterCategory);
+		  //console.log("parameterCategory", parameterCategory);
 		  
 		  renderQnAListPagination(parameterCategory);
 		  
@@ -67,7 +146,7 @@
 			$(document).on("click", ".page-detail", function(e) {
 				$('input[name="qna_category"]').val(parameterCategory);
 				var qnaNum = $(this).closest("tr").find(".qna-num").text().trim();
-// 				console.log(qnaNum);
+				//console.log(qnaNum);
 				//e.preventDefault();
 				var url = "qnaSelectOne.do?qna_num=" + qnaNum
 						+"&pageNum=" + $('input[name="pageNum"]').val()
@@ -82,18 +161,18 @@
 		
 		// Q&A 리스트 ajax
 		function renderQnAList(initCategory=0){
-// 			console.log("initCategory:" , initCategory);
+			//console.log("initCategory:" , initCategory);
 			$.ajax({
 				url: "jsonQnaSelectAll.do",
 				data: {writer: "${user_id}",
-							 qna_category: initCategory,
-							 pageNum : $('input[name="pageNum"]').val(),
-							 amount : $('input[name="amount"]').val()
+				 qna_category: initCategory,
+				 pageNum : $('input[name="pageNum"]').val(),
+				 amount : $('input[name="amount"]').val()
 				},
 				method: 'GET',
 				dataType: 'json',
 				success: function(vos){
-// 					console.log('ajax...success: vos', vos);	
+					//console.log('ajax...success: vos', vos);	
 				  	let tag_vos = '';
 					let status = '';
 					let txtCategory = '';
@@ -130,7 +209,7 @@
 						      <td class="py-4 my-1">
 						      	<a href="" class="page-detail">
 							        <div class="fs-5"><span class="q-status fw-bold me-2">\${status}</span>\${vo.qna_title}</div>
-							        <div class="mt-3">\${txtCategory}</div>
+							        <div class="mt-3 fw-bold q-category">\${txtCategory}</div>
 							        <div class="mt-2">\${formattedDate}</div>
 							      </a>
 						      </td>
@@ -142,7 +221,7 @@
 					}
 				},
 				error: function(xhr, status, error) {
-					console.log('xhr.status:', xhr.status);
+					//console.log('xhr.status:', xhr.status);
 				}
 			});
 		}
@@ -159,7 +238,7 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vo){
-// 					console.log('ajax...success:', vo);					
+					//console.log('ajax...success:', vo);					
 					$("#pagination").empty();
 					
 					let tag_page = `   					
@@ -200,7 +279,7 @@
 
 				},
 				error: function(xhr, status, error) {
-					console.log('xhr.status:', xhr.status);
+					//console.log('xhr.status:', xhr.status);
 				}
 			});
 		}

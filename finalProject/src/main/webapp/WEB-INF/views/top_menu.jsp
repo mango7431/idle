@@ -16,7 +16,7 @@
 	        </ul>
 	
 	        <form action="b_searchList.do" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-	          <input type="search" name="searchWord" id="searchWord" class="form-control" placeholder="Search..." aria-label="Search">
+	          <input type="search" name="searchWord" id="searchWord" class="form-control" placeholder="제목or내용 입력" aria-label="Search">
 	        </form>
 	        
 	        <div>
@@ -26,7 +26,6 @@
 	        
 	        <div class="dropdown text-end">
 	          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-<!-- 	            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle"> -->
 				${name}님
 	          </a>
 	          <ul class="dropdown-menu text-small">
@@ -111,7 +110,7 @@
 						if (vo.notification_type === 1) { // 채팅
 							tag_vos += `
 								<li class="px-3 notification-link">
-								 	<a href="#">
+								 	<a href="\${vo.notification_link}">
 								 		\${vo.notification_title}
 								 		\${vo.notification_content}
 								 		<span class="alarm-time" style="color:#737373;">\${formattedDate}</span>
@@ -122,7 +121,7 @@
 						} else if (vo.notification_type === 2) {
 							tag_vos += `
 								<li class="px-3 notification-link">
-								 	<a href="#">
+								 	<a href="\${vo.notification_link}">
 								 		\${vo.notification_title}
 								 		질문에 대한 답변이 왔습니다.
 								 		<span class="alarm-time" style="color:#737373;">\${formattedDate}</span>

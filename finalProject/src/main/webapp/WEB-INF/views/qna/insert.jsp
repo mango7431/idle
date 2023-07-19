@@ -12,56 +12,85 @@
 	<jsp:include page="../css.jsp"></jsp:include>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	
-	<script type="text/javascript">
-		$(function(){	
-			//Q&A 폼 유효성 검사
-			$('.submit-btn').click(function() {				
-				if($('#category').val() === '카테고리') {
-						event.preventDefault();
-						alert("카테고리를 선택해주세요.");
-				} else if ($('#title').val() === '') {
-						event.preventDefault();
-						alert("제목을 입력해주세요.");
-				} else if ($('#content').val() === '') {
-						event.preventDefault();
-						alert("문의할 내용을 작성해주세요.");
-				}
-			});
-			
 
-		}); //load
-		
-		//textarea 바이트 수 체크하는 함수
-		function fn_checkByte(obj){
-		    const maxByte = 3000;
-		    const text_val = obj.value; //입력한 문자
-		    const text_len = text_val.length; //입력한 문자수
-		    
-		    let totalByte=0;
-		    for(let i=0; i<text_len; i++){
-		    	const each_char = text_val.charAt(i);
-		        const uni_char = escape(each_char); //유니코드 형식으로 변환
-		        if(uni_char.length>4){
-		        	// 한글 : 3Byte
-	            totalByte += 3;
-		        }else{
-		        	// 영문,숫자,특수문자 : 1Byte
-	            totalByte += 1;
-		        }
-		    }
-		    
-		    if(totalByte>maxByte){
-		    	alert('최대 3000Byte까지만 입력가능합니다.');
-	        	document.getElementById("nowByte").innerText = totalByte;
-	        	document.getElementById("nowByte").style.color = "red";
-        	}else{
-	        	document.getElementById("nowByte").innerText = totalByte;
-	        	document.getElementById("nowByte").style.color = "green";
-        	}
+<style type="text/css">
+/* 마이페이지 서브메뉴 */
+.mypage-floating-menu { /* 마이페이지 통일시키기 */
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 2px solid #33A1FD;
+}
+
+.mypage-floating-menu li {
+	list-style-type: none;
+}
+
+.mypage-floating-menu li a {
+	display: block;
+	text-align: center;
+	padding: 14px 16px;
+}
+
+.mypage-floating-menu li a:hover {
+	color: #33A1FD;
+}
+
+.submit-btn {
+	border-radius: 12px;
+	background-color: #33A1FD;
+	color: #fff;
+	padding: 8px 15px;
+	border: none;
+}
+</style>
+
+<script type="text/javascript">
+	$(function() {
+		//Q&A 폼 유효성 검사
+		$('.submit-btn').click(function() {
+			if ($('#category').val() === '카테고리') {
+				event.preventDefault();
+				alert("카테고리를 선택해주세요.");
+			} else if ($('#title').val() === '') {
+				event.preventDefault();
+				alert("제목을 입력해주세요.");
+			} else if ($('#content').val() === '') {
+				event.preventDefault();
+				alert("문의할 내용을 작성해주세요.");
+			}
+		});
+
+	}); //load
+
+	//textarea 바이트 수 체크하는 함수
+	function fn_checkByte(obj) {
+		const maxByte = 3000;
+		const text_val = obj.value; //입력한 문자
+		const text_len = text_val.length; //입력한 문자수
+
+		let totalByte = 0;
+		for (let i = 0; i < text_len; i++) {
+			const each_char = text_val.charAt(i);
+			const uni_char = escape(each_char); //유니코드 형식으로 변환
+			if (uni_char.length > 4) {
+				// 한글 : 3Byte
+				totalByte += 3;
+			} else {
+				// 영문,숫자,특수문자 : 1Byte
+				totalByte += 1;
+			}
 		}
-		
-	</script>
+
+		if (totalByte > maxByte) {
+			alert('최대 3000Byte까지만 입력가능합니다.');
+			document.getElementById("nowByte").innerText = totalByte;
+			document.getElementById("nowByte").style.color = "red";
+		} else {
+			document.getElementById("nowByte").innerText = totalByte;
+			document.getElementById("nowByte").style.color = "green";
+		}
+	}
+</script>
 	
 </head>
 <body>

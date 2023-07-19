@@ -12,6 +12,82 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <jsp:include page="../css.jsp"></jsp:include>
+<style type="text/css">
+#reportModal{
+	width: 30%;
+	margin: 0 auto;
+	border: 1px solid #33A1FD;
+	background: white;
+	position: fixed;
+  	left: 50%;
+  	top: 50%;
+	transform: translate(-50%, -50%);
+   	padding: 30px;
+   	border-radius: 20px;
+}
+
+#reportModal h2{
+	color: #33A1FD;
+	margin-bottom: 15px;
+}
+
+#reportWarning{
+	color : red;
+}
+
+.close {
+	float: right;
+	background: none;
+	border: none;
+	font-size: x-large;
+}
+
+.close:hover{
+	font-weight: bold;
+}
+
+.modalBtn{
+	text-align: center;
+}
+
+.modalContent input[type="radio"] {
+    display: none;
+ }
+
+.modalContent input[type="radio"]:checked + label {
+    font-weight: bold;
+}
+
+.modalContent label {
+    cursor: pointer;
+}
+
+.modalContent label:hover{
+	font-weight: bold;
+	color: #33A1FD;
+}
+
+.reportBoard{
+	height: auto;
+	margin-bottom: 15px;
+}
+.reportBoard label{
+	margin-bottom: 18px;
+}
+
+.reportBoard textarea{
+	display: none;
+	width: 90%;
+}
+
+.modalBtn button{
+	background-color: #33A1FD;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	padding: 8px;
+}
+</style>
 <script type="text/javascript">
 	
 	$(function(){

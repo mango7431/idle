@@ -22,14 +22,6 @@ public class BlackDAOimpl implements BlackDAO {
 		log.info("BlackDAOimpl...");
 	}
 
-//	@Override
-//	public List<BlackVO> jsonBlackSelectAll() {
-//		log.info("jsonBlackSelectAll");
-//		
-//		List<BlackVO> vos = sqlSession.selectList("BLACK_SELECT_ALL");
-//		log.info("vos:",vos);
-//		return vos;
-//	}
 	@Override
 	public List<BlackVO> jsonBlackSelectAll(Criteria cri) {
 		log.info("jsonBlackSelectAll..{}",cri);
@@ -66,5 +58,17 @@ public class BlackDAOimpl implements BlackDAO {
 	public void removeMember(String targetid) {
 		log.info("removeMember:{}",targetid);
 		sqlSession.delete("REMOVE_MEMBER",targetid);
+	}
+	
+	@Override
+	public void changeStatus(int black_num) {
+		log.info("changeStatus:{}",black_num);
+		sqlSession.delete("CHANGE_STATUS",black_num);
+	}
+
+	@Override
+	public int totalCount() {
+		log.info("totalCount...");
+		return sqlSession.selectOne("TOTAL_COUNT");
 	}
 }

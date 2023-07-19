@@ -10,7 +10,6 @@
   	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 <style type="text/css">
 body {
 	margin: 0;
@@ -48,7 +47,6 @@ main {
 }
 
 .contenList{
-	bolder : 1px solid blue;
 	margin-bottom: 50px;
 }
 
@@ -61,14 +59,8 @@ main {
 	align-items: center;
 	 position: relative;
 }
-
-/* .contentImg{ */
-/* 	width: 30%; */
-/* } */
-
 .contentImg img {
   max-width: 80%;
-/*   height: 100%; */
 }
 
 .contentTitle{
@@ -80,7 +72,7 @@ main {
 }
 
 .boardStatus{
-	color: blue;
+	color: #33A1FD;
 }
 
 .selectStatus{
@@ -94,7 +86,7 @@ main {
 	padding: 20px 30px 0px 30px;
 	font-weight: bold;
 	font-size: large;
-	color: blue;
+	color: #33A1FD;
 }
 
 .heartdiv {
@@ -110,12 +102,12 @@ main {
 
 /*사이드메뉴*/
 .sideMarket{
-	width : 150px;
-	height : 170px;
-	border: 1px solid gray;
-	background: #f8f8ff;
-	margin: 60px 0px 60px 60px;
-	padding: 15px;
+ width : 170px;
+ height : 140px;
+ margin: 70px 0px 60px 60px;
+ padding: 15px;
+ background-color: #fffff;
+ border: 2px solid #33A1FD;
 }
 
 .sideMarket p a{
@@ -162,7 +154,7 @@ main {
 }
 
 #toggle-slider:checked + #toggleLabel {
-    background-color: #4B89DC;
+    background-color: #33A1FD;
 }
 
 #toggle-slider:checked + #toggleLabel::after {
@@ -178,11 +170,10 @@ main {
 	text-align: center;
 	font-size: large;
 }
-
 </style>
 <script type="text/javascript">
 window.onload = function(){
-// 	console.log('selectAll()....');
+	console.log('selectAll()....');
 	
 	$(function(){
 		$.ajax({
@@ -190,11 +181,11 @@ window.onload = function(){
 			method: 'GET',
 			dataType: 'json',
 			success: function(arr){
-// 				console.log('jsonLikeSelectAll:',arr);
+				console.log('jsonLikeSelectAll:',arr);
 				let tag_vos = '';
 				
 	 	 		$.each(arr,function(index,vo){
-// 					console.log(index,vo);
+					console.log(index,vo);
 					
 					let boardStatus = '';
 						if (vo.board_status == 1) {
@@ -263,7 +254,7 @@ window.onload = function(){
 
 //찜기능
 function likeButton(likes_num){
-// 	console.log('찜해제');
+	console.log('찜해제');
 	$.ajax({
 		url:"jsonLikeOnlyDelete.do?likes_num="+likes_num,
 		method:'GET',
@@ -301,12 +292,10 @@ function showAlert() {
 	<main>
 		<!--사이드메뉴 -->
 		<div class="sideMarket">
-			<p><b>내 상점</b></p>
 			<p><a href="buySelectAll.do">내 거래 목록</a></p>
 			<p><a href="myWriteBuySelectAll.do">내가 쓴 글</a></p>
-			<p><a href="myLikeSelectAll.do">내 찜 목록</a></p>
+			<p><a href="myLikeSelectAll.do" style="font-weight: bold;">내 찜 목록</a></p>
 		</div>
-		
 		<div class="reportContainer">
 		    <div>
 		        <button class="listBtn">찜목록</button>

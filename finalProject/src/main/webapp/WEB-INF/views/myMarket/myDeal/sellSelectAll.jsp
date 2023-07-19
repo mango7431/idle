@@ -21,152 +21,9 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link rel="stylesheet" href="resources/css/buySelectAll.css">
+<jsp:include page="../../css.jsp"></jsp:include>
 
-<style type="text/css">
-body {
-	margin: 0;
-	padding: 0;
-}
-
-a, a:hover {
-	text-decoration: none;
-	color: black;
-}
-
-p {
-	white-space: nowrap;
-}
-
-ul, li {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-
-main {
-	width: 100%;
-	min-height: 100vh;
-	display: flex;
-}
-
-.headerTitle {
-	margin: 30px 0 0 50px;
-}
-
-.reportContainer {
-	width: 70%;
-	margin: 0 auto;
-}
-
-.contenList {
-	bolder: 1px solid blue;
-	margin-bottom: 50px;
-}
-
-.contents {
-	width: 85%;
-	display: flex;
-	flex-direction: row;
-	border: 1px solid gray;
-	margin: 5px auto;
-}
-
-.contentImg {
-	width: 30%;
-}
-
-.contentImg img {
-	max-width: 90%;
-	height: 100%;
-}
-
-.contentTitle {
-	width: 50%;
-}
-
-.boardStatus {
-	color: blue;
-}
-
-.selectStatus {
-	text-align: right;
-	margin-bottom: 10px;
-}
-
-/*판매tab 구매tab 클릭 시*/
-.listBtn {
-	background: transparent;
-	border: none;
-	padding: 20px 30px 0px 30px;
-	font-weight: bold;
-	font-size: large;
-	color: black;
-}
-
-.listBtn:focus, .listBtn.selected {
-	color: blue;
-}
-
-/* .tabContent {
-	display: none;
-} */
-
-.active {
-	display: block;
-}
-
-/*...드롭다운메뉴*/
-.dropdown {
-	width: auto;
-	margin-left: auto;
-}
-
-.dropBtn {
-	background: none;
-	margin-left: 0;
-	margin-right: 40px;
-	border: none;
-}
-
-.dropMenuBuy {
-	display: none;
-	position: absolute;
-	background: #F0FFFF;
-	width: 150%;
-}
-
-.dropMenuSell {
-	display: none;
-	position: absolute;
-	background: #F0FFFF;
-	width: 150%;
-}
-
-.dropMmenu a {
-	display: block;
-	padding: 5px 10px;
-	text-decoration: none;
-	color: #333;
-}
-
-.dropdown-menu a:hover {
-	background-color: #ddd;
-}
-
-/*사이드메뉴*/
-.sideMarket {
-	width: 150px;
-	height: 170px;
-	border: 1px solid gray;
-	background: #f8f8ff;
-	margin: 60px 0px 60px 60px;
-	padding: 15px;
-}
-
-.sideMarket p a {
-	font-size: 15px;
-}
-</style>
 </head>
 <body>
 	<jsp:include page="../../top_menu.jsp"></jsp:include>
@@ -181,19 +38,10 @@ main {
 	<main>
 
 		<!--사이드메뉴 -->
-		<div class="sideMarket" style="float: left">
-			<p>
-				<b>내 상점</b>
-			</p>
-			<p>
-				<a href="buySelectAll.do">내 거래 목록</a>
-			</p>
-			<p>
-				<a href="myWriteBuySelectAll.do">내가 쓴 글</a>
-			</p>
-			<p>
-				<a href="myLikeSelectAll.do">내 찜 목록</a>
-			</p>
+		<div class="sideMarket">
+			<p><a href="buySelectAll.do" style="font-weight: bold;">내 거래 목록</a></p>
+			<p><a href="myWriteBuySelectAll.do">내가 쓴 글</a></p>
+			<p><a href="myLikeSelectAll.do">내 찜 목록</a></p>
 		</div>
 
 		<div class="reportContainer">

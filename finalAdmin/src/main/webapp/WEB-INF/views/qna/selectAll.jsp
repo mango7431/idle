@@ -21,8 +21,6 @@
 	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 	crossorigin="anonymous"></script>
 
-<jsp:include page="../css.jsp"></jsp:include>
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -167,18 +165,44 @@ function showPagination(pageNum, amount) {
 
 </script>
 <style type="text/css">
-.reportContainer{
+.adminQnaListContainer{
 	width: 60%;
 	margin: 0 auto;
 }
+
+.adminQnaList {
+	border-top: 1px solid black;
+    border-collapse: collapse;
+	width: 100%;
+	text-align: center;
+}
+
+.adminQnaList td, .adminQnaList th {
+	border-top: 1px solid #8C8C8C;
+	border-bottom: 1px solid #8C8C8C;
+	border-collapse: collapse;
+	padding: 8px;
+}
+
+.adminQnaList tr:hover {
+	background-color: #f2f2f2;
+}
+
+.adminQnaList th {
+	padding-top: 13px;
+	padding-bottom: 13px;
+	color: black;
+}
+
+
 </style>
 </head>
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
 	
-	<div class="reportContainer">
+	<div class="adminQnaListContainer">
 	<h3>Q&A목록</h3>
-	<table id="boardList">
+	<table class="adminQnaList">
 		<thead>
 			<tr>
 				<th>질문번호</th>

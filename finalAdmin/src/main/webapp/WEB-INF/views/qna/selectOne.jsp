@@ -19,7 +19,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
 	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 	crossorigin="anonymous"></script>
-<jsp:include page="../css.jsp"></jsp:include>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -101,13 +100,13 @@
 						let tag_td = `<td>\${vo.qnareply_content}</td>`;
 						if(qnareply_num==vo.qnareply_num){
 							tag_td = `<td><textarea id="input_content" rows="10" cols="50" style="resize: none;" >\${vo.qnareply_content}</textarea>
-								<button onclick="updateOK(\${vo.qnareply_num})">수정완료</button></td>`;
+								<button onclick="updateOK(\${vo.qnareply_num})" class="qnaReplyUpateOKButton">수정완료</button></td>`;
 						}
 						let tag_div = ``;
 							tag_div = `
-							<div id="reply_up_del">
-								<button onclick="selectAll(\${vo.qnareply_num})">답글수정</button>
-								<button onclick="deleteOK(\${vo.qnareply_num})">답글삭제</button>
+							<div id="reply_up_del" >
+								<button onclick="selectAll(\${vo.qnareply_num})" class="qnaReplyUpdateButton">수정</button>
+								<button onclick="deleteOK(\${vo.qnareply_num})" class="qnaReplyDeleteButton">삭제</button>
 							</div>`;
 						
 						tag_txt += `
@@ -218,15 +217,63 @@
 		
 	</script>
 <style type="text/css">
-.reportContainer {
+.adminQnaReplyContainer {
 	width: 60%;
 	margin: 0 auto;
+}
+
+.qnaReplyInsertButton {
+	background-color: #33A1FD;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 45%;
+}
+
+.qnaReplyInsertButton {
+	opacity: 0.8;
+}
+
+.qnaReplyUpateOKButton {
+	background-color: #33A1FD;
+	color: white;
+	padding: 14px 20px;
+	/* 	margin: 8px 0; */
+	border: none;
+	cursor: pointer;
+	width: 30%;
+}
+
+.qnaReplyUpateOKButton {
+	opacity: 0.8;
+}
+
+.qnaReplyUpdateButton {
+	color: #33A1FD;
+	border: 3px solid #33A1FD;
+	cursor: pointer;
+	width: 40%;
+}
+
+.qnaReplyDeleteButton {
+	background-color: #33A1FD;
+	border: 3px solid #33A1FD;
+	color: white;
+	border: none;
+	cursor: pointer;
+	width: 42%;
+}
+
+.qnaReplyDeleteButton {
+	opacity: 0.8;
 }
 </style>
 </head>
 <body onload="selectAll()">
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<div class="reportContainer">
+	<div class="adminQnaReplyContainer">
 		<div class="col-md-8">
 			<div>
 				<h4 id="qna_num"></h4>
@@ -234,8 +281,8 @@
 				<p id="qna_category"></p>
 				<p id="qna_date"></p>
 				<p id="writer"></p>
-				<textarea class="form-control" id="qna_content"
-					rows="10" cols="70" readonly style="resize: none;"></textarea>
+				<textarea class="form-control" id="qna_content" rows="10" cols="70"
+					readonly style="resize: none;"></textarea>
 			</div>
 		</div>
 		<hr>
@@ -248,9 +295,10 @@
 		<div id="reply_insert">
 			<h5>답글 작성</h5>
 			<div>
-				<textarea id="reply_content" rows="10" cols="70" style="resize: none;">안녕하세요. 중고링입니다.</textarea>
+				<textarea id="reply_content" rows="10" cols="70"
+					style="resize: none;">안녕하세요. 중고링입니다.</textarea>
 				<div>
-					<button onclick="insertOK()">작성완료</button>
+					<button onclick="insertOK()" class="qnaReplyInsertButton">작성완료</button>
 				</div>
 			</div>
 		</div>

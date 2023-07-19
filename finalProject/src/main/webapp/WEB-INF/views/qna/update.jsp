@@ -12,8 +12,40 @@
 	<jsp:include page="../css.jsp"></jsp:include>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	
-	<script type="text/javascript">
+
+<style type="text/css">
+
+/* 마이페이지 서브메뉴 */
+.mypage-floating-menu { /* 마이페이지 통일시키기 */
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 2px solid #33A1FD;
+}
+
+.mypage-floating-menu li {
+	list-style-type: none;
+}
+
+.mypage-floating-menu li a {
+	display: block;
+	text-align: center;
+	padding: 14px 16px;
+}
+
+.mypage-floating-menu li a:hover {
+	color: #33A1FD;
+}
+
+.submit-btn {
+	border-radius: 12px;
+	background-color: #33A1FD;
+	color: #fff;
+	padding: 8px 15px;
+	border: none;
+}
+</style>
+
+<script type="text/javascript">
 
 	$(function(){
 		$.ajax({

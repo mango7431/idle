@@ -12,6 +12,18 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<jsp:include page="../css.jsp"></jsp:include>
 	
+	<style>
+	.oper-btn {
+	  border-radius: 12px;
+	  background-color: #33A1FD;
+	  border: #33A1FD;
+	  padding: 7px 9px;
+	  color: #fff;
+	  font-weight: bold;
+	}
+	
+	</style>
+	
 	<script type="text/javascript">
 	let userId = '';
 	
@@ -22,7 +34,7 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(vo){
-				console.log('ajax...success:', vo);
+				//console.log('ajax...success:', vo);
 				
 				userId = vo.id;
 					
@@ -56,7 +68,7 @@
 				$("#vo").html(tag_vo);
 			},
 			error: function(xhr, status, error) {
-				console.log('xhr.status:', xhr.status);
+				//console.log('xhr.status:', xhr.status);
 			}
 		});
 	}); //load
@@ -82,9 +94,9 @@
 		</div>
 		<div class="row justify-content-center">
 		  <div class="col-8">
-		    <button>신고 증가</button>
-		    <button>신고 감소</button>
-		    <button onclick="memberDelete()">회원 탈퇴</button>
+<!-- 		    <button>신고 증가</button>
+		    <button>신고 감소</button> -->
+		    <button onclick="memberDelete()" class="oper-btn">회원 탈퇴</button>
 		  </div>
 		</div>
 

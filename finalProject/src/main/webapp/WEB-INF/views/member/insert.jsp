@@ -36,14 +36,16 @@
 				function() {
 // 					console.log("insert_form!", $("#idCheck_flag").val(), $(
 // 							"#idCheck_flag").val() === '1');
-					if(!validationId()){ 
-	                    return false;
-	                }else if(!validationPw()){
-	                    return false;
-	                }else if(!validationName()){
-	                    return false;
-	                }
-					
+					if (!validationId()) {
+						return false;
+					} else if (!validationPw()) {
+						return false;
+					} else if (!validationPwCheck()) {
+						return false;
+					} else if (!validationName()) {
+						return false;
+					}
+
 					else if ($("#idCheck_flag").val() === '1') {
 						alert("회원가입 완료되었습니다!");
 						return true;
@@ -54,11 +56,10 @@
 
 		$('#btn_idCheck').click(function() {
 // 			console.log("btn_idCheck!");
-			if(!validationId()){ 
-                return false;
-            }
+			if (!validationId()) {
+				return false;
+			}
 			idCheck();
-           
 
 			return false;
 		});
@@ -94,110 +95,193 @@
 			}
 		});//end  $.ajax()
 	}
-	
+
 	//ID를 체크하는 함수
-    function validationId(){
-        box = document.getElementById('id');
-        if(!idRegExp.test(box.value)){
-            alert('아이디를 정확하게 적어주세요.');
-            $("#demo").html("");
-            box.value = "";
-            box.focus();
-            return false;
-        }
-        return true;
-    }
-	
-  //비밀번호를 체크하는 함수
-    function validationPw(){
-        box = document.getElementById('pw');
-        if(!pwRegExp.test(box.value)){
-            alert('비밀번호를 정확하게 적어주세요.');
-            box.value = "";
-            box.focus();
-            return false;
-        }else if(box.value == document.getElementById('id').value){
-            alert('비밀번호는 아이디와 같을 수 없습니다.')
-            box.value = "";
-            box.focus();
-            return false;
-        }
-        return true;
-    }
-  
-    //이름체크하는 함수
-    function validationName(){
-        box = document.getElementById('name');
-        if(!nameRegExp.test(box.value)){
-            alert('이름을 정확하게 적어주세요.');
-            box.value = "";
-            box.focus();
-            return false;
-        }
-        return true;
-    }
+	function validationId() {
+		box = document.getElementById('id');
+		if (!idRegExp.test(box.value)) {
+			alert('아이디를 정확하게 적어주세요.');
+			$("#demo").html("");
+			box.value = "";
+			box.focus();
+			return false;
+		}
+		return true;
+	}
+
+	//비밀번호를 체크하는 함수
+	function validationPw() {
+		box = document.getElementById('pw');
+		if (!pwRegExp.test(box.value)) {
+			alert('비밀번호를 정확하게 적어주세요.');
+			box.value = "";
+			box.focus();
+			return false;
+		} else if (box.value == document.getElementById('id').value) {
+			alert('비밀번호는 아이디와 같을 수 없습니다.')
+			box.value = "";
+			box.focus();
+			return false;
+		}
+		return true;
+	}
+
+	//비밀번호를 한번더 적어서 맞게 썼는지 확인하는 함수
+	function validationPwCheck() {
+		box = document.getElementById('pwCheck');
+		if (box.value != document.getElementById('pw').value) {
+			alert('비밀번호가 서로 다릅니다.');
+			box.value = "";
+			box.focus();
+			return false;
+		}
+		return true;
+	}
+
+	//이름체크하는 함수
+	function validationName() {
+		box = document.getElementById('name');
+		if (!nameRegExp.test(box.value)) {
+			alert('이름을 정확하게 적어주세요.');
+			box.value = "";
+			box.focus();
+			return false;
+		}
+		return true;
+	}
 </script>
+<style type="text/css">
+.insertBigContainer {
+	width: 60%;
+	margin: 0 auto;
+}
+
+.insertMediumContainer {
+	width: 95%;
+	margin: 0 auto;
+}
+
+.memberInsertForm {
+	border: 3px solid #f1f1f1;
+	width: 80%;
+}
+
+.memberInsertItem {
+	width: 60%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.memberInsertButton {
+	background-color: #33A1FD;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 60%;
+}
+
+.memberInsertButton:hover {
+	opacity: 0.8;
+}
+
+.idCheckButton {
+	background-color: #33A1FD;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 20%;
+}
+
+.idCheckButton:hover {
+	opacity: 0.8;
+}
+
+.memberInsertContainer {
+	padding: 16px;
+}
+</style>
+
 
 </head>
 
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<form action="memberInsertOK.do" method="post"
-		enctype="multipart/form-data" id="insert_form">
-		<h3>회원가입</h3>
-		<input type="hidden" id="idCheck_flag" value="0">
+	<div class="insertBigContainer">
+			<h3 class="insertMediumContainer">회원가입</h3>
+		<form action="memberInsertOK.do" method="post"
+			enctype="multipart/form-data" id="insert_form"
+			class="memberInsertForm">
+			<input type="hidden" id="idCheck_flag" value="0">
+			<div class="memberInsertContainer">
+				<div class="memberInsertContainer">
+					<label for="id"><b>아이디</b></label> <br> <input type="text"
+						id="id" name="id" placeholder="아이디" class="memberInsertItem"
+						required value="">
+					<button type="button" id="btn_idCheck" class="idCheckButton">ID중복검사</button>
+					<br> <span id="demo"></span>
+					<p>4~12자의 영문 대소문자와 숫자로만 입력</p>
+				</div>
 
-		<div>
-			<label for="id">아이디</label> <br> 
-			<input type="text" id="id"
-				name="id" value="tester" placeholder="ID" required>
-			<button type="button" id="btn_idCheck" class="myButton">ID중복검사</button>
-			<br> <span id="demo"></span>
-			<p>4~12자의 영문 대소문자와 숫자로만 입력</p>
-		</div>
+				<div class="memberInsertContainer">
+					<label for="pw"><b>비밀번호</b></label> <br> <input type="password" 
+						id="pw" name="pw" placeholder="비밀번호" class="memberInsertItem" 
+						required value="">
+					<p>4~12자의 영문 대소문자와 숫자로만 입력</p>
+				</div>
 
-		<div>
-			<label for="pw">비밀번호</label> <br> <input type="password" id="pw"
-				name="pw" placeholder="PASSWORD" required value="hi11">
-				<p>4~12자의 영문 대소문자와 숫자로만 입력</p>
-		</div>
+				<div class="memberInsertContainer">
+					<label for="pwCheck"><b>비밀번호 확인</b></label> <br> <input type="password" 
+						id="pwCheck" placeholder="비밀번호 확인" class="memberInsertItem" 
+						required value="" >
+					<p>4~12자의 영문 대소문자와 숫자로만 입력</p>
+				</div>
 
-		<div>
-			<label for="name">이름</label> <br> <input type="text" id="name"
-				name="name" placeholder="Name" required value="lee">
-		</div>
+				<div class="memberInsertContainer">
+					<label for="name"><b>이름</b></label> <br> <input type="text"
+						id="name" name="name" placeholder="Name" class="memberInsertItem"
+						required value="">
+				</div>
 
-		<div>
-			<label for="address">주소 </label> <br> 
+				<div class="memberInsertContainer">
+					<label for="address"><b>주소</b></label> <br> <select
+						id="address" name="address" class="memberInsertItem">
+						<option selected>서울</option>
+						<option>부산</option>
+						<option>대구</option>
+						<option>인천</option>
+						<option>광주</option>
+						<option>대전</option>
+						<option>울산</option>
+						<option>강원</option>
+						<option>경기</option>
+						<option>경남</option>
+						<option>경북</option>
+						<option>전남</option>
+						<option>전북</option>
+						<option>제주</option>
+						<option>충남</option>
+						<option>충북</option>
+					</select>
+				</div>
 
-			<select id="address" name="address">
-				<option selected>서울</option>
-				<option>부산</option>
-				<option>대구</option>
-				<option>인천</option>
-				<option>광주</option>
-				<option>대전</option>
-				<option>울산</option>
-				<option>강원</option>
-				<option>경기</option>
-				<option>경남</option>
-				<option>경북</option>
-				<option>전남</option>
-				<option>전북</option>
-				<option>제주</option>
-				<option>충남</option>
-				<option>충북</option>
-			</select>
-		</div>
+				<div class="memberInsertContainer">
+					<label for="multipartFile"><b>프로필 사진</b></label> <br> <input
+						type="file" id="multipartFile" name="multipartFile"
+						class="memberInsertItem">
+				</div>
 
-		<div>
-			<label for="multipartFile">프로필 사진</label> <br> <input
-				type="file" id="multipartFile" name="multipartFile">
-		</div>
-
-		<div>
-			<input type="submit" class="myButton">
-		</div>
-	</form>
+				<div class="memberInsertContainer">
+					<input type="submit" value="회원가입" class="memberInsertButton">
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

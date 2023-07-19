@@ -16,13 +16,12 @@
 body{
 	margin:0;
 	padding:0;
-/* 	font-family:'맑은 고딕', verdana; */
 }
 
-a, a:hover{
-	text-decoration:none;
-	color : black;
-}
+a, a:hover {
+	text-decoration: none;
+	color: black;
+}}
 
 p{
 	white-space: nowrap;
@@ -65,12 +64,12 @@ main{
 .side-bar .boardFilter{
 	width: 200px;
 	padding-left: 5px;
-	background: #d3d3d3;
+	border: 1px solid #33A1FD;
 	border-radius: 20px;
 	position: sticky;
 	margin-top: 70px;
 	top: 4px;
-	max-height: 500px;
+	max-height: 510px;
 	overflow-y: auto;
 }
 
@@ -103,7 +102,7 @@ main{
 }
 
 .side-bar .boardFilter li:hover{
-	font-weight: bold;
+	color: #33A1FD;
 }
 
 input[type="radio"] {
@@ -112,6 +111,7 @@ input[type="radio"] {
 
 .side-bar .boardFilter input[type="radio"]:checked + label {
     font-weight: bold;
+    color: #33A1FD;
 }
 
 label {
@@ -132,7 +132,18 @@ input[type="number"]::-webkit-inner-spin-button {
 	width : 80%;
 	margin : 10px;
 	border-radius: 10px;
-	background: #F0F8FF;
+}
+
+#subBtn{
+	border: none;
+	background-color: #33A1FD;
+	color: white;
+}
+
+#resetBtn{
+	border: 1px solid #33A1FD;
+	background: none;
+	color: #33A1FD;
 }
 
 #deal_region{
@@ -143,10 +154,10 @@ input[type="number"]::-webkit-inner-spin-button {
 /*글쓰기&정렬*/
 .itemMenu {
 	width: 100%;
-	padding-bottom: 30px;
 	display: flex;
 	justify-content: space-between;
 	padding: auto 10%;
+	margin: 10px 30px;
 }
 
 .itemSort{
@@ -224,10 +235,10 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .noList{
-  display: flex;
-  margin: 0 auto;
-  height: auto;
-  padding-top: 10%;
+	display: flex;
+	margin: 0 auto;
+	height: auto;
+	padding-top: 10%;
 }
 
 /*더보기 토글*/
@@ -246,20 +257,25 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 #listMoreBtn {
-  width: 100%;
-  text-align: center;
-  margin: 20px 0;
-  background: none;
-  border: none;
-  font-size: large;
-  font-weight: bold;
+	width: 100%;
+	text-align: center;
+	margin: 20px 0;
+	background: none;
+	border: none;
+	font-size: large;
+	font-weight: bold;
 }
 
 #listMoreBtn:hover{
-	color: blue;
+	color: #33A1FD;
+}
+
+hr {
+	margin: 8px 0;
+	padding: 0;
+	color: #33A1FD;
 }
 </style>
-
 </head>
 <body>
 <jsp:include page="../top_menu.jsp"></jsp:include>
@@ -270,11 +286,10 @@ input[type="number"]::-webkit-inner-spin-button {
 	<aside class="side-bar">
 		<div class="boardFilter no_scroll">
 			<img width="18px" src="resources/img/sidebar.png" alt="" />
-			<p align="center"><b>Filters</b></p>
+			<p align="center" style="color:#33A1FD;font-size:large;"><b>Filters</b></p>
 			<form id="filterForm" action="boardSelectAll.do" method="GET">
 				<span><b>Category</b></span>
        		 	<ul  class="categoryList">
-<%--        		 		<li><a href="boardSelectAll.do?category=all">전체(${fn:length(vos)})</a></li> --%>
        		 		<li><input type="radio" id="category1" name="category" value="디지털기기"/><label for="category1">디지털기기</label></li>
        		 		<li><input type="radio" id="category2" name="category" value="생활가전"/><label for="category2">생활가전</label></li>
        		 		<li><input type="radio" id="category3" name="category" value="가구"/><label for="category3">가구</label></li>
@@ -292,21 +307,14 @@ input[type="number"]::-webkit-inner-spin-button {
        		 		<li class="category"><input type="radio" id="category15" name="category" value="식물"/><label for="category15">식물</label></li>
        		 	</ul>
        		 	 <a href="#" id="loadBtn"> 더 보기</a>
-       		 	 
-<!-- 			<br /><b>Type  </b> -->
-<!-- 			<select id="board_type" name="board_type"> -->
-<!-- 				<option value="">전체</option> -->
-<!-- 				<option value="2">팔아요</option> -->
-<!-- 				<option value="1">구해요</option> -->
-<!-- 			</select> -->
-				
-				<br /><span><b>Type</b></span>
+				<hr />
+				<span><b>Type</b></span>
 	    		<ul>
 			    	<li><input type="radio" id="board_type1" name="board_type" value=""/><label for="board_type1">전체</label></li>
 			    	<li><input type="radio" id="board_type2" name="board_type" value="2"/><label for="board_type2">팔아요</label></li>
 			    	<li><input type="radio" id="board_type3" name="board_type" value="1"/><label for="board_type3">구해요</label></li>
 	     		</ul>
-			
+				<hr />
 				<span><b>Region  </b></span>
 				<select id="deal_region" name="deal_region">
 					<option>선택</option>
@@ -327,14 +335,13 @@ input[type="number"]::-webkit-inner-spin-button {
 					<option>충남</option>
 					<option>충북</option>
 				</select><br />
-				
+				<hr />
 				<span><b>Price</b></span>
 				<div class="moneyFilter">
 					<input type="number" name="minPrice" id="minPrice" min="0" placeholder="0"/>원~<input type="number" name="maxPrice" id="maxPrice" min="0" placeholder="999,999,999"/>원
 				</div><br />
-<%-- 				<input type="hidden" id="sortTypeInput" name="sortType" value="${param.sortType}" /> --%>
-	        	<button type="submit" onclick="applyFilters()" class="filterBtn">Apply Filters</button>
-	        	<button type="reset" onclick="resetFilters()" class="filterBtn">Clear Filter</button>
+	        	<button type="submit" onclick="applyFilters()" class="filterBtn" id="subBtn">Apply Filters</button>
+	        	<button type="reset" onclick="resetFilters()" class="filterBtn" id="resetBtn">Clear Filter</button>
     		</form>
 		</div>
 	</aside>
@@ -364,7 +371,7 @@ input[type="number"]::-webkit-inner-spin-button {
 				      <c:if test="${vo.board_status != 3}">
 				        <div class="sellingItems">
 				          <!-- 상품각각 -->
-				          <div class="sellingItem">
+				          <div class="sellingItem" data-board-status="${vo.board_status}">
 				            <div class="itemImage">
 				            <a href="boardSelectOne.do?board_num=${vo.board_num}">
 				                <img src="resources/img/${vo.board_savename1}" alt="" />
@@ -376,20 +383,20 @@ input[type="number"]::-webkit-inner-spin-button {
 								  <c:when test="${vo.board_type eq 2}">
 								     <c:choose>
                                         <c:when test="${vo.board_status eq 1}">
-                                         <span style="background:#d3d3d3;border-radius:3px;">판매중</span>
+                                         <span style="color:#33A1FD;font-weight:bold;">판매중</span>
                                         </c:when>
                                         <c:when test="${vo.board_status eq 2}">
-                                         <span style="background:#d3d3d3;border-radius:3px;">판매완료</span>
+                                         <span style="color:#33A1FD;font-weight:bold;">판매완료</span>
                                         </c:when>
                                      </c:choose>
 								  </c:when>
 								  <c:when test="${vo.board_type eq 1}">
 								    <c:choose>
                                      <c:when test="${vo.board_status eq 1}">
-                                       <span style="background:#d3d3d3;border-radius:3px;">구매중</span>
+                                       <span style="color:#33A1FD;font-weight:bold;">구매중</span>
                                       </c:when>
                                       <c:when test="${vo.board_status eq 2}">
-                                       <span style="background:#d3d3d3;border-radius:3px;">구매완료</span>
+                                       <span style="color:#33A1FD;font-weight:bold;">구매완료</span>
                                       </c:when>
                                     </c:choose>
 								  </c:when>
@@ -420,16 +427,23 @@ input[type="number"]::-webkit-inner-spin-button {
 <script type="text/javascript">
 //게시글목록 더보기
 $(function(){
-    $(".sellingItem").slice(0, 12).show(); // 초기갯수
+    $(".sellingItem").slice(0, 20).show();//처음보여주는거
+
+    $("#listMoreBtn").hide();
+
     $("#listMoreBtn").click(function(e){
         e.preventDefault();
 
-        $(".sellingItem:hidden").slice(0, 12).show(); //몇개씩 보여줄건지
+        $(".sellingItem:hidden").slice(0, 20).show();//추가로보여주는거
 
-        if ($(".sellingItem:hidden").length === 0) { //남은 숨겨진 아이템이 없는 경우
+        if ($(".sellingItem:hidden").length === 0) {
             $("#listMoreBtn").hide();
         }
     });
+    // 남은 게시글이 있을 때만 더보기 버튼을 보이게 함
+    if ($(".sellingItem:hidden").length > 0) {
+        $("#listMoreBtn").show();
+    }
 });
 
 //최신순,인기순

@@ -37,17 +37,14 @@
 			success : function(vo2) {
 				let tag_vo2 =  `
 					 <tr>
-				      	<td scope="row" class="text-center align-middle">
-						<img width="50px" src="resources/img/thumb_\${vo2.member_savename}">
-						</td>
-				      
 				      <td>
-					        <div>이름: \${vo2.name}</div>
-					        <div>주소: \${vo2.address}</div>
+				      		<div><img width="200px" src="resources/img/thumb_\${vo2.member_savename}"></div>
+					        <div>이름: \${vo2.name}</div><br>
+					        <div>주소: \${vo2.address}</div><br>
 					        <div>
-					        <span>상품구매 \${vo2.buy_count}회</span>
-					        <span>상품판매 \${vo2.sell_count}회</span>
-					        <span>신고누적 \${vo2.member_report}</span>회
+					        <span>상품구매: \${vo2.buy_count}회</span>
+					        <span>상품판매: \${vo2.sell_count}회</span>
+					        <span>신고누적: \${vo2.member_report}회</span>
 					        </div>
 					
 				      </td>
@@ -65,27 +62,41 @@
 
 </script>
 <style type="text/css">
- .sidenav {
-  z-index: 1;
-  top: 20px;
-  left: 10px;
-  background: #F6FFCC;
-  overflow-x: hidden;
-  padding: 8px 0;
+.myPageSidenav {
+	z-index: 1;
+	top: 20px;
+	left: 10px;
+	border: 3px solid #33A1FD;
+	overflow-x: hidden;
+	padding: 8px 0;
 }
 
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 18px;
-  color: black;
-  display: block;
+.myPageSidenav a {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 18px;
+	color: black;
+	display: block;
 }
 
- /* 마우스 오버(마우스 올렸을때) */
-.sidenav a:hover {
-  color: #064579;
-  background: #D2E5A8;
+/* 마우스 오버(마우스 올렸을때) */
+.myPageSidenav a:hover {
+	opacity: 0.8;
+}
+
+.myPageBigContainer {
+	width: 60%;
+	margin: 0 auto;
+}
+
+.myPagetable {
+	border: 3px solid #f1f1f1;
+	width: 80%;
+}
+
+.myPageInfo{
+	font-size: 20px;
+
 }
 
 </style>
@@ -94,13 +105,14 @@
 <body>
 
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<div class="container">
+	<div class="myPageBigContainer">
 		<div class="breadcrumb fs-5 fw-bold px-4">마이페이지</div>
 		<div class="row my-3">
 			<div class="col-md-3 col-lg-2">
-				<div class="sidenav">
+				<div class="myPageSidenav">
 					<ul class="mypage-floating-menu px-0">
-						<li class="fw-bold"><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
+						<li class="fw-bold"><a
+							href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
 						<li><a href="memberUpdate.do?id=${user_id}">회원정보수정</a></li>
 						<li><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 					</ul>
@@ -108,17 +120,15 @@
 			</div>
 			<div class="col-md-9 col-lg-10 px-5">
 				<div class="row">
-					<h4>${user_id}님 마이페이지</h4>
-					<hr>
-
-					<table>
-						<thead>
-						</thead>
-						<tbody id="vo2">
-						</tbody>
-
-					</table>
-
+						<h4>${user_id}님 마이페이지</h4>
+					<div class="myPagetable">
+						<table>
+							<thead>
+							</thead>
+							<tbody id="vo2" class="myPageInfo">
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -10,7 +10,6 @@
   	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
 <style type="text/css">
 body {
 	margin: 0;
@@ -75,7 +74,7 @@ main {
 }
 
 .boardStatus{
-	color: blue;
+	color: #33A1FD;
 }
 
 .selectStatus{
@@ -94,7 +93,7 @@ main {
 }
 
 .listBtn:focus, .listBtn.selected {
-	color: blue;
+	color: #33A1FD;
 }
 
 .tabContent {
@@ -125,30 +124,26 @@ main {
 .dropMenuBuy{
 	display: none;
 	position: absolute;
-	background: #F0FFFF;
+	background: white;
+	border: 1px solid #33A1FD;
 	width: 150%;
 }
 
 .dropMenuSell{
 	display: none;
 	position: absolute;
-	background: #F0FFFF;
+	background: white;
+	border: 1px solid #33A1FD;
 	width: 150%;
 }
 
-.dropMmenu a {
-	display: block;
-	padding: 5px 10px;
+.dropMenuBuy a:hover,.dropMenuSell a:hover{
 	text-decoration: none;
-	color: #333;
-}
-
-.dropdown-menu a:hover {
-	background-color: #ddd;
+	font-weight: bold;
 }
 
 /*거래완료 모달창*/
-#doneModal {
+#doneModal, #doneSellModal {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -159,38 +154,28 @@ main {
 	width: 250px;
 	background-color: #fff;
 	border-radius: 4px;
-	padding: 10px;
-	border : 1px solid gray;
+	padding: 30px 20px;
+	border : 1px solid #33A1FD;
 }
 
-#doneSellModal {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 250px;
-	background-color: #fff;
-	border-radius: 4px;
-	padding: 10px;
-	border : 1px solid gray;
+.doneModal button, .doneSellModal button{
+	background-color: #33A1FD;
+	border: none;
+	color: white;
+	border-radius: 5px;
 }
 
-.doneModal .close {
+.doneModal .close, .doneSellModal .close{
 	position: absolute;
 	top: 10px;
 	right: 10px;
 	cursor: pointer;
 }
 
-.doneSellModal .close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	cursor: pointer;
+.doneModal .close:hover, .doneSellModal .close:hover{
+	font-weight: bold;
 }
+
 
 .doneModal-content{
 	text-align: center;
@@ -214,22 +199,22 @@ main {
   
 .doneModal-content input[type="radio"]:checked + label {
     font-weight: bold;
-    color: #4B89DC;
+    color: #33A1FD;
 }
 
 .doneSellModal-content input[type="radio"]:checked + label {
     font-weight: bold;
-    color: #4B89DC;
+    color: #33A1FD;
 }
 
 /*사이드메뉴*/
 .sideMarket{
-	width : 150px;
-	height : 170px;
-	border: 1px solid gray;
-	background: #f8f8ff;
-	margin: 60px 0px 60px 60px;
-	padding: 15px;
+ width : 170px;
+ height : 140px;
+ margin: 70px 0px 60px 60px;
+ padding: 15px;
+ background-color: #fffff;
+ border: 2px solid #33A1FD;
 }
 
 .sideMarket p a{
@@ -391,9 +376,8 @@ function completeSellModalSubmit(event) {
 	<main>
 		<!--사이드메뉴 -->
 		<div class="sideMarket">
-			<p><b>내 상점</b></p>
 			<p><a href="buySelectAll.do">내 거래 목록</a></p>
-			<p><a href="myWriteBuySelectAll.do">내가 쓴 글</a></p>
+			<p><a href="myWriteBuySelectAll.do" style="font-weight: bold;">내가 쓴 글</a></p>
 			<p><a href="myLikeSelectAll.do">내 찜 목록</a></p>
 		</div>
 		

@@ -33,7 +33,7 @@
                 AND deal_region = #{deal_region}
             </if>
         </where>
-	        order by board_date DESC
+	        order by board_status ASC, board_date DESC
 	</select>
 	
 	<select id="B_SELECTALL_VIEWS" resultType="test.com.idle.vo.BoardVO">
@@ -66,13 +66,13 @@
                 AND deal_region = #{deal_region}
             </if>
         </where>
-        order by view_count desc, likecount desc
+        order by board_status ASC, view_count desc, likecount desc
 	</select>
 	
 	
 	<select id="B_SEARCH_LIST" resultType="test.com.idle.vo.BoardVO">
 		select * from board where board_content like #{searchWord}
-		or board_title like #{searchWord} 
+		or board_title like #{searchWord} order by board_status ASC, board_date DESC
 	</select>
 
 	<select id="B_SELECT_ONE" resultType="test.com.idle.vo.BoardVO">

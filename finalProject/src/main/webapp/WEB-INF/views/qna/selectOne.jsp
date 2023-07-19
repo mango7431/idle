@@ -6,6 +6,82 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Q&A 상세</title>
+
+	<style>
+		/* 전체 */
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+		
+		a:hover {
+			color: inherit;
+		}
+		
+		li {
+		  list-style-type: none;
+		}
+		
+		
+		/* 마이페이지 서브메뉴 */
+		.mypage-floating-menu { /* 마이페이지 통일시키기 */
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border: 2px solid #33A1FD;
+		}
+		
+		.mypage-floating-menu li {
+			list-style-type: none;
+		}
+		
+		.mypage-floating-menu li a {
+			display: block;
+			text-align: center;
+			padding: 14px 16px;
+		}
+		
+		.mypage-floating-menu li a:hover{
+			color: #33A1FD;
+		}
+
+		
+		
+		/* 마이페이지 Q&A 목록, 상세 공통 */
+		.q-status { /* 답변 상태 */
+			color : #33A1FD;
+		}
+		
+		.q-category { /* 카테고리 */
+			color : #343a40;
+		}
+		
+		
+		/*
+		위에 있는 css는 selectAll과 겹치고
+		아래에 있는 css는 안 겹침.
+		*/
+		
+		
+		/* 마이페이지 Q&A 상세 */
+		.q-detail { /* 게시글 테두리 */
+			border: 1px solid #bec5cd;
+		}
+	
+		
+		/* 마이페이지 - 테두리 버튼 */
+		.border-btn {
+		  border-radius: 12px;
+		  background-color: #fff;
+		  padding: 8px 15px;
+		  border: 2px solid #33A1FD;
+		}
+	
+	
+		
+	
+	</style>
+
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -32,7 +108,7 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vo){
-// 					console.log('ajax...success:', vo);
+					//console.log('ajax...success:', vo);
 					let status = '';
 					let category = '';
 
@@ -62,14 +138,14 @@
 				  }
 						
 				  let tag_vo = `
-	    				<div class="fs-4 mb-2"><span class="q-status fs-5 fw-bold me-2">\${status}</span>\${vo.qna_title}</div>
-	    				<div><span>\${category}</span><span class="ms-3">\${formattedQnaDate}</span></div>
+	    				<div class="fs-5 mb-2 fw-bold"><span class="q-status fs-5 fw-bold me-2">\${status}</span>\${vo.qna_title}</div>
+	    				<div><span class="fw-bold q-category">\${category}</span><span class="ms-3">\${formattedQnaDate}</span></div>
 	    				<hr class="my-3">
 	    				<div>\${vo.qna_content}</div>
 				  `;
 				  
 				  let tag_answer = `
-					  	<div class="fs-4 mb-2 px-3">\${vo.qnareplyVO.qnareply_title}</div>
+					  	<div class="fs-5 mb-2 px-3 fw-bold">'\${vo.qna_title}'에 대한 답변입니다.</div>
 	    				<div class="px-3">\${formattedQnaReplyDate}</div>
 	    				<hr class="my-3">
 	    				<div class="px-3">\${vo.qnareplyVO.qnareply_content}</div>
@@ -87,7 +163,7 @@
 					
 				},
 				error: function(xhr, status, error) {
-					console.log('xhr.status:', xhr.status);
+					//console.log('xhr.status:', xhr.status);
 				}
 			});
 			

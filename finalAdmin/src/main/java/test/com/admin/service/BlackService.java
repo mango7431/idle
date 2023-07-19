@@ -38,4 +38,12 @@ public class BlackService {
 	public int getTotal() {
 		return dao.getTotal();
 	}
+
+	public void changeStatus(int black_num) {
+		dao.changeStatus(black_num);
+	}
+
+	public int totalCount() {
+		return dao.totalCount();
+	}
 }

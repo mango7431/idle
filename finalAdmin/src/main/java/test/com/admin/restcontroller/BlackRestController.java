@@ -35,8 +35,6 @@ public class BlackRestController {
 		List<BlackVO> vos = service.jsonBlackSelectAll(cri);
 		log.info(vos.toString());
 		
-		//없어도됨
-		model.addAttribute("list",vos);
 		model.addAttribute("pageVO",pagevo);
 		
 		return vos;
@@ -53,6 +51,16 @@ public class BlackRestController {
 		}else if(black_type == 1) {
 			service.memberreportUp(vo);
 		}
+	}
+	
+	//신고처리
+	@RequestMapping(value = "/changeStatus.do", method = RequestMethod.GET)
+	@ResponseBody
+	public void changeStatus(BlackVO vo, @RequestParam("black_num") int black_num) {
+		log.info("changeStatus()..{},{}",vo,black_num);
+		
+		service.changeStatus(black_num);
+
 	}
 	
 	//신고게시글 삭제

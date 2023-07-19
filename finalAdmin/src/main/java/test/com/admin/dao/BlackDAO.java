@@ -18,4 +18,8 @@ public interface BlackDAO {
 	public void removeMember(String targetid);
 
 	public int getTotal();
+	
+	public void changeStatus(int black_num);
+
+	public int totalCount();
 }

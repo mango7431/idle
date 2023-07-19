@@ -21,17 +21,24 @@
 	crossorigin="anonymous"></script>
 
 <style type="text/css">
-.loginContainer {
+.loginBigContainer {
 	width: 60%;
+	margin: 0 auto;
+}
+
+.loginMediumContainer {
+	width: 80%;
 	margin: 0 auto;
 }
 
 .loginForm {
 	border: 3px solid #f1f1f1;
 	width: 80%;
+	margin: 0 auto;
 }
 
-input[type=text], input[type=password] {
+.idPwInput {
+	font-size: 20px;
 	width: 60%;
 	padding: 12px 20px;
 	margin: 8px 0;
@@ -40,9 +47,10 @@ input[type=text], input[type=password] {
 	box-sizing: border-box;
 }
 
-.myButton {
-	background-color: #caffbf;
-	color: black;
+.memberLoginButton {
+	background-color: #33A1FD;
+	color: white;
+	font-size: 20px;
 	padding: 14px 20px;
 	margin: 8px 0;
 	border: none;
@@ -50,11 +58,11 @@ input[type=text], input[type=password] {
 	width: 60%;
 }
 
-.myButton:hover {
+.memberLoginButton:hover {
 	opacity: 0.8;
 }
 
-.container {
+.loginContainer {
 	padding: 16px;
 }
 </style>
@@ -62,27 +70,28 @@ input[type=text], input[type=password] {
 </head>
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<div class="loginContainer">
+	<div class="loginBigContainer">
+			<h3 class="loginMediumContainer">로그인</h3>
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
-		<h1>로그인</h1>
-		<form action="loginOK.do" method="post" class="loginForm">
-			<div class="container">
-				<div class="container">
-					<label for="id">아이디</label> <br> <input type="text" id="id"
-						name="id" value="tester" placeholder="ID" required>
+			<form action="loginOK.do" method="post" class="loginForm">
+				<div class="loginContainer">
+					<div class="loginContainer">
+						<label for="id"><b>아이디</b></label> <br> <input type="text"
+							id="id" name="id" value="tester" placeholder="아이디"
+							class="idPwInput" required>
+					</div>
+					<div class="loginContainer">
+						<label for="pw"><b>비밀번호</b></label> <br> <input
+							type="password" id="pw" name="pw" value="hi11" placeholder="비밀번호"
+							class="idPwInput" required> <br>
+						<p>${message}</p>
+					</div>
+					<div class="loginContainer">
+						<input type="submit" value="로그인" class="memberLoginButton">
+					</div>
 				</div>
-				<div class="container">
-					<label for="pw">비밀번호</label> <br> <input type="password"
-						id="pw" name="pw" value="hi11" placeholder="PASSWORD" required>
-				</div>
-				<div class="container">
-					<input type="submit" value="로그인" class="myButton">
-				</div>
-			</div>
-		</form>
-		<p>${message}</p>
+			</form>
 	</div>
 </body>
 </html>

@@ -24,9 +24,12 @@ public class BlackController {
 		
 		PageVO pagevo = new PageVO(cri,service.getTotal());
 		log.info("pagevo:{}",pagevo);
+		
+		int totalCount = service.totalCount();
 			
 		//없어도됨
 		model.addAttribute("pageVO",pagevo);
+		model.addAttribute("totalCount", totalCount); 
 	
 		return "black/selectAll";
 	}
