@@ -36,12 +36,12 @@
 	            <li id="logout"><a class="dropdown-item" href="logout.do">로그아웃</a></li>
 	          </ul>
 	        </div>
-	        <div class="dropdown-center">
+	        <div class="dropdown-center ms-3">
 		        <button type="button" class="notification-btn position-relative" data-bs-toggle="dropdown" aria-expanded="false">
 				  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
 					  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
 					</svg>
-					<span class="badge"> </span>
+					<span class="badge-area"> </span>
 				</button>
 				<ul class="dropdown-menu mt-2 py-3" style="width: 350px;" id="vos">
 	
@@ -50,8 +50,12 @@
 	        
 	      </div>
 	    </div>
-
-
+		
+		<!-- 알림 토스트 -->
+		<div aria-live="polite" aria-atomic="true" class="position-relative">
+        	<div class="toast-container p-3" id="toastContainer">
+        	</div>
+        </div>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script type="text/javascript">
@@ -69,6 +73,7 @@
 			$('.dropdown').show();
 			$('.dropdown-center').show();
 			sseConnect();
+			getAlarm();
 		}
 		
 		//검색
@@ -82,6 +87,7 @@
     });
     
     //알림 내역 갖고 오기
+    function getAlarm() {
 		$.ajax({
 			url: "jsonNotificationSelectAll.do",
 			data: {id: "${user_id}"},
@@ -101,8 +107,11 @@
 							알림은 최대 5개까지만 표시됩니다.
 						</li>
 					`;
+					
 					$("#vos").html(tag_vos);
 				} else {
+					//알림 뱃지 추가
+					$('.badge-area').addClass('badge');
 					$.each(vos, function(index, vo) {						
 						date = new Date(vo.notification_date);
 						let formattedDate = date.toLocaleString();
@@ -123,7 +132,7 @@
 								<li class="px-3 notification-link">
 								 	<a href="\${vo.notification_link}">
 								 		\${vo.notification_title}
-								 		질문에 대한 답변이 왔습니다.
+								 		\${vo.notification_content}
 								 		<span class="alarm-time" style="color:#737373;">\${formattedDate}</span>
 									</a>
 								</li>
@@ -150,51 +159,86 @@
 				console.log('xhr.status:', xhr.status);
 			}
 		});
+    }
+
 		
+		function sseConnect() {
+		    const eventSourceIdle = new EventSource('/idle/subscribe.do?memberId=${user_id}');
+		    const eventSourceAdmin = new EventSource('/admin/subscribe.do?memberId=${user_id}');
+
+		    eventSourceIdle.addEventListener("message", handleEvent);
+		    eventSourceAdmin.addEventListener("message", handleEvent);
+		}
 		
-		//sse 연결 (클라이언트 -> 서버)
-		function sseConnect() {	
-	        const eventSource = new EventSource('/idle/subscribe.do?memberId=${user_id}');
-	
-	        eventSource.addEventListener("message", function (event) {
-// 	            console.log(event.data);
-	
-	            const data = JSON.parse(event.data);
-	
-	            (async () => {
-	                // 브라우저 알림
-	                const showNotification = () => {
-	                    
-	                    const notification = new Notification(data.title, {
-	                        body: data.content
-	                        //icon:
-	                    });
-	                    
-	                    setTimeout(() => {
-	                        notification.close();
-	                    }, 5 * 1000);
-	                    
-	                    notification.addEventListener('click', () => {
-	                        window.open(data.url, '_blank');
-	                    });
-	                }
-	
-	                // 브라우저 알림 허용 권한
-	                let granted = false;
-	
-	                if (Notification.permission === 'granted') {
-	                    granted = true;
-	                } else if (Notification.permission !== 'denied') {
-	                    let permission = await Notification.requestPermission();
-	                    granted = permission === 'granted';
-	                }
-	
-	                // 알림 보여주기
-	                if (granted) {
-	                    showNotification();
-	                }
-	            })();
-	        });
-    	}
+		function handleEvent(event) {
+		      const data = JSON.parse(event.data);
+		      //console.log(data);
+
+		      const showNotification = () => {
+		        const toastContainer = document.getElementById("toastContainer");
+		        getAlarm();
+				
+		     	// 동적 - 토스트 요소 생성
+		        const toast = document.createElement('div');
+		        toast.classList.add('toast');
+		        toast.setAttribute('role', 'alert');
+		        toast.setAttribute('aria-live', 'assertive');
+		        toast.setAttribute('aria-atomic', 'true');
+
+		        // 토스트 헤더 생성
+		        const toastHeader = document.createElement('div');
+		        toastHeader.classList.add('toast-header');
+
+		        // 제목 요소 생성
+		        const toastTitle = document.createElement('strong');
+		        toastTitle.classList.add('me-auto');
+		        toastTitle.innerText = data.title;
+
+		        // 작성 시간 요소 생성
+		        const toastTime = document.createElement('small');
+		        toastTime.classList.add('text-muted');
+		        toastTime.innerText = '방금전';
+
+		        // 닫기 버튼 요소 생성
+		        const closeButton = document.createElement('button');
+		        closeButton.setAttribute('type', 'button');
+		        closeButton.classList.add('btn-close');
+		        closeButton.setAttribute('data-bs-dismiss', 'toast');
+		        closeButton.setAttribute('aria-label', 'Close');
+
+		        // 토스트 바디 요소 생성
+		        const toastBody = document.createElement('div');
+		        toastBody.classList.add('toast-body');
+		        toastBody.innerText = data.content;
+
+		        // 토스트 헤더에 요소 추가
+		        toastHeader.appendChild(toastTitle);
+		        toastHeader.appendChild(toastTime);
+		        toastHeader.appendChild(closeButton);
+
+		        // 토스트에 헤더와 바디 추가
+		        toast.appendChild(toastHeader);
+		        toast.appendChild(toastBody);
+
+		        if (toastContainer) {
+		        	  toastContainer.appendChild(toast);
+	        	}
+
+		        const bootstrapToast = new bootstrap.Toast(toast);
+		        bootstrapToast.show();
+
+		        // 토스트가 닫힐 때 컨테이너에서 제거
+		        toast.addEventListener('hidden.bs.toast', function () {
+		          toastContainer.removeChild(toast);
+		        });
+
+		        // 토스트 클릭 시 URL 열기
+		        toast.addEventListener('click', function () {
+		          window.open(data.url, '_blank');
+		        });
+		      }
+
+		      showNotification();
+		    }
 	</script>
 </header>

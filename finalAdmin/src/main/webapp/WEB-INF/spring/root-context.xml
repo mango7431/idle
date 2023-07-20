@@ -32,6 +32,7 @@
 				<value>classpath:jdbc/sqlMapper_qnareply.xml</value>
 				<value>classpath:jdbc/sqlMapper_member.xml</value>
 				<value>classpath:jdbc/sqlMapper_black.xml</value>
+				<value>classpath:jdbc/sqlMapper_notification.xml</value>
 			</list>
 		</property>
 	</bean>

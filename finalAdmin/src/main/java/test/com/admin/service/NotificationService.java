@@ -1,7 +1,6 @@
-package test.com.idle.service;
+package test.com.admin.service;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,12 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import lombok.extern.slf4j.Slf4j;
-import test.com.idle.config.StompWebSocketConfig;
-import test.com.idle.dao.NotificationDAO;
-import test.com.idle.dto.NotificationDTO;
-import test.com.idle.repository.EmitterRepository;
-import test.com.idle.vo.MemberVO;
-import test.com.idle.vo.NotificationVO;
+import test.com.admin.dao.NotificationDAO;
+import test.com.admin.dto.NotificationDTO;
+import test.com.admin.repository.EmitterRepository;
+import test.com.admin.vo.MemberVO;
+import test.com.admin.vo.NotificationVO;
 @Slf4j
 @Service
 public class NotificationService {
@@ -25,13 +23,11 @@ public class NotificationService {
     
     private final EmitterRepository emitterRepository;
     private final NotificationDAO notificationDAO;
-    private final StompWebSocketConfig webSocketConfig;
     
     @Autowired
-    public NotificationService(EmitterRepository emitterRepository, NotificationDAO notificationDAO, StompWebSocketConfig webSocketConfig) {
+    public NotificationService(EmitterRepository emitterRepository, NotificationDAO notificationDAO) {
         this.emitterRepository = emitterRepository;
         this.notificationDAO = notificationDAO;
-        this.webSocketConfig = webSocketConfig;
     }
     
     // 클라이언트가 구독을 위해 메소드
@@ -47,9 +43,11 @@ public class NotificationService {
         // SseEmitter의 시간 초과 및 네트워크 오류를 포함한 모든 이유로 비동기 요청이 정상 동작할 수 없으면 SseEmitter를 삭제
         emitter.onCompletion(()-> emitterRepository.deleteById(emitterId));
         
-        // 503 에러를 방지하기 위한 더미 에벤트 전송
+        // 503 에러를 방지하기 위한 더비 에벤트 전송
         String eventId = makeTimeIncludeId(memberId);
-        sendNotification(emitter, eventId, emitterId, "EventStream Created. [userEmail=" + memberId + "]");
+        
+    	sendNotification(emitter, eventId, emitterId, "EventStream Created. [memberId :" + memberId + "]");
+
         
         // 클라이언트가 미수신한 Event 목록이 존재할 경우 전송하여 Event 유실을 예방
         if (!lastEventId.isEmpty()) {
@@ -119,10 +117,6 @@ public class NotificationService {
     
     public List<NotificationVO> notificationSeletAll(NotificationVO vo) {
     	return notificationDAO.selectAll(vo);
-    }
-    
-    public Set<String> getChattingUser() {
-    	return webSocketConfig.getChattingUser();
     }
     
     public NotificationVO insertNotification(MemberVO receiver, String title, String content,

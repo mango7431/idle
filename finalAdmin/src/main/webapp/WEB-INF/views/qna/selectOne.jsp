@@ -26,6 +26,7 @@
 		$(function(){
 			console.log('onload...');
 			pageLoad();
+			var userId = '';
 		}); 
 		
 		
@@ -75,7 +76,7 @@
 					let qna_content = `\${vo2.qna_content}`;
 					$('#qna_content').html(qna_content);
 					
-					
+					userId = vo2.writer;
 				},
 				error: function(xhr, status, error) {
 					console.log('xhr.status:', xhr.status);
@@ -144,7 +145,8 @@
 				data:{
 					//qna_num은 답글상태를 변하기위해 필요
 					qna_num:${param.qna_num},
-					qnareply_content:$('#reply_content').val()
+					qnareply_content:$('#reply_content').val(),
+					id: userId
 					
 				},
 				method:'GET',
