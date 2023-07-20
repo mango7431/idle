@@ -158,10 +158,10 @@ public class BoardController {
 				log.info("adminRealPath : {}", adminRealPath);
 
 				// 관리자 프로젝트쪽에도 이미지 생성
-				File adminf = new File(adminRealPath + "\\" + list.get(i));
+				File adminf = new File(adminRealPath + "/" + list.get(i));
 				FileCopyUtils.copy(vo.getMultipartFiles().get(i).getBytes(), adminf);
 
-				File f = new File(realPath + "\\" + list.get(i));
+				File f = new File(realPath + "/" + list.get(i));
 				vo.getMultipartFiles().get(i).transferTo(f);
 
 				BufferedImage original_buffer_img = ImageIO.read(f);
@@ -240,10 +240,10 @@ public class BoardController {
 					log.info("adminRealPath : {}", adminRealPath);
 
 					// 관리자 프로젝트쪽에도 이미지 생성
-					File adminf = new File(adminRealPath + "\\" + list.get(i));
+					File adminf = new File(adminRealPath + "/" + list.get(i));
 					FileCopyUtils.copy(vo.getMultipartFiles().get(i).getBytes(), adminf);
 
-					File f = new File(realPath + "\\" + list.get(i));
+					File f = new File(realPath + "/" + list.get(i));
 					vo.getMultipartFiles().get(i).transferTo(f);
 
 					BufferedImage original_buffer_img = ImageIO.read(f);
