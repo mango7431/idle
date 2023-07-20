@@ -47,11 +47,9 @@ public class NotificationService {
         // SseEmitter의 시간 초과 및 네트워크 오류를 포함한 모든 이유로 비동기 요청이 정상 동작할 수 없으면 SseEmitter를 삭제
         emitter.onCompletion(()-> emitterRepository.deleteById(emitterId));
         
-        // 503 에러를 방지하기 위한 더비 에벤트 전송
+        // 503 에러를 방지하기 위한 더미 에벤트 전송
         String eventId = makeTimeIncludeId(memberId);
-        
-    	sendNotification(emitter, eventId, emitterId, "EventStream Created. [memberId :" + memberId + "]");
-
+        sendNotification(emitter, eventId, emitterId, "EventStream Created. [userEmail=" + memberId + "]");
         
         // 클라이언트가 미수신한 Event 목록이 존재할 경우 전송하여 Event 유실을 예방
         if (!lastEventId.isEmpty()) {

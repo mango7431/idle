@@ -11,6 +11,85 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 	<jsp:include page="../css.jsp"></jsp:include>
 	
+	<style>
+		/* 전체 */
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+		
+		a:hover {
+			color: inherit;
+		}
+		
+		li {
+		  list-style-type: none;
+		}
+		
+				
+		
+		
+		/* 마이페이지 breadcrumb */
+		.breadcrumb {
+			padding-top: 35px;
+			padding-bottom: 35px;
+		}
+		
+		
+		
+		
+		/* 마이페이지 서브메뉴 */
+		.mypage-floating-menu { /* 마이페이지 통일시키기 */
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border: 2px solid #33A1FD;
+		}
+		
+		.mypage-floating-menu li {
+			list-style-type: none;
+		}
+		
+		.mypage-floating-menu li a {
+			display: block;
+			text-align: center;
+			padding: 14px 16px;
+		}
+		
+		.mypage-floating-menu li a:hover{
+			color: #33A1FD;
+		}
+
+		
+		
+		/* 마이페이지 Q&A 목록 */
+		.q-filter-btn .selected { /* 카테고리 버튼 */
+			border-radius: 20px;
+			background-color: #33A1FD;
+			color: #fff;
+		}
+		
+		
+		/* 마이페이지 Q&A 목록, 상세 공통 */
+		.q-status { /* 답변 상태 */
+			color : #33A1FD;
+		}
+		
+		.q-category { /* 카테고리 */
+			color : #343a40;
+		}
+		
+		
+		
+		/* 마이페이지 페이지 표시 */
+		.page-num.active a {
+			font-weight: bold;
+			color: #33A1FD;
+		}
+	
+	
+	</style>
+	
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	
 	<script type="text/javascript">
@@ -22,7 +101,7 @@
 			var selectedCategory = convertNumToCategory(parseInt(parameterCategory));
 		  $("#q-category-" + convertCategoryToEng(selectedCategory)).addClass('selected');
 		  
-		  console.log("parameterCategory", parameterCategory);
+		  //console.log("parameterCategory", parameterCategory);
 		  
 		  renderQnAListPagination(parameterCategory);
 		  
@@ -67,13 +146,13 @@
 			$(document).on("click", ".page-detail", function(e) {
 				$('input[name="qna_category"]').val(parameterCategory);
 				var qnaNum = $(this).closest("tr").find(".qna-num").text().trim();
-				console.log(qnaNum);
+				//console.log(qnaNum);
 				//e.preventDefault();
 				var url = "qnaSelectOne.do?qna_num=" + qnaNum
 						+"&pageNum=" + $('input[name="pageNum"]').val()
 						+"&amount=" + $('input[name="amount"]').val()
 						+"&qna_category=" + $('input[name="qna_category"]').val()
-						+"&writer=tester1";
+						+"&writer="+"${user_id}";
 				//사용자 정보 수정하기
 				
 				$(this).attr("href", url);
@@ -82,24 +161,24 @@
 		
 		// Q&A 리스트 ajax
 		function renderQnAList(initCategory=0){
-			console.log("initCategory:" , initCategory);
+			//console.log("initCategory:" , initCategory);
 			$.ajax({
 				url: "jsonQnaSelectAll.do",
-				data: {writer: "tester1", //사용자 정보 수정하기
-							 qna_category: initCategory,
-							 pageNum : $('input[name="pageNum"]').val(),
-							 amount : $('input[name="amount"]').val()
+				data: {writer: "${user_id}",
+				 qna_category: initCategory,
+				 pageNum : $('input[name="pageNum"]').val(),
+				 amount : $('input[name="amount"]').val()
 				},
 				method: 'GET',
 				dataType: 'json',
 				success: function(vos){
-					console.log('ajax...success:', vos);	
-				  let tag_vos = '';
+					//console.log('ajax...success: vos', vos);	
+				  	let tag_vos = '';
 					let status = '';
 					let txtCategory = '';
 					let date = '';
 					
-					$("#vos").empty();
+					$("#qvos").empty();
 					
 					if(vos.length === 0) {
 						tag_vos = `
@@ -109,7 +188,7 @@
 					      </td>
 					    </tr>
 						`;
-						$("#vos").html(tag_vos);
+						$("#qvos").html(tag_vos);
 					} else {
 						$.each(vos, function(index, vo) {						
 							if (vo.qna_status === 1) {
@@ -130,19 +209,19 @@
 						      <td class="py-4 my-1">
 						      	<a href="" class="page-detail">
 							        <div class="fs-5"><span class="q-status fw-bold me-2">\${status}</span>\${vo.qna_title}</div>
-							        <div class="mt-3">\${txtCategory}</div>
+							        <div class="mt-3 fw-bold q-category">\${txtCategory}</div>
 							        <div class="mt-2">\${formattedDate}</div>
 							      </a>
 						      </td>
 						    </tr>
 						  `;
 							
-							$("#vos").html(tag_vos);
+							$("#qvos").html(tag_vos);
 						});
 					}
 				},
 				error: function(xhr, status, error) {
-					console.log('xhr.status:', xhr.status);
+					//console.log('xhr.status:', xhr.status);
 				}
 			});
 		}
@@ -151,7 +230,7 @@
 		function renderQnAListPagination(initCategory=0) {
 			$.ajax({
 				url: "jsonQnaSelectCount.do",
-				data: {writer: "tester1", //사용자 정보 수정하기
+				data: {writer: "${user_id}",
 							 qna_category: initCategory,
 							 pageNum : $('input[name="pageNum"]').val(),
 							 amount : $('input[name="amount"]').val()
@@ -159,7 +238,7 @@
 				method: 'GET',
 				dataType: 'json',
 				success: function(vo){
-					console.log('ajax...success:', vo);					
+					//console.log('ajax...success:', vo);					
 					$("#pagination").empty();
 					
 					let tag_page = `   					
@@ -168,7 +247,7 @@
 			    	</li>
 		    	`;
 
-					for (let num = vo.startPage; num <= vo.endPage+1; num++) {
+					for (let num = vo.startPage; num <= vo.endPage; num++) {
 						tag_page += `
 							<li class="list-inline-item \${vo.cri.pageNum == num ? "active":""} page-num">
 								<a class="page-link" href="">\${num}</a>
@@ -200,7 +279,7 @@
 
 				},
 				error: function(xhr, status, error) {
-					console.log('xhr.status:', xhr.status);
+					//console.log('xhr.status:', xhr.status);
 				}
 			});
 		}
@@ -269,15 +348,12 @@
 	<div class="container">
 		<div class="breadcrumb fs-5 fw-bold px-4">내 Q&A 목록</div>
  		<div class="row my-3">
-     	<div class="col-md-3 col-lg-2">     
+     	<div class="col-md-3 col-lg-2">    
+     		<!-- 분리하는 것이 좋을 것 같음 분리하게 되면 동적으로 표시할 수 있게 수정해야함.--> 
 		    <ul class="mypage-floating-menu px-0">
-		    	<li><a href="#">마이페이지</a></li>
-		    	<li><a href="#">회원정보수정</a></li>
-		    	<li><a href="#">찜목록</a></li>
-		    	<li><a href="#">내 거래 목록</a></li>
-		    	<li><a href="#">내동네설정</a></li>
-		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=tester1">내 Q&A 목록</a></li>
-		    	<!-- 사용자 정보 수정하기 -->
+		    	<li><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
+		    	<li><a href="memberUpdate.do?id=${user_id}">회원정보수정</a></li>
+		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 		    </ul>
    		</div>
    		<div class="col-md-9 col-lg-10 px-5">
@@ -295,29 +371,29 @@
       		</ul>
       	</div>
         <table class="table table-sm">
-				  <thead>
-				    <tr>
-				      <th scope="col" class="col-3 text-center py-3">글번호</th>
-				      <th scope="col" class="col-9 text-center py-3">내용</th>
-				    </tr>
-				  </thead>
-				  <tbody id="vos">
-				  </tbody>
-				</table>
-			
-				<nav class="text-center">
-				  <ul class="list-inline" id="pagination">
-				  
-				  </ul>
-				</nav>  
-				
-				<form id="actionForm" action="qnaSelectAll.do" method="get">
-					<input type="hidden" name="pageNum" value="${cri.pageNum}">
-					<input type="hidden" name="amount" value="${cri.amount}">
-					<input type="hidden" name="qna_category" value="">
-					<input type="hidden" name="writer" value="tester1">
-					<!-- 유저 정보 수정하기 -->
-				</form>  
+		  <thead>
+		    <tr>
+		      <th scope="col" class="col-3 text-center py-3">글번호</th>
+		      <th scope="col" class="col-9 text-center py-3">내용</th>
+		    </tr>
+		  </thead>
+		  <tbody id="qvos">
+		  	
+		  </tbody>
+		</table>
+		
+		<nav class="text-center">
+		  <ul class="list-inline" id="pagination">
+		  
+		  </ul>
+		</nav>  
+		
+		<form id="actionForm" action="qnaSelectAll.do" method="get">
+			<input type="hidden" name="pageNum" value="${cri.pageNum}">
+			<input type="hidden" name="amount" value="${cri.amount}">
+			<input type="hidden" name="qna_category" value="">
+			<input type="hidden" name="writer" value="${user_id}">
+		</form>  
   		</div>      
 	  </div>
 	</div>

@@ -1,8 +1,7 @@
 package test.com.admin.restcontroller;
 
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.service.BoardService;
 import test.com.admin.vo.BoardVO;
-import test.com.admin.vo.PagingVO;
 
 @Controller
 @Slf4j
@@ -33,26 +31,19 @@ public class BoardRestController {
 		return vo2;
 	}
 	
-	@RequestMapping(value = "/jsonBoardSearchList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/jsonBoardBlack.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, Object> jsonBoardSearchList(String searchKey,String searchWord,PagingVO vo) {
-		log.info("/jsonBoardSearchList.do...{},{}",searchKey,searchWord);
-		log.info("pageVO : {}",vo);
+	public List<BoardVO> jsonBoardBlack(BoardVO vo) {
+		log.info("/jsonBoardBlack.do...{}",vo);
 		
-		Map<String, Object> response = new HashMap<String, Object>();
-		
-		int boardSearchCount = service.boardSearchCount(searchKey,searchWord);
-		log.info("boardCount : {}",boardSearchCount);
-		
-		PagingVO page = new PagingVO(vo.getPage(),10,boardSearchCount);
-		
-		List<BoardVO> vos = service.searchList(searchKey,searchWord,page);
+		List<BoardVO> vos = service.selectBlack(vo);
 		log.info("{}",vos);
 		
-		response.put("vos", vos);
-		response.put("page", page);
+		if(vos.size()==1&&vos.get(0).getBlack_num()==0) {
+			return Collections.emptyList();
+		}
 		
-		return response;
+		return vos;
 	}
 
 }

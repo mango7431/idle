@@ -39,4 +39,12 @@ public class MessageService {
 	public int readCount(MessageVO vo) {
 		return dao.readCount(vo);
 	}
+	public int buyRequestInsert(MessageVO vo) {
+		return dao.buyRequestInsert(vo);
+	}
+
+	public MessageVO buyMessageCheck(MessageVO vo) {
+		return dao.buyMessageCheck(vo);
+	}
+
 }

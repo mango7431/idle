@@ -12,8 +12,40 @@
 	<jsp:include page="../css.jsp"></jsp:include>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-	
-	<script type="text/javascript">
+
+<style type="text/css">
+
+/* 마이페이지 서브메뉴 */
+.mypage-floating-menu { /* 마이페이지 통일시키기 */
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 2px solid #33A1FD;
+}
+
+.mypage-floating-menu li {
+	list-style-type: none;
+}
+
+.mypage-floating-menu li a {
+	display: block;
+	text-align: center;
+	padding: 14px 16px;
+}
+
+.mypage-floating-menu li a:hover {
+	color: #33A1FD;
+}
+
+.submit-btn {
+	border-radius: 12px;
+	background-color: #33A1FD;
+	color: #fff;
+	padding: 8px 15px;
+	border: none;
+}
+</style>
+
+<script type="text/javascript">
 
 	$(function(){
 		$.ajax({
@@ -22,7 +54,7 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(vo){
-				console.log('ajax...success:', vo);
+// 				console.log('ajax...success:', vo);
 				let category = '';
 				
 				if (vo.qna_category === 1) {
@@ -43,7 +75,7 @@
 				$('#category').val(vo.qna_category);
 				
 				var content_txt = $('#content').text();
-				console.log(content_txt);
+// 				console.log(content_txt);
 				fn_checkByte($('#content').text());
 
 			},
@@ -107,12 +139,9 @@
  		<div class="row my-3">
      	<div class="col-md-3 col-lg-2">     
 		    <ul class="mypage-floating-menu px-0">
-		    	<li><a href="#">마이페이지</a></li>
-		    	<li><a href="#">회원정보수정</a></li>
-		    	<li><a href="#">찜목록</a></li>
-		    	<li><a href="#">내 거래 목록</a></li>
-		    	<li><a href="#">내동네설정</a></li>
-		    	<li class="fw-bold"><a href="qnaSelectAll.do">내 Q&A 목록</a></li>
+		    	<li><a href="memberSelectOne.do?id=${user_id}">마이페이지</a></li>
+		    	<li><a href="memberUpdate.do?id=${user_id}">회원정보수정</a></li>
+		    	<li class="fw-bold"><a href="qnaSelectAll.do?writer=${user_id}">내 Q&A 목록</a></li>
 		    </ul>
    		</div>
    		<div class="col-md-9 col-lg-10 px-5">

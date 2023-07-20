@@ -17,4 +17,5 @@ public class BlackVO {
 	private String board_title;
 	private int board_report;
 	private int member_report;
+	private int black_status;
 }

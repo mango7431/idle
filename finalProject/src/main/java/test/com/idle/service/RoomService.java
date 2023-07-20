@@ -52,4 +52,5 @@ public class RoomService {
 			return vo2.getBuyer();
 		}
 	}
+
 }

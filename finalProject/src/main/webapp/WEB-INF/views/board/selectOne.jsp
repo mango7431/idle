@@ -11,10 +11,87 @@
   	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<jsp:include page="../css.jsp"></jsp:include>
+<style type="text/css">
+#reportModal{
+	width: 30%;
+	margin: 0 auto;
+	border: 1px solid #33A1FD;
+	background: white;
+	position: fixed;
+  	left: 50%;
+  	top: 50%;
+	transform: translate(-50%, -50%);
+   	padding: 30px;
+   	border-radius: 20px;
+}
+
+#reportModal h2{
+	color: #33A1FD;
+	margin-bottom: 15px;
+}
+
+#reportWarning{
+	color : red;
+}
+
+.close {
+	float: right;
+	background: none;
+	border: none;
+	font-size: x-large;
+}
+
+.close:hover{
+	font-weight: bold;
+}
+
+.modalBtn{
+	text-align: center;
+}
+
+.modalContent input[type="radio"] {
+    display: none;
+ }
+
+.modalContent input[type="radio"]:checked + label {
+    font-weight: bold;
+}
+
+.modalContent label {
+    cursor: pointer;
+}
+
+.modalContent label:hover{
+	font-weight: bold;
+	color: #33A1FD;
+}
+
+.reportBoard{
+	height: auto;
+	margin-bottom: 15px;
+}
+.reportBoard label{
+	margin-bottom: 18px;
+}
+
+.reportBoard textarea{
+	display: none;
+	width: 90%;
+}
+
+.modalBtn button{
+	background-color: #33A1FD;
+	border: none;
+	color: white;
+	border-radius: 5px;
+	padding: 8px;
+}
+</style>
 <script type="text/javascript">
 	
 	$(function(){
-		console.log('onload...');
+// 		console.log('onload...');
 		
 		$.ajax({
 			url:"jsonBoardSelectOne.do",
@@ -22,7 +99,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(vo2){
-				console.log('test ajax success:',vo2);
+// 				console.log('test ajax success:',vo2);
 				
 				let board_type = ``;
 				if(vo2.board_type==1){
@@ -32,9 +109,9 @@
 				}
 				$('#board_type').html(board_type);
 				
-				let img1 = `<img src="resources/img/\${vo2.board_savename1 }" height="300px" class="d-block w-100">`;
-				let img2 = `<img src="resources/img/\${vo2.board_savename2 }" height="300px" class="d-block w-100">`;
-				let img3 = `<img src="resources/img/\${vo2.board_savename3 }" height="300px" class="d-block w-100">`;
+				let img1 = `<img src="resources/img/\${vo2.board_savename1 }" height="400px" class="d-block w-100">`;
+				let img2 = `<img src="resources/img/\${vo2.board_savename2 }" height="400px" class="d-block w-100">`;
+				let img3 = `<img src="resources/img/\${vo2.board_savename3 }" height="400px" class="d-block w-100">`;
 				
 				$('#img1').html(img1);
 				$('#img2').html(img2);
@@ -42,11 +119,11 @@
 				
 				let board_title = ``;
 				if(vo2.board_status==1){
-					board_title = `거래중 \${vo2.board_title}`;
+					board_title = `<span class="spancolor">거래중</span> \${vo2.board_title}`;
 				}else if(vo2.board_status==2){
-					board_title = `거래완료 \${vo2.board_title}`;
+					board_title = `<span class="spancolor">거래완료</span> \${vo2.board_title}`;
 				}else{
-					board_title = `숨기기 \${vo2.board_title}`;
+					board_title = `<span class="spancolor">숨기기</span> \${vo2.board_title}`;
 				}
 				$('#board_title').html(board_title);
 				
@@ -54,8 +131,8 @@
 				
 				let board_date = `작성날짜 : \${date}`;
 				$('#board_date').html(board_date);
-				
-				let price = `가격 : \${vo2.price}원`;
+
+				let price = `가격 : \${vo2.price.toLocaleString('ko-KR')}원`;
 				$('#price').html(price);
 				
 				let category = `카테고리 : \${vo2.category}`;
@@ -69,9 +146,9 @@
 				
 				if('${user_id}'!=vo2.writer){
 					let buttons = `
-						<button onclick="likeButton()">찜</button>
-						<button onclick="chat('\${vo2.writer}')">채팅</button>
-						<button id="reportBtn">신고하기</button>
+						<button class="myButton" onclick="likeButton()">찜</button>
+						<button class="myButton" onclick="chat('\${vo2.writer}')">채팅</button>
+						<button class="myButton" id="reportBtn">신고하기</button>
 						`;
 						$('#buttons').html(buttons);
 				}
@@ -90,8 +167,8 @@
 				
 				if('${user_id}'==vo2.writer){
 					let udbutton = `
-						<a href="boardUpdate.do?board_num=\${vo2.board_num}">수정</a>
-						<a href="boardDeleteOK.do?board_num=\${vo2.board_num}" onclick="return deleteOK()">삭제</a>
+						<a href="boardUpdate.do?board_num=\${vo2.board_num}" class="myButton">수정</a>
+						<a href="boardDeleteOK.do?board_num=\${vo2.board_num}" onclick="return deleteOK()" class="myButton">삭제</a>
 						`;
 						$('#udbutton').html(udbutton);
 						
@@ -127,7 +204,11 @@
 	});
 	
 	function likeButton(){
-		console.log("likeButton()");
+// 		console.log("likeButton()");
+		if('${user_id}'===''){
+// 			console.log('널입니다.');
+			location.href = 'login.do';
+		}
 		$.ajax({
 			url:"jsonLikeSelectOne.do",
 			data:{
@@ -137,10 +218,10 @@
 			method:'GET',
 			dataType:'json',
 			success: function(obj){
-				console.log(obj);
+// 				console.log(obj);
 				
 				if(obj.result=='OK'){
-					console.log('찜하기');
+// 					console.log('찜하기');
 					
 					$.ajax({
 						
@@ -163,7 +244,7 @@
 					});
 					
 				}else{
-					console.log('찜해제');
+// 					console.log('찜해제');
 					$.ajax({
 						
 						url:"jsonLikeDelete.do",
@@ -192,8 +273,13 @@
 	}
 	
 	function chat(writer){
-		console.log("chat()");
-		console.log(writer);
+// 		console.log("chat()");
+// 		console.log(writer);
+		
+		if('${user_id}'===''){
+// 			console.log('널입니다.');
+			location.href = 'login.do';
+		}
 		
 		$.ajax({
 			url:"jsonRoomInsert.do",
@@ -205,7 +291,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(result){
-				console.log(result);
+// 				console.log(result);
 				if(result==1){
 					location.href = 'roomSelectAll.do';
 				}
@@ -220,7 +306,12 @@
 	}
 	
 	function changeStatus(status){
-		console.log("changeStatus",status);
+// 		console.log("changeStatus",status);
+		
+		if('${user_id}'===''){
+// 			console.log('널입니다.');
+			location.href = 'login.do';
+		}
 		
 		$.ajax({
 			url:"jsonChangeStatus.do",
@@ -231,7 +322,7 @@
 			method:'GET',
 			dataType:'json',
 			success: function(result){
-				console.log(result);
+// 				console.log(result);
 				if(result==1){
 					location.href = 'boardSelectOne.do?board_num=${param.board_num}';
 				}
@@ -300,6 +391,11 @@
 .reportBoard label{
 	margin-bottom: 18px;
 }
+
+.reportBoard textarea{
+	display: none;
+	width: 90%;
+}
 </style>
 </head>
 <body>
@@ -344,8 +440,8 @@
 					<p class="card-text" id="deal_region"></p>
 					<p class="card-text" id="count"></p>
 					<p class="card-text" id="udbutton"></p>
-					<p class="card-text" id="buttons" align="right"></p>
 					<p class="card-text" id="board_status"></p>
+					<p class="card-text" id="buttons" align="right"></p>
 				</div>
 			</div>
 		</div>
@@ -373,21 +469,20 @@
 	<p>아래 신고 사유를 선택해주세요</p>
 	<hr>
 	<div class="modalContent">
-		<form action="blackInsertOK.do" method="post" onsubmit="return blackInsertForm()">
+		<form action="blackInsertOK.do" method="get" onsubmit="return blackInsertForm()" id="blackInsert">
 			<div class="reportBoard">
 				<input type="hidden" name="targetid" value="${vo2.writer}"/>
-				<%-- <input type="hidden" name="reporterid" value="${userId}"/> --%>
-				<input type="hidden" name="reporterid" value="tester3"/>
+				<input type="hidden" name="reporterid" value="${user_id}"/>
 				<input type="hidden" name="board_num" value="${vo2.board_num}"/>
 				<input type="hidden" name="black_type" value=""/>
 				<input type="radio" name="black_category" id="black_category1" value="1"/><label for="black_category1">광고성 게시글이에요</label><br />
 				<input type="radio" name="black_category" id="black_category2" value="2"/><label for="black_category2">거래금지품목(술,약류,담배 등)을 팔아요</label><br />
 				<input type="radio" name="black_category" id="black_category3" value="3"/><label for="black_category3">상품정보가 부정확해요</label><br />
 				<input type="radio" name="black_category" id="black_category4" value="4"/><label for="black_category4">사기인 것 같아요</label><br />
-				<input type="radio" name="black_category" onclick="toggleText(this.value)" id="black_category5" value="5"/><label for="black_category5">기타 사유 입력</label><br />
-				<textarea rows="3" cols="40" name="comments" id="comments1" style="display: none;" placeholder="게시글 신고 내용을 작성해주세요."></textarea>	
-				<input type="radio" name="black_category" onclick="toggleText(this.value)" id="black_category6" value="6"/><label for="black_category6">'${vo2.name}'님을 신고할래요</label><br />	
-				<textarea rows="3" cols="40" name="comments" id="comments2" style="display: none;" placeholder="사용자 신고 내용을 작성해주세요."></textarea>	
+				<input type="radio" name="black_category" id="black_category5" value="5"/><label for="black_category5">기타 사유 입력</label><br />
+				<textarea rows="3" cols="40" name="comments" id="comments1" placeholder="게시글 신고 내용을 작성해주세요."></textarea>	
+				<input type="radio" name="black_category" id="black_category6" value="6"/><label for="black_category6">'${vo2.name}'님을 신고할래요</label><br />	
+				<textarea rows="3" cols="40" name="comments" id="comments2" placeholder="사용자 신고 내용을 작성해주세요."></textarea>	
 			</div>
 			<hr />
 			<div class="modalBtn">
@@ -399,19 +494,20 @@
 
 <script type="text/javascript">
 //신고모달창 show&hide
+//신고모달창 show&hide
 $(document).ready(function() {
   $('input[name="black_category"]').on('change', function() {
     var value = $(this).val();
     
     if (value === '5') {
-      $('#comments1').show();
-      $('#comments2').hide();
+    	$('#comments1').prop('disabled', false).show();
+        $('#comments2').prop('disabled', true).hide(); //comments 제출을 막음
     } else if (value === '6') {
-      $('#comments1').hide();
-      $('#comments2').show();
+    	$('#comments2').prop('disabled', false).show();
+        $('#comments1').prop('disabled', true).hide();
     } else {
-      $('#comments1').hide();
-      $('#comments2').hide();
+		$('#comments1').prop('disabled', false).hide(); //comments 하나는 되도록..
+		$('#comments2').prop('disabled', true).hide();
     }
   });
   
@@ -435,28 +531,35 @@ $(function() {
    $('input[name="black_category"]').on('change', function() {
      var value = $(this).val();
      if (value >= 1 && value <= 5) {
-       $('input[name="black_type"]').val(1);
+       $('input[name="black_type"]').val(2);
       } else if (value == 6) {
-        $('input[name="black_type"]').val(2);
+        $('input[name="black_type"]').val(1);
      }
    });
 });
 
 //신고하기 버튼 눌렀을 때
 function blackInsertForm() {
-  const blackCategoryChecked = document.querySelector('input[name="black_category"]:checked');
-   if (!blackCategoryChecked) {
-    alert('신고 사유를 선택해주세요.');
-      return false; // 폼 전송 막기
-    }
-   
-  const reportConfirm = confirm('허위신고 시 중고링 이용이 제한될 수 있습니다. 정말로 신고하시겠습니까?');
-   if (!reportConfirm) {
-     return false;
-   }
-   
- alert('신고가 등록되었습니다.');
- return true;
+	 const blackCategoryChecked = document.querySelector('input[name="black_category"]:checked');
+	 
+	 if (!`${user_id}`) {
+			window.location.href = "login.do";
+			return false;
+		}
+	 
+	if (!blackCategoryChecked) {
+		alert('신고 사유를 선택해주세요.');
+		  return false; // 폼 전송 막기
+	}
+	 
+	const reportConfirm = confirm('허위신고 시 중고링 이용이 제한될 수 있습니다. 정말로 신고하시겠습니까?');
+	if (!reportConfirm) {
+	  return false;
+	}
+	  
+	alert('신고가 등록되었습니다.');
+	
+	return true;
 }
 </script>
 </body>

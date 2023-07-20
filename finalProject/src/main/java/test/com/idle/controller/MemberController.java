@@ -34,7 +34,7 @@ public class MemberController {
 	HttpSession session;
 
 	@RequestMapping(value = "/memberInsert.do", method = RequestMethod.GET)
-	public String memberInsert3() {
+	public String memberInsert() {
 		log.info("/memberInsert.do");
 
 		return "member/insert";
@@ -58,6 +58,7 @@ public class MemberController {
 			String realPath = sContext.getRealPath("resources/img");
 			String adminRealPath = realPath.replaceAll("finalProject", "finalAdmin");
 			log.info("realPath : {}", realPath);
+			log.info("adminRealPath : {}", adminRealPath);
 			
 			// 관리자 프로젝트쪽에도 이미지 생성
 			File adminf = new File(adminRealPath+"\\"+vo.getMember_savename());
@@ -93,7 +94,7 @@ public class MemberController {
 		if (result == 1) {
 			return "redirect:home.do";
 		} else {
-			return "redirect:memberInsert3.do";
+			return "redirect:memberInsert.do";
 		}
 
 	}// end memberInsertOK
@@ -106,6 +107,88 @@ public class MemberController {
 		return "member/myPage";
 	}// end memberSelectOne
 
+	
+	@RequestMapping(value = "/memberUpdate.do", method = RequestMethod.GET)
+	public String memberUpdate(MemberVO vo, Model model) {
+		log.info("/memberUpdate.do...{}", vo);
+		MemberVO vo2 = service.selectOne(vo);
+		model.addAttribute("vo2", vo2);
+
+		return "member/update";
+	}// end memberUpdate
+	
+	
+	@RequestMapping(value = "/memberUpdateOK.do", method = RequestMethod.POST)
+	public String memberUpdateOK(MemberVO vo) throws IllegalStateException, IOException {
+		log.info("/memberUpdateOK.do...{}", vo);
+
+		String getOriginalFilename = vo.getMultipartFile().getOriginalFilename();
+		int fileNameLength = vo.getMultipartFile().getOriginalFilename().length();
+		log.info("getOriginalFilename:{}", getOriginalFilename);
+		log.info("fileNameLength:{}", fileNameLength);
+
+		if (getOriginalFilename.length() != 0) {
+
+			vo.setMember_savename(getOriginalFilename);
+			// 웹 어플리케이션이 갖는 실제 경로: 이미지를 업로드할 대상 경로를 찾아서 파일저장.
+			String realPath = sContext.getRealPath("resources/img");
+			String adminRealPath = realPath.replaceAll("finalProject", "finalAdmin");
+			log.info("realPath : {}", realPath);
+			log.info("adminRealPath : {}", adminRealPath);
+			
+			// 관리자 프로젝트쪽에도 이미지 생성
+			File adminf = new File(adminRealPath+"\\"+vo.getMember_savename());
+			FileCopyUtils.copy(vo.getMultipartFile().getBytes(),adminf);
+
+			// 오리지날 사진저장
+			File f = new File(realPath + "\\" + vo.getMember_savename());
+			vo.getMultipartFile().transferTo(f);
+			
+			// 썸네일 사진저장
+			//// create thumbnail image/////////
+			BufferedImage original_buffer_img = ImageIO.read(f);
+			BufferedImage thumb_buffer_img = new BufferedImage(50, 50, BufferedImage.TYPE_3BYTE_BGR);
+			Graphics2D graphic = thumb_buffer_img.createGraphics();
+			graphic.drawImage(original_buffer_img, 0, 0, 50, 50, null);
+
+			File thumb_file = new File(realPath + "/thumb_" + vo.getMember_savename());
+			
+			String formatName = vo.getMember_savename().substring(vo.getMember_savename().lastIndexOf(".") + 1);
+			log.info("formatName : {}", formatName);
+			ImageIO.write(thumb_buffer_img, formatName, thumb_file);
+
+			// 관리자쪽에 썸네일 추가
+			File admin_thumb_file = new File(adminRealPath + "/thumb_" + vo.getMember_savename());
+			log.info("{}",formatName);
+			ImageIO.write(thumb_buffer_img, formatName, admin_thumb_file);
+
+		} // end else
+		log.info("{}", vo);
+
+		int result = service.update(vo);
+
+		if (result == 1) {
+			return "redirect:memberSelectOne.do?id=" + vo.getId();
+		} else {
+			return "redirect:memberupdate.do?id" + vo.getId();
+		}
+	}//end memberUpdateOK
+	
+	@RequestMapping(value = "/memberDeleteOK.do", method = RequestMethod.GET)
+	public String memberDeleteOK(MemberVO vo) {
+		log.info("/memberDeleteOK.do");
+
+		int result = service.delete(vo);
+		
+		if (result == 1) {
+			session.invalidate();
+			return "member/leave";
+		} else {
+			return "redirect:memberupdate.do?id" + vo.getId();
+		}
+
+	}//end memberDeleteOK
+	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String login(String message, Model model) {
 		log.info("/login.do....{}", message);
@@ -128,6 +211,8 @@ public class MemberController {
 			return "redirect:login.do?message=fail";
 		} else {
 			session.setAttribute("user_id", vo2.getId());
+			session.setAttribute("address", vo2.getAddress());	
+			session.setAttribute("name", vo2.getName());	
 			return "redirect:home.do";
 		}
 

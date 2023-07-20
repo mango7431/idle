@@ -87,6 +87,9 @@
 				`;
 				$('#udbutton').html(udbutton);
 				
+				
+				blackList();
+				
 			},
 			error:function(xhr,status,error){
 				console.log('xhr:',xhr.status);
@@ -102,6 +105,62 @@
 		    return false; // 아니요(취소)를 클릭하면 링크가 취소되어 삭제되지 않음
 		  }
 		}
+	
+	function blackList(){
+		$.ajax({
+			url:"jsonBoardBlack.do",
+			data:{board_num:${param.board_num}},
+			method:'GET',
+			dataType:'json',
+			success: function(vos){
+				console.log(vos);
+				if(vos.length === 0){
+					let blackdata = `
+						<tr>
+							<td colspan="5" align="center">신고 내역 없음</td>
+						</tr>
+					`;
+					$('#blackvos').html(blackdata);
+				}else{
+					let blackdata = ``;
+					
+					$.each(vos, function(index, vo) {
+						let blackDate = new Date(vo.black_date).toLocaleString();
+						let comments = vo.comments;
+						if(comments===null){
+							comments = '없음';
+						}
+						
+						let blackCategory = '';
+						if(vo.black_category==1){
+							blackCategory = '광고성 게시글';
+						}else if(vo.black_category==2){
+							blackCategory = '상품 정보 부족';
+						}else if(vo.black_category==3){
+							blackCategory = '사기';
+						}else if(vo.black_category==4){
+							blackCategory = '기타';
+						}
+						
+						blackdata += `
+							<tr>
+								<td>\${vo.black_num}</td>
+								<td>\${vo.reporterid}</td>
+								<td>\${blackDate}</td>
+								<td>\${comments}</td>
+								<td>\${blackCategory}</td>
+							</tr>
+					  `;
+					});
+					$('#blackvos').html(blackdata);
+				}
+				
+			},
+			error:function(xhr,status,error){
+				console.log('xhr:',xhr.status);
+			}
+		});
+	}
 	
 </script>
 </head>
@@ -167,6 +226,22 @@
 		<div class="form-floating">
 			<textarea class="form-control" id="board_content" style="height: 400px" readonly></textarea>
 		</div>
+		<br/>
+		<br/>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">신고번호</th>
+					<th scope="col">신고자</th>
+					<th scope="col">신고날짜</th>
+					<th scope="col">신고내용</th>
+					<th scope="col">신고유형</th>
+				</tr>
+			</thead>
+			<tbody class="table-group-divider" id="blackvos">
+				
+			</tbody>
+		</table>
 	</section>
 </body>
 </html>

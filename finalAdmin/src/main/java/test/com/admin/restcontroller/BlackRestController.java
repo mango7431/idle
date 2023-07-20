@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.service.BlackService;
 import test.com.admin.vo.BlackVO;
+import test.com.admin.vo.Criteria;
+import test.com.admin.vo.PageVO;
 
 @Controller
 @Slf4j
@@ -23,11 +26,16 @@ public class BlackRestController {
 
 	@RequestMapping(value = "/jsonBlackSelectAll.do", method = RequestMethod.GET)
 	@ResponseBody
-	public List<BlackVO> jsonBlackSelectAll() {
-		log.info("jsonBlackSelectAll()..");
+	public List<BlackVO> jsonBlackSelectAll(Criteria cri, Model model) {
+		log.info("jsonBlackSelectAll()..{}",cri);
 		
-		List<BlackVO> vos = service.jsonBlackSelectAll();
+		PageVO pagevo = new PageVO(cri,service.getTotal());
+		log.info("pagevo:{}",pagevo);
+		
+		List<BlackVO> vos = service.jsonBlackSelectAll(cri);
 		log.info(vos.toString());
+		
+		model.addAttribute("pageVO",pagevo);
 		
 		return vos;
 	}
@@ -43,6 +51,16 @@ public class BlackRestController {
 		}else if(black_type == 1) {
 			service.memberreportUp(vo);
 		}
+	}
+	
+	//신고처리
+	@RequestMapping(value = "/changeStatus.do", method = RequestMethod.GET)
+	@ResponseBody
+	public void changeStatus(BlackVO vo, @RequestParam("black_num") int black_num) {
+		log.info("changeStatus()..{},{}",vo,black_num);
+		
+		service.changeStatus(black_num);
+
 	}
 	
 	//신고게시글 삭제

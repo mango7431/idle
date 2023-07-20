@@ -19,7 +19,6 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
 	integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
 	crossorigin="anonymous"></script>
-<jsp:include page="../css.jsp"></jsp:include>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
@@ -27,6 +26,7 @@
 		$(function(){
 			console.log('onload...');
 			pageLoad();
+			var userId = '';
 		}); 
 		
 		
@@ -45,9 +45,11 @@
 					let qna_status = ``;
 					if (vo2.qna_status == 1) {
 						qna_status = `미답변 제목: \${vo2.qna_title}`;
-				  } else if (vo2.qna_status == 2) {
+						$('#reply_insert').show();
+					} else if (vo2.qna_status == 2) {
 					  qna_status = `답변완료 제목: \${vo2.qna_title}`;
-				  }
+					  $('#reply_insert').hide();
+					}
 					$('#qna_status').html(qna_status);
 
 					let qna_category = `구분: \${vo2.qna_category}`;
@@ -64,11 +66,17 @@
 				  }
 					$('#qna_category').html(qna_category);
 					
+					
 					let qna_date = `작성일: \${vo2.qna_date}`;
 					$('#qna_date').html(qna_date);
 					
+					let writer = `작성자: \${vo2.writer}`;
+					$('#writer').html(writer);
+					
 					let qna_content = `\${vo2.qna_content}`;
 					$('#qna_content').html(qna_content);
+					
+					userId = vo2.writer;
 				},
 				error: function(xhr, status, error) {
 					console.log('xhr.status:', xhr.status);
@@ -92,29 +100,26 @@
 					$.each(vos,function(index,vo){
 						let tag_td = `<td>\${vo.qnareply_content}</td>`;
 						if(qnareply_num==vo.qnareply_num){
-							tag_td = `<td><input type="text" value=\${vo.qnareply_content} id="input_content">
-							<button onclick="updateOK(\${vo.qnareply_num})">수정완료</button></td>`;
+							tag_td = `<td><textarea id="input_content" rows="10" cols="50" style="resize: none;" >\${vo.qnareply_content}</textarea>
+								<button onclick="updateOK(\${vo.qnareply_num})" class="qnaReplyUpateOKButton">수정완료</button></td>`;
 						}
 						let tag_div = ``;
 							tag_div = `
-							<div>
-								<button onclick="selectAll(\${vo.qnareply_num})">답글수정</button>
-								<button onclick="deleteOK(\${vo.qnareply_num})">답글삭제</button>
+							<div id="reply_up_del" >
+								<button onclick="selectAll(\${vo.qnareply_num})" class="qnaReplyUpdateButton">수정</button>
+								<button onclick="deleteOK(\${vo.qnareply_num})" class="qnaReplyDeleteButton">삭제</button>
 							</div>`;
+						
 						tag_txt += `
+							
 							<tr>
-								<td>답글번호: </td>
-								<td>\${vo.qnareply_num}</td>
+								\${tag_td}
+								<td></td>
 								<td></td>
 							</tr>
 							<tr>
 								<td>작성일: </td>
 								<td>\${vo.qnareply_date}</td>
-								<td></td>
-							</tr>
-							<tr>
-								\${tag_td}
-								<td></td>
 								<td></td>
 							</tr>
 							<tr>
@@ -140,7 +145,8 @@
 				data:{
 					//qna_num은 답글상태를 변하기위해 필요
 					qna_num:${param.qna_num},
-					qnareply_content:$('#reply_content').val()
+					qnareply_content:$('#reply_content').val(),
+					id: userId
 					
 				},
 				method:'GET',
@@ -212,32 +218,91 @@
 		
 		
 	</script>
+<style type="text/css">
+.adminQnaReplyContainer {
+	width: 60%;
+	margin: 0 auto;
+}
 
+.qnaReplyInsertButton {
+	background-color: #33A1FD;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 45%;
+}
+
+.qnaReplyInsertButton {
+	opacity: 0.8;
+}
+
+.qnaReplyUpateOKButton {
+	background-color: #33A1FD;
+	color: white;
+	padding: 14px 20px;
+	/* 	margin: 8px 0; */
+	border: none;
+	cursor: pointer;
+	width: 30%;
+}
+
+.qnaReplyUpateOKButton {
+	opacity: 0.8;
+}
+
+.qnaReplyUpdateButton {
+	color: #33A1FD;
+	border: 3px solid #33A1FD;
+	cursor: pointer;
+	width: 40%;
+}
+
+.qnaReplyDeleteButton {
+	background-color: #33A1FD;
+	border: 3px solid #33A1FD;
+	color: white;
+	border: none;
+	cursor: pointer;
+	width: 42%;
+}
+
+.qnaReplyDeleteButton {
+	opacity: 0.8;
+}
+</style>
 </head>
 <body onload="selectAll()">
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<div class="col-md-8">
-		<div>
-			<h4 id="qna_num"></h4>
-			<h4 id="qna_status"></h4>
-			<p id="qna_category"></p>
-			<p id="qna_date"></p>
-			<textarea class="form-control" id="qna_content" style="height: 150px"
-				readonly></textarea>
+	<div class="adminQnaReplyContainer">
+		<div class="col-md-8">
+			<div>
+				<h4 id="qna_num"></h4>
+				<h4 id="qna_status"></h4>
+				<p id="qna_category"></p>
+				<p id="qna_date"></p>
+				<p id="writer"></p>
+				<textarea class="form-control" id="qna_content" rows="10" cols="70"
+					readonly style="resize: none;"></textarea>
+			</div>
 		</div>
-	</div>
-	<hr>
-	<h4>답글</h4>
-	<div>
-		<p>작성자: 관리자</p>
-		<div id="qnareply_list"></div>
-	</div>
-	<hr>
-	<h5>답글 작성</h5>
-	<div>
-		<textarea id="reply_content" rows="10" cols="70">답글입니다.</textarea>
+		<hr>
+		<h4>답글</h4>
 		<div>
-			<button onclick="insertOK()">작성완료</button>
+			<p>작성자: 관리자</p>
+			<div id="qnareply_list"></div>
+		</div>
+		<hr>
+		<div id="reply_insert">
+			<h5>답글 작성</h5>
+			<div>
+				<textarea id="reply_content" rows="10" cols="70"
+					style="resize: none;">안녕하세요. 중고링입니다.</textarea>
+				<div>
+					<button onclick="insertOK()" class="qnaReplyInsertButton">작성완료</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

@@ -13,7 +13,8 @@ public class MemberVO {
 	private int member_report;
 	private String member_savename;
 	private MultipartFile multipartFile;
-	
+	private int buy_count;
+	private int sell_count;
 }
 
 

@@ -78,9 +78,9 @@ public class NoticeController {
 		log.info("result...{}", result);
 		
 		if(result == 1) {
-			return "redirect:n_selectAll.do";
+			return "redirect:noticeSelectAll.do";
 		}else {
-			return "redirect:n_insert.do";
+			return "redirect:noticeInsert.do";
 		}
 		
 	}

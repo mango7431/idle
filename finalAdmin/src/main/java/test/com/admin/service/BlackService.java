@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import test.com.admin.dao.BlackDAO;
 import test.com.admin.vo.BlackVO;
+import test.com.admin.vo.Criteria;
 
 @Service
 public class BlackService {
@@ -14,10 +15,10 @@ public class BlackService {
 	@Autowired
 	BlackDAO dao;
 
-	public List<BlackVO> jsonBlackSelectAll() {
-		return dao.jsonBlackSelectAll();
+	public List<BlackVO> jsonBlackSelectAll(Criteria cri) {
+		return dao.jsonBlackSelectAll(cri);
 	}
-
+	
 	public void boardreportUp(BlackVO vo) {
 		dao.boardreportUp(vo);
 	}
@@ -32,5 +33,17 @@ public class BlackService {
 
 	public void removeMember(String targetid) {
 		dao.removeMember(targetid);
+	}
+
+	public int getTotal() {
+		return dao.getTotal();
+	}
+
+	public void changeStatus(int black_num) {
+		dao.changeStatus(black_num);
+	}
+
+	public int totalCount() {
+		return dao.totalCount();
 	}
 }

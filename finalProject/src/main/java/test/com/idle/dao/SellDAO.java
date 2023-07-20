@@ -12,5 +12,9 @@ public interface SellDAO {
 
 	public int sellRowCount();
 
+	public SellVO selectOne(SellVO vo);
+
+	public int insert(SellVO vo);
+
 
 }

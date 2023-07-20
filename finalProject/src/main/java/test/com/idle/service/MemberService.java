@@ -33,5 +33,21 @@ public class MemberService {
 		return dao.selectOne(vo);
 	}
 
+	public int buyCount(MemberVO vo) {
+		return dao.buyCount(vo);
+	}
+	
+	public int sellCount(MemberVO vo) {
+		return dao.sellCount(vo);
+	}
+
+	public int update(MemberVO vo) {
+		return dao.update(vo);
+	}
+
+	public int delete(MemberVO vo) {
+		return dao.delete(vo);
+	}
+
 }//end class
 

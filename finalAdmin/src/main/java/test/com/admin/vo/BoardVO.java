@@ -32,5 +32,13 @@ public class BoardVO {
 	private String address;
 	private String member_savename;
 	private List<MultipartFile> multipartFiles;
+	
+	private int black_num;
+	private int black_type;
+	private String reporterid;
+	private String targetid;
+	private Timestamp black_date;
+	private String comments;
+	private int black_category;
 
 }

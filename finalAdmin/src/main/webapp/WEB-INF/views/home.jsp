@@ -12,15 +12,6 @@
 </head>
 <body>
 <jsp:include page="top_menu.jsp"></jsp:include>
-	<div class="container">
-	<ul>
-		<li><a href="jsonMemberSelectAll.do">jsonMemberSelectAll.do</a></li>
-		<li><a href="memberSelectAll.do">memberSelectAll.do</a></li>
-		<hr>
-		<li><a href="jsonMemberSearchList.do?searchKey=id&searchWord=tester1">jsonMemberSearchList.do</a></li>
-		<hr>
-		<li><a href="jsonMemberSelectOne.do?id=tester1">jsonMemberSelectOne.do</a></li>
-	</ul>
-	</div>
+
 </body>
 </html>
