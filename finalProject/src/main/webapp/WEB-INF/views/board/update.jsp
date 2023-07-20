@@ -104,19 +104,13 @@
 			</select>
 		</div>
 		<div class="col-12">
-			<input type="radio" name="board_type" id="board_type" value="1" />구해요
-			<input type="radio" name="board_type" id="board_type" value="2" checked="checked" />팔아요
+			<input type="radio" name="board_type" id="board_type" value="1" <c:if test="${vo2.board_type == 1}">checked="checked"</c:if> />구해요
+			<input type="radio" name="board_type" id="board_type" value="2" <c:if test="${vo2.board_type == 2}">checked="checked"</c:if> />팔아요
 		</div>
 		
 		<div class="col-12">
 			<label for="multipartFiles" class="form-label">이미지사진</label> 
 			<input type="file" name="multipartFiles" id="multipartFiles" multiple="multiple" class="form-control form-control-sm"/>
-		</div>
-		
-		<div class="col-12">
-			<input type="radio" name="board_status" id="board_status" value="1" checked="checked" />거래중
-			<input type="radio" name="board_status" id="board_status" value="2" />거래완료
-			<input type="radio" name="board_status" id="board_status" value="3" />숨기기
 		</div>
 		
 		<div class="col-12">
