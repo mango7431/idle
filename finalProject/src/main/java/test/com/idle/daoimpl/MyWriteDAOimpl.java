@@ -84,12 +84,12 @@ public class MyWriteDAOimpl implements MyWriteDAO {
 	}
 
 	@Override
-	public int doneinsert(int board_num, String seller) {
-		log.info("doneinsert:{},{}",board_num,seller);
+	public int doneinsert(int board_num, String buyer) {
+		log.info("doneinsert:{},{}",board_num,buyer);
 		
 		Map<String, Object> filters = new HashMap<>();
 		filters.put("board_num", board_num);
-		filters.put("seller", seller);
+		filters.put("buyer", buyer);
 		
 		int flag = sqlSession.insert("W_DONE_INSERT",filters);
 		return flag;

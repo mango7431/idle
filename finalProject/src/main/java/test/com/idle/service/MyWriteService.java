@@ -35,8 +35,8 @@ public class MyWriteService {
 		dao.updateBoardStatus(board_num,board_status);
 	}
 
-	public int doneinsert(int board_num, String seller) {
-		return dao.doneinsert(board_num,seller);
+	public int doneinsert(int board_num, String buyer) {
+		return dao.doneinsert(board_num,buyer);
 	}
 
 	public int donesellinsert(int board_num, String buyer) {

@@ -33,7 +33,7 @@
     
     <insert id="W_DONE_INSERT">
     	insert into sell(sell_num,board_num, id)
-    	values (seq_sell.nextval,#{board_num},#{seller})
+    	values (seq_sell.nextval,#{board_num},#{buyer})
     </insert>
     
     <insert id="W_DONESELL_INSERT">

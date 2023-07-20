@@ -17,7 +17,7 @@ public interface MyWriteDAO {
 	//board_status를 2로 변경
 	void updateBoardStatus(int board_num, int board_status);
 
-	int doneinsert(int board_num, String seller);
+	int doneinsert(int board_num, String buyer);
 
 	int donesellinsert(int board_num, String buyer);
 

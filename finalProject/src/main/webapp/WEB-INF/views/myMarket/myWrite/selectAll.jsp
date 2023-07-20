@@ -276,16 +276,16 @@ function deleteMyBoard(board_num){
 }//end deleteMyBoard
 
 //구매완료 모달창 열기
-function openModal(board_num, seller) {
+function openModal(board_num, buyer) {
 	$('#board_num').val(board_num);
-	//seller 분리
-	var sellers = seller.split(', ');
+	//buyer 분리
+	var buyer = buyer.split(', ');
 	//초기화
 	$('#sellerLabel').html(''); 
   	$('#seller_select').empty();
-	//분리한 seller 루프돌림
-  	sellers.forEach(function(s) {
-	    $('#sellerLabel').append('<input type="radio" name="seller" id="seller_select_' + s + '" value="' + s + '">');
+	//분리한 buyer 루프돌림
+  	buyer.forEach(function(s) {
+	    $('#sellerLabel').append('<input type="radio" name="buyer" id="seller_select_' + s + '" value="' + s + '">');
 	    $('#sellerLabel').append('<label for="seller_select_' + s + '">' + s + '</label><br />');
 	    $('#seller_select').append('<option value="' + s + '">' + s + '</option>');
     });
@@ -319,14 +319,14 @@ function closeModal() {
 function completeBuyModalSubmit(event) {
 	event.preventDefault();
 	
-	var selectedSeller = $('input[name="seller"]:checked').val();
+	var selectedSeller = $('input[name="buyer"]:checked').val();
 	
 	$.ajax({
 	  url: 'doneBuyInsertOK.do',
 	  type: 'post',
 	  data: { 
 		  board_num: $('#board_num').val(),
-		  seller: selectedSeller
+		  buyer: selectedSeller
 		  },
 	  dataType: 'json',
 	  success: function(result) {
@@ -414,9 +414,9 @@ function completeSellModalSubmit(event) {
 								<div class="doneModal-content">
 									<p><b>판매자를 선택하세요</b></p>
 									<input type="hidden" name="board_num" id="board_num" value= "${buyvo.board_num}">
-									<input type="radio" name="seller" id="seller_select" value="${buyvo.seller}">
+									<input type="radio" name="buyer" id="seller_select" value="${buyvo.buyer}">
 									<label for="seller_select" id="sellerLabel"></label><br />
-									<input type="radio" name="seller" id="seller_select2" value="null">
+									<input type="radio" name="buyer" id="seller_select2" value="null">
 									<label for="seller_select2">선택하지않음</label><br /><br />
 									<button type="submit">완료</button>
 								</div>
@@ -458,7 +458,7 @@ function completeSellModalSubmit(event) {
 								     <c:choose>
 					                    <c:when test="${buyvo.board_status == 1}">
 					                        <a href="#" onclick="updateBoardDate(${buyvo.board_num})">상위로 이동</a><br />
-					                        <a href="#" onclick="openModal(${buyvo.board_num}, '${buyvo.seller}'); event.preventDefault();">구매완료</a><br />
+					                        <a href="#" onclick="openModal(${buyvo.board_num}, '${buyvo.buyer}'); event.preventDefault();">구매완료</a><br />
 					                        <a href="#" onclick="updateStatus(${buyvo.board_num},3)">비공개</a><br />
 					                        <a href="#" onclick="deleteMyBoard(${buyvo.board_num})">삭제</a>
 					                    </c:when>
@@ -469,7 +469,7 @@ function completeSellModalSubmit(event) {
 					                    </c:when>
 					                    <c:when test="${buyvo.board_status == 3}">
 					                        <a href="#" onclick="updateStatus(${buyvo.board_num},1)">구매중</a><br />
-					                        <a href="#" onclick="openModal(${buyvo.board_num}, '${buyvo.seller}'); event.preventDefault();">구매완료</a><br />
+					                        <a href="#" onclick="openModal(${buyvo.board_num}, '${buyvo.buyer}'); event.preventDefault();">구매완료</a><br />
 					                        <a href="#" onclick="deleteMyBoard(${buyvo.board_num})">삭제</a>
 					                    </c:when>
 					                </c:choose>

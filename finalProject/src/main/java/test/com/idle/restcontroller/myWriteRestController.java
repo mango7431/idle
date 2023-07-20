@@ -32,13 +32,13 @@ public class myWriteRestController {
 	//구매완료
 	@RequestMapping(value = "/doneBuyInsertOK.do", method = RequestMethod.POST)
 	@ResponseBody
-	public int doneBuyInsertOK(@RequestParam("board_num") int board_num, @RequestParam("seller") String seller) {
-		log.info("/doneBuyInsertOK.do...{,{}}",board_num,seller);
+	public int doneBuyInsertOK(@RequestParam("board_num") int board_num, @RequestParam("buyer") String buyer) {
+		log.info("/doneBuyInsertOK.do...{,{}}",board_num,buyer);
 		
 		//board_status를 2로 변경
 		service.updateBoardStatus(board_num, 2);
 		
-		int result = service.doneinsert(board_num,seller);
+		int result = service.doneinsert(board_num,buyer);
 		log.info("{}",result);
 		
 		return result;

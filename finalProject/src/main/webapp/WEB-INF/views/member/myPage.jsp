@@ -38,7 +38,7 @@
 				let tag_vo2 =  `
 					 <tr>
 				      <td>
-				      		<div><img width="200px" src="resources/img/thumb_\${vo2.member_savename}"></div>
+				     		<div><img width="200px" src="resources/img/\${vo2.member_savename}"></div>
 					        <div>이름: \${vo2.name}</div><br>
 					        <div>주소: \${vo2.address}</div><br>
 					        <div>
