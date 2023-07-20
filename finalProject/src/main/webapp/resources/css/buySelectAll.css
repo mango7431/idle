@@ -41,11 +41,13 @@ main {
 }
 
 .contents {
-	width : 85%;
+	width : 75%;
 	display: flex;
 	flex-direction: row;
 	border: 1px solid gray;
 	margin: 5px auto;
+	align-items: center;
+	position: relative;
 }
 
 .contentImg{
@@ -53,8 +55,10 @@ main {
 }
 
 .contentImg img {
-  max-width: 90%;
-  height: 100%;
+/*   max-width: 80%; */
+  width:200px;
+  height: 150px;
+  margin-right: 10px;
 }
 
 .contentTitle{

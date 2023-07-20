@@ -64,8 +64,10 @@ main {
 }
 
 .contentImg img {
-  max-width: 90%;
-  height: 100%;
+/*   max-width: 80%; */
+  width:200px;
+  height: 150px;
+  margin-right: 10px;
 }
 
 .contentTitle{

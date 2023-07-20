@@ -245,8 +245,9 @@
 
 				<div class="memberInsertContainer">
 					<label for="name"><b>이름</b></label> <br> <input type="text"
-						id="name" name="name" placeholder="Name" class="memberInsertItem"
+						id="name" name="name" placeholder="이름" class="memberInsertItem"
 						required value="">
+						<p>2~20자의 영문 대소문자와 한글 입력</p>
 				</div>
 
 				<div class="memberInsertContainer">

@@ -59,8 +59,12 @@ main {
 	align-items: center;
 	 position: relative;
 }
+
 .contentImg img {
-  max-width: 80%;
+/*   max-width: 80%; */
+  width:200px;
+  height: 150px;
+  margin-right: 10px;
 }
 
 .contentTitle{

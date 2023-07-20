@@ -51,9 +51,10 @@
 	text-align: center;
 }
 
-.sellingItems .itemImage a img {
+.sellingItems .itemImage img {
 	width: 100%;
 	height: 100%;
+	
 	/* 	object-fit: cover; */
 	/* 	display: block; */
 	/*  	margin: 0 auto; */
@@ -61,6 +62,10 @@
 
 .sellingItems .itemContent {
 	padding: 5px;
+	max-width: 230px; /* 제목 컨테이너의 최대 너비 지정 */
+    white-space: nowrap; /* 텍스트가 너비를 벗어나도 줄바꿈하지 않음 */
+    overflow: hidden; /* 너비를 벗어난 텍스트는 감춤 */
+    text-overflow: ellipsis; /* 너비를 벗어난 텍스트에 말 줄임표(...) 추가 */
 }
 
 .noList {
@@ -291,4 +296,5 @@
 			</div>
 	</section>
 </body>
+
 </html>
