@@ -333,7 +333,7 @@
 	}
 	
 	function readCount(roomNum,user_id){
-// 		console.log('방 입장 후 않읽은 메세지수 변경');
+// 		console.log('방 입장 후 안읽은 메세지수 변경');
 		$.ajax({
 			url: 'jsonReadCount.do',
 			data: {
@@ -343,9 +343,9 @@
 			method: 'GET',
 			dataType: 'json',
 			success: function(result){
-// 				console.log('않읽은 메세지 수 : ',result);
+// 				console.log('안읽은 메세지 수 : ',result);
 				if(result>0){
-					$('#readCount_'+roomNum).text('않읽은 메세지 수 : '+result);
+					$('#readCount_'+roomNum).text('안읽은 메세지 수 : '+result);
 				}else{
 					$('#readCount_'+roomNum).text('');
 				}
@@ -522,7 +522,7 @@
 										<div class="chat_ib">
 											<c:if test="${user_id eq vo.buyer }">
 												<c:if test="${vo.readcount ne 0 }">
-													<h5 style="color: red;" id="readCount_${vo.room_num }">않읽은
+													<h5 style="color: red;" id="readCount_${vo.room_num }">안읽은
 														메세지수 : ${vo.readcount }</h5>
 												</c:if>
 												<h5>${vo.board_title },
@@ -536,7 +536,7 @@
 											</c:if>
 											<c:if test="${user_id eq vo.seller }">
 												<c:if test="${vo.readcount ne 0 }">
-													<h5 style="color: red;" id="readCount_${vo.room_num }">않읽은
+													<h5 style="color: red;" id="readCount_${vo.room_num }">안읽은
 														메세지수 : ${vo.readcount }</h5>
 												</c:if>
 												<h5>${vo.board_title },
