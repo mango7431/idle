@@ -1,21 +1,6 @@
 Wallet Expiry Date
 -----------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
-This wallet was downloaded on 2023-07-12 04:13:17.826275 UTC.
-=======
-This wallet was downloaded on 2023-07-12 04:35:47.787764 UTC.
->>>>>>> refs/remotes/origin/admin
-=======
-<<<<<<< HEAD
-This wallet was downloaded on 2023-07-12 04:33:39.176449 UTC.
-=======
-This wallet was downloaded on 2023-07-12 04:33:59.082746 UTC.
->>>>>>> refs/remotes/origin/user-mymarket
-=======
-This wallet was downloaded on 2023-07-12 04:13:17.826275 UTC.
->>>>>>> refs/remotes/origin/user-mainpage
->>>>>>> refs/remotes/origin/user
+This wallet was downloaded on 2023-07-12 04:34:04.986367 UTC.
 The SSL certificates provided in this wallet will expire on 2028-07-10 02:10:11.266687 UTC.
 In order to avoid any service interruptions due to an expired SSL certificate, you must re-download the wallet before this date.
 
