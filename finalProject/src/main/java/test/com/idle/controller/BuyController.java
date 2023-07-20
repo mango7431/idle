@@ -99,7 +99,7 @@ public class BuyController {
 	public String dealDeleteOK(BuyVO vo) {
 		log.info("/buyDeleteOK.do...{}",vo);
 		
-		int result = service.delete(vo);
+		int result = service.buyDelete(vo);
 		log.info("result...{}", result);
 		
 		if(result==1) {
@@ -113,7 +113,7 @@ public class BuyController {
 	public String sellDeleteOK(BuyVO vo) {
 		log.info("/sellDeleteOK.do...{}",vo);
 		
-		int result = service.delete(vo);
+		int result = service.sellDelete(vo);
 		log.info("result...{}", result);
 		
 		if(result==1) {

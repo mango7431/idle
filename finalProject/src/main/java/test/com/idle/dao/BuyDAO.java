@@ -13,7 +13,7 @@ public interface BuyDAO {
 
 	List<BoardVO> sellSelectAll(int cpage, String userId);
 
-	public int delete(BuyVO vo);
+//	public int delete(BuyVO vo);
 
 	public int buyRowCount(String userId);
 	
@@ -22,5 +22,9 @@ public interface BuyDAO {
 	public int insert(BuyVO vo);
 
 	public BuyVO selectOne(BuyVO vo);
+
+	public int buyDelete(BuyVO vo);
+
+	public int sellDelete(BuyVO vo);
 
 }

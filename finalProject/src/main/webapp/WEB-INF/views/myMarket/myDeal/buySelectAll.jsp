@@ -86,7 +86,7 @@
 											style="font-weight: bold;">...</button>
 										<div id="dropdownBuy_${buyStatus.index}" class="dropMenuBuy">
 
-											<a href="dealDeleteOK.do?board_num=${buyvo.board_num}">삭제</a>
+											<a href="buyDeleteOK.do?board_num=${buyvo.board_num}">삭제</a>
 										</div>
 									</div>
 								</div>

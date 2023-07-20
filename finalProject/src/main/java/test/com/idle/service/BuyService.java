@@ -33,9 +33,9 @@ public class BuyService {
 		return dao.selectAll(cpage);
 	}
 
-	public int delete(BuyVO vo) {
-		return dao.delete(vo);
-	}
+//	public int delete(BuyVO vo) {
+//		return dao.delete(vo);
+//	}
 
 	public int buyRowCount(String userId) {
 		return dao.buyRowCount(userId);
@@ -51,6 +51,14 @@ public class BuyService {
 
 	public BuyVO selectOne(BuyVO vo) {
 		return dao.selectOne(vo);
+	}
+
+	public int buyDelete(BuyVO vo) {
+		return dao.buyDelete(vo);
+	}
+
+	public int sellDelete(BuyVO vo) {
+		return dao.sellDelete(vo);
 	}
 
 }

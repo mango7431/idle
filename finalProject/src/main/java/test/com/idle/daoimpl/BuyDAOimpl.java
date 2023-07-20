@@ -37,11 +37,11 @@ public class BuyDAOimpl implements BuyDAO {
 		return sqlSession.selectList("DEAL_SELECT_ALL",map);
 	}
 
-	@Override
-	public int delete(BuyVO vo) {
-		log.info("delete()...{}",vo);
-		return sqlSession.delete("BUY_DELETE", vo);
-	}
+//	@Override
+//	public int delete(BuyVO vo) {
+//		log.info("delete()...{}",vo);
+//		return sqlSession.delete("BUY_DELETE", vo);
+//	}
 
 	@Override
 	public int buyRowCount(String userId) {
@@ -120,6 +120,18 @@ public class BuyDAOimpl implements BuyDAO {
 		BuyVO vo2 = sqlSession.selectOne("BUY_SELECT_ONE",vo);
 		
 		return vo2;
+	}
+
+	@Override
+	public int buyDelete(BuyVO vo) {
+		log.info("buyDelete()...{}",vo);
+		return sqlSession.delete("BUY_DELETE", vo);
+	}
+
+	@Override
+	public int sellDelete(BuyVO vo) {
+		log.info("sellDelete()...{}",vo);
+		return sqlSession.delete("SELL_DELETE", vo);
 	}
 	
 
