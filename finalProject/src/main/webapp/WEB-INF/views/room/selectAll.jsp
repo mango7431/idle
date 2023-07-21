@@ -131,6 +131,9 @@
 					if(boardStatus==2){
 						let buyCheck = `<h3>거래완료된 채팅입니다.</h3>`;
 						$('#buyCheck').html(buyCheck);
+					}else{
+						let buyCheck = `<h3>채팅방 입니다.</h3>`;
+						$('#buyCheck').html(buyCheck);
 					}
 					
 					$.ajax({
@@ -557,7 +560,7 @@
 					</div>
 
 					<div class="mesgs">
-						<div id="buyCheck" class="d-grid gap-2 col-6 mx-auto"></div>
+						<div id="buyCheck" class="d-grid gap-2 col-6 mx-auto"><h3>채팅방을 눌러주세요</h3></div>
 						<hr>
 						<div class="msg_history" id="scroll"></div>
 						<div class="type_msg">
