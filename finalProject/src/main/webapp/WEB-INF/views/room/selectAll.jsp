@@ -193,6 +193,7 @@
 								}
 							});
 							$('.msg_history').append(str);
+							prepareScroll();
 							
 						},
 						error:function(xhr,status,error){
