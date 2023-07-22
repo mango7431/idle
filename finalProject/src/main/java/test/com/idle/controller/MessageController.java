@@ -31,16 +31,6 @@ public class MessageController {
 	@Autowired
 	SimpMessagingTemplate template; // 특정 Broker로 메세지 전달
 
-	@MessageMapping(value = "/chat/enter")
-	public void enter(MessageVO vo) {
-		log.info("enter()...{}", vo);
-		vo.setMessage(vo.getSender() + "님이 채팅방에 참여하였습니다.");
-		log.info("{}", vo);
-
-		template.convertAndSend("/sub/chat/room/" + vo.getRoom_num(), vo);
-
-	}
-
 	@MessageMapping(value = "/chat/message")
 	public void message(MessageVO vo) {
 		log.info("message()...{}", vo);
