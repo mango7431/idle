@@ -79,6 +79,7 @@
 	});//end onload
 </script>
 <style type="text/css">
+/*
 .myPageSidenav {
 	z-index: 1;
 	top: 20px;
@@ -95,6 +96,7 @@
 	color: black;
 	display: block;
 }
+*/
 
 /* 마우스 오버(마우스 올렸을때) */
 .myPageSidenav a:hover {

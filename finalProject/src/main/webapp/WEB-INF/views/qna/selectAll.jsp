@@ -39,7 +39,8 @@
 		
 		
 		/* 마이페이지 서브메뉴 */
-		.mypage-floating-menu { /* 마이페이지 통일시키기 */
+		/*
+		.mypage-floating-menu {
 			padding-top: 15px;
 			padding-bottom: 15px;
 			border: 2px solid #33A1FD;
@@ -58,6 +59,7 @@
 		.mypage-floating-menu li a:hover{
 			color: #33A1FD;
 		}
+		*/
 
 		
 		

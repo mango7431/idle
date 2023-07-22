@@ -5,10 +5,12 @@ body {
 	padding: 0;
 }
 
+/*
 a, a:hover {
 	text-decoration: none;
 	color: black;
 }
+*/
 
 p {
 	white-space: nowrap;
