@@ -40,8 +40,8 @@
 		<c:forEach var="vo" items="${vos}">
 			<tr>
 				<td><a href="noticeSelectOne.do?notice_num=${vo.notice_num}">${vo.notice_num}</a></td>
-				<td>${vo.notice_title}</td>
-				<td>${vo.notice_content}</td>
+				<td class="text-left">${vo.notice_title}</td>
+				<td class="text-left">${vo.notice_content}</td>
 				<td>${vo.notice_date}</td>
 			</tr>
 		</c:forEach>

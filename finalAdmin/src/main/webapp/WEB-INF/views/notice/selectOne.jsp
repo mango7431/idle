@@ -28,8 +28,8 @@
 	<tbody>
 			<tr>
 				<td>${vo2.notice_num}</td>
-				<td>${vo2.notice_title}</td>
-				<td>${vo2.notice_content}</td>
+				<td class="text-left">${vo2.notice_title}</td>
+				<td class="text-left">${vo2.notice_content}</td>
 				<td>${vo2.notice_date}</td>
 			</tr>
 	</tbody>
