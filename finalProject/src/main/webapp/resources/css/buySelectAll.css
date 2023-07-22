@@ -1,0 +1,148 @@
+@charset "UTF-8";
+​
+body {
+	margin: 0;
+	padding: 0;
+}
+
+/*
+a, a:hover {
+	text-decoration: none;
+	color: black;
+}*/
+
+p {
+	white-space: nowrap;
+}
+
+ul, li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+main {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+}
+
+.headerTitle {
+	margin: 30px 0 0 65px;
+}
+
+.reportContainer{
+	width: 70%;
+	margin: 0 auto;
+}
+
+.contenList{
+	bolder : 1px solid blue;
+	margin-bottom: 50px;
+}
+
+.contents {
+	width : 75%;
+	display: flex;
+	flex-direction: row;
+	border: 1px solid gray;
+	margin: 5px auto;
+	align-items: center;
+	position: relative;
+}
+
+.contentImg{
+	width: 30%;
+}
+
+.contentImg img {
+/*   max-width: 80%; */
+  width:200px;
+  height: 150px;
+  margin-right: 10px;
+}
+
+.contentTitle{
+	width: 50%;
+	align-self: center;
+}
+
+.boardStatus{
+	color: #33A1FD;
+}
+
+.selectStatus{
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+/*판매tab 구매tab 클릭 시*/
+.listBtn{
+	background: transparent;
+	border: none;
+	padding: 20px 30px 0px 30px;
+	font-weight: bold;
+	font-size: large;
+	color : black;
+}
+
+.listBtn:focus, .listBtn.selected {
+	color: #33A1FD;
+}
+
+.active {
+    display: block;
+}
+
+#noContentsMessageSell, #noContentsMessageBuy{
+	text-align: center;
+	font-size: large;
+}
+
+/*...드롭다운메뉴*/
+.dropdown{
+	width: auto;
+	margin-left: auto;
+}
+
+.dropBtn{
+	background: none;
+	margin-left: 0;
+	margin-right: 40px;
+	border : none;
+}
+
+.dropMenuBuy{
+	display: none;
+	position: absolute;
+	background: white;
+	border: 1px solid #33A1FD;
+	width: 150%;
+}
+
+.dropMenuSell{
+	display: none;
+	position: absolute;
+	background: white;
+	border: 1px solid #33A1FD;
+	width: 150%;
+}
+
+.dropMenuBuy a:hover,.dropMenuSell a:hover{
+	text-decoration: none;
+	font-weight: bold;
+}
+
+/*사이드메뉴*/
+.sideMarket{
+ width : 170px;
+ height : 140px;
+ margin: 70px 0px 60px 60px;
+ padding: 15px;
+ background-color: #fffff;
+ border: 2px solid #33A1FD;
+}
+
+.sideMarket p a{
+	font-size: 15px;
+}

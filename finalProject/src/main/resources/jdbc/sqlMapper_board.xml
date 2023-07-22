@@ -4,14 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="test.com.idle">
 	<select id="B_SELECTALL" resultType="test.com.idle.vo.BoardVO">
-		select b.*, nvl(l.likecount, 0) as likecount 
+		select b.*, nvl(l.likecount, 0) as likecount, NVL(r.chatcount, 0) AS chatcount
 		from board b
         left join (
             select board_num, count(*) as likecount
             from likes
             group by board_num
-        ) l
-        on b.board_num = l.board_num
+        ) l on b.board_num = l.board_num
+        left join(
+			select board_num, count(*) as chatcount
+			from room r
+			group by board_num
+		) r on b.board_num = r.board_num
 		<where>
             <if test="category != null and category != ''">
                 AND category = #{category}
@@ -25,19 +29,26 @@
             <if test="board_type != null">
                 AND board_type = #{board_type}
             </if>
+            <if test="deal_region != null">
+                AND deal_region = #{deal_region}
+            </if>
         </where>
-        order by board_date desc
+	        order by board_status ASC, board_date DESC
 	</select>
 	
 	<select id="B_SELECTALL_VIEWS" resultType="test.com.idle.vo.BoardVO">
-		select b.*, nvl(l.likecount, 0) as likecount 
+		select b.*, nvl(l.likecount, 0) as likecount, NVL(r.chatcount, 0) AS chatcount
 		from board b
         left join (
             select board_num, count(*) as likecount
             from likes
             group by board_num
-        ) l
-        on b.board_num = l.board_num
+        ) l on b.board_num = l.board_num
+        left join(
+			select board_num, count(*) as chatcount
+			from room r
+			group by board_num
+		) r on b.board_num = r.board_num
 		<where>
             <if test="category != null">
                 AND category = #{category}
@@ -51,8 +62,17 @@
             <if test="board_type != null">
                 AND board_type = #{board_type}
             </if>
+            <if test="deal_region != null">
+                AND deal_region = #{deal_region}
+            </if>
         </where>
-        order by view_count desc, likecount desc
+        order by board_status ASC, view_count desc, likecount desc
+	</select>
+	
+	
+	<select id="B_SEARCH_LIST" resultType="test.com.idle.vo.BoardVO">
+		select * from board where board_content like #{searchWord}
+		or board_title like #{searchWord} order by board_status ASC, board_date DESC
 	</select>
 
 	<select id="B_SELECT_ONE" resultType="test.com.idle.vo.BoardVO">
@@ -72,6 +92,63 @@
 		group by board_num
 		) r on b.board_num = r.board_num
 		where b.board_num = #{board_num}
+	</select>
+	
+	<select id="B_SELECTALL_MAIN" resultType="test.com.idle.vo.BoardVO">
+		SELECT *
+		FROM (
+    		SELECT rownum AS rnum, sub.*
+    		FROM (
+        		SELECT b.*, TO_CHAR(b.board_date, 'yyyy-mm-dd HH:MI:SS') AS dates, NVL(l.likecount, 0) AS likecount
+        		FROM board b
+        		LEFT JOIN (
+            		SELECT board_num, COUNT(*) AS likecount
+            		FROM likes
+            		GROUP BY board_num
+        		) l ON b.board_num = l.board_num
+        		WHERE <![CDATA[ board_status != 3 ]]>
+        		ORDER BY dates DESC
+    		) sub
+		)
+		WHERE <![CDATA[ rnum <= 8 ]]>
+	</select>
+	
+	<select id="B_SELECTALL_BUY" resultType="test.com.idle.vo.BoardVO">
+		SELECT *
+		FROM (
+    		SELECT rownum AS rnum, sub.*
+    		FROM (
+        		SELECT b.*, TO_CHAR(b.board_date, 'yyyy-mm-dd HH:MI:SS') AS dates, NVL(l.likecount, 0) AS likecount
+        		FROM board b
+        		LEFT JOIN (
+            		SELECT board_num, COUNT(*) AS likecount
+            		FROM likes
+            		GROUP BY board_num
+        		) l ON b.board_num = l.board_num
+        		WHERE <![CDATA[ board_type = 1 and board_status != 3 ]]>
+        		ORDER BY dates DESC
+    		) sub
+		)
+		WHERE <![CDATA[ rnum <= 8 ]]>
+	</select>
+	
+	<select id="B_SELECTALL_SELL" resultType="test.com.idle.vo.BoardVO">
+		SELECT *
+		FROM (
+    		SELECT rownum AS rnum, sub.*
+    		FROM (
+        		SELECT b.*, TO_CHAR(b.board_date, 'yyyy-mm-dd HH:MI:SS') AS dates, NVL(l.likecount, 0) AS likecount
+        		FROM board b
+        		LEFT JOIN (
+            		SELECT board_num, COUNT(*) AS likecount
+            		FROM likes
+            		GROUP BY board_num
+        		) l ON b.board_num = l.board_num
+        		WHERE <![CDATA[ board_type = 2 and board_status != 3 ]]>
+        		ORDER BY dates DESC
+    		) sub
+		)
+		WHERE <![CDATA[ rnum <= 8 ]]>
 	</select>
 	
 	<update id="VIEW_COUNT_UP">
@@ -96,5 +173,5 @@
 	<delete id="B_DELETE">
 		delete from board where board_num=#{board_num}
 	</delete>
-	
+
 </mapper>

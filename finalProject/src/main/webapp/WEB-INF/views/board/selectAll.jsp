@@ -16,13 +16,12 @@
 body{
 	margin:0;
 	padding:0;
-/* 	font-family:'맑은 고딕', verdana; */
 }
 
-a, a:hover{
-	text-decoration:none;
-	color : black;
-}
+a, a:hover {
+	text-decoration: none;
+	color: black;
+}}
 
 p{
 	white-space: nowrap;
@@ -37,11 +36,10 @@ ul, li{
 main{
 	width: 100%;
     min-height: 100vh;
-    padding: 30px 20px 50px 20px;
+    padding: 30px 20px 50px 0px;
 	position: absolute;
 	display: flex;
 	flex-direction: column;
-/* 	z-index: 1; */
 }
 
 .headerTitle{
@@ -49,50 +47,78 @@ main{
 }
 
 /*필터(사이트메뉴)*/
-aside{
-	width: 15%;
-/* 	border: 1px solid black;	 */
-	min-height: 100vh;
-/* 	position: sticky; */
+.side-bar{
+	width: 200px;
+	min-height: 90%;
 	position: absolute;
-	display: flex;
-	flex-direction: column;
-	margin-top: 4%;
-/* 	z-index: 1; */
-/* 	position: sticky; */
-/*     align-self: flex-start; */
-/*     top: 0; */
+	left: -180px;
+	top: 30px;
+	transition: left 0.5s;
+	z-index: 1;
 }
 
-aside .boardFilter{
-	width : 100%;
-	border: 1px solid black;
-	margin: 0 10px;
+.side-bar:hover {
+	left: 0;
+}
+
+.side-bar .boardFilter{
+	width: 200px;
 	padding-left: 5px;
-	background: #f8f8ff;
+	border: 1px solid #33A1FD;
+	border-radius: 20px;
+	position: sticky;
+	margin-top: 70px;
+	top: 4px;
+	max-height: 510px;
+	overflow-y: auto;
 }
 
-aside .boardFilter li a{
+.side-bar .boardFilter:hover {
+  opacity: 1;
+}
+
+.no_scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no_scroll::-webkit-scrollbar{
+	display: none !important; 
+}
+
+.boardFilter img{
+	float: right;
+	margin: 5px 1px 0px 0px;
+	transition: opacity 0.1s;
+	opacity: 1;
+}
+
+.side-bar:hover .boardFilter img {
+  opacity: 0;
+}
+
+.side-bar .boardFilter li a{
 	color : black;
 }
 
-aside .boardFilter li:hover{
-	font-weight: bold;
+.side-bar .boardFilter li:hover{
+	color: #33A1FD;
 }
 
 input[type="radio"] {
     display: none;
  }
 
-aside .boardFilter input[type="radio"]:checked + label {
+.side-bar .boardFilter input[type="radio"]:checked + label {
     font-weight: bold;
+    color: #33A1FD;
 }
 
 label {
     cursor: pointer;
 }
 
-aside .moneyFilter input{
+.side-bar .moneyFilter input{
 	width: 34%;
 }
 
@@ -102,62 +128,86 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0;
 }
 
-aside .filterBtn{
+.side-bar .filterBtn{
 	width : 80%;
 	margin : 10px;
 	border-radius: 10px;
-	background: #F0F8FF;
 }
 
-.itemMenu{
-	padding-bottom: 30px;
+#subBtn{
+	border: none;
+	background-color: #33A1FD;
+	color: white;
 }
 
-.itemshow button{
-	width : 15%;
-	margin : 10px;
-	border-radius: 10px;
-	background: #F0F8FF;
+#resetBtn{
+	border: 1px solid #33A1FD;
+	background: none;
+	color: #33A1FD;
 }
 
-.itemshow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+#deal_region{
+	border: none;
+	outline: none;
 }
 
-.itemshow > button:last-child {
-  margin-left: auto;
-  margin-right: 25px;
-  width : 10%;
-  height : 35px;
-  border-radius: 20px;
-  background: silver;
+/*글쓰기&정렬*/
+.itemMenu {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	padding: auto 10%;
+	margin: 10px 30px;
 }
 
-.itemSort {
-  float: right;
-  margin-right: 10px;
+.itemSort{
+	text-align: right;
+	justify-content: space-between;
+}
+
+.itemSort select{
+	border: none;
+	outline: none;
+}
+
+#writeBtn{
+	margin: 0 30px;
+}
+
+
+#loadBtn{
+	font-size: small;
+	font-weight: bold;
 }
 
 /* 메인 */
 .itemContainer{
-	width: 82%;
-/* 	border: 1px solid black;	 */
+	width: 80%;
 	gap: 50px;
-	flex-direction: row;
+	margin: 0 auto;
+	display: flex; 
+	justify-content: center;
+}
+
+.innerItemContainer{
+	width: 100%;
+	margin: 0 auto;
+	display: flex; 
+	justify-content: flex-start;
 	flex-wrap: wrap;
-	margin: 0 0 0 17%;
-/* 	position: relative; */
-/* 	height: 100%; */
 }
 
 .sellingItemsContainer{
-	margin-left: 2%;
+	width: 100%;
+	display: flex; 
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	text-align: center;
+	margin-left: 50px;
 }
 
 .sellingItems{
-	width: 236px;
+	width: 260px;
 	float: left;
 	margin: 10px;
 }
@@ -174,28 +224,58 @@ aside .filterBtn{
 .sellingItems .itemImage a img{
 	width: 100%;
 	height: 100%;
-/* 	object-fit: cover; */
-/* 	display: block; */
-/*  	margin: 0 auto; */
 }
 
 .sellingItems .itemContent{
 	padding : 5px;
 }
 
-.noList{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.sellingItem{
+	display: none;
 }
 
-/*토글*/
+.noList{
+	display: flex;
+	margin: 0 auto;
+	height: auto;
+	padding-top: 10%;
+}
+
+/*더보기 토글*/
 .category{
 	display: none;
 }
-</style>
 
+/*업*/
+.go-btn {
+	position: fixed;
+	width: 40px;
+	bottom: 20px;
+	right: 25px;
+	z-index: 2;
+	cursor: pointer;
+}
+
+#listMoreBtn {
+	width: 100%;
+	text-align: center;
+	margin: 20px 0;
+	background: none;
+	border: none;
+	font-size: large;
+	font-weight: bold;
+}
+
+#listMoreBtn:hover{
+	color: #33A1FD;
+}
+
+hr {
+	margin: 8px 0;
+	padding: 0;
+	color: #33A1FD;
+}
+</style>
 </head>
 <body>
 <jsp:include page="../top_menu.jsp"></jsp:include>
@@ -203,18 +283,18 @@ aside .filterBtn{
 	<div class="headerTitle"><h4><b>중고거래</b></h4></div>
 </header>
 <main>
-	<aside>
-		<div class="boardFilter">
-			<p align="center"><b>Filters</b></p>
-			<p><b>Category</b></p>
+	<aside class="side-bar">
+		<div class="boardFilter no_scroll">
+			<img width="18px" src="resources/img/sidebar.png" alt="" />
+			<p align="center" style="color:#33A1FD;font-size:large;"><b>Filters</b></p>
 			<form id="filterForm" action="boardSelectAll.do" method="GET">
+				<span><b>Category</b></span>
        		 	<ul  class="categoryList">
-       		 		<li><a href="boardSelectAll.do?category=all">전체(${fn:length(vos)})</a></li>
        		 		<li><input type="radio" id="category1" name="category" value="디지털기기"/><label for="category1">디지털기기</label></li>
        		 		<li><input type="radio" id="category2" name="category" value="생활가전"/><label for="category2">생활가전</label></li>
        		 		<li><input type="radio" id="category3" name="category" value="가구"/><label for="category3">가구</label></li>
-       		 		<li><input type="radio" id="category4" name="category" value="주방용품"/><label for="category4">주방용품</label></li>
-       		 		<li><input type="radio" id="category5" name="category" value="유아동"/><label for="category5">유아동</label></li>
+       		 		<li class="category"><input type="radio" id="category4" name="category" value="주방용품"/><label for="category4">주방용품</label></li>
+       		 		<li class="category"><input type="radio" id="category5" name="category" value="유아동"/><label for="category5">유아동</label></li>
        		 		<li class="category"><input type="radio" id="category6" name="category" value="의류"/><label for="category6">의류</label></li>
        		 		<li class="category"><input type="radio" id="category7" name="category" value="잡화"/><label for="category7">잡화</label></li>
        		 		<li class="category"><input type="radio" id="category8" name="category" value="미용"/><label for="category8">미용</label></li>
@@ -227,36 +307,58 @@ aside .filterBtn{
        		 		<li class="category"><input type="radio" id="category15" name="category" value="식물"/><label for="category15">식물</label></li>
        		 	</ul>
        		 	 <a href="#" id="loadBtn"> 더 보기</a>
-       		 	<br />
-			<p><b>Price</b></p>
-			<div class="moneyFilter">
-				<input type="number" name="minPrice" min="0"/>원~
-				<input type="number" name="maxPrice" min="0"/>원
-			</div>
-        	<button type="submit" onclick="applyFilters()" class="filterBtn">Apply Filters</button><br />
-        	<button type="reset" onclick="resetFilters()" class="filterBtn">Clear Filter</button>
-    	</form>
+				<hr />
+				<span><b>Type</b></span>
+	    		<ul>
+			    	<li><input type="radio" id="board_type1" name="board_type" value=""/><label for="board_type1">전체</label></li>
+			    	<li><input type="radio" id="board_type2" name="board_type" value="2"/><label for="board_type2">팔아요</label></li>
+			    	<li><input type="radio" id="board_type3" name="board_type" value="1"/><label for="board_type3">구해요</label></li>
+	     		</ul>
+				<hr />
+				<span><b>Region  </b></span>
+				<select id="deal_region" name="deal_region">
+					<option>선택</option>
+					<option>서울</option>
+					<option>부산</option>
+					<option>대구</option>
+					<option>인천</option>
+					<option>광주</option>
+					<option>대전</option>
+					<option>울산</option>
+					<option>강원</option>
+					<option>경기</option>
+					<option>경남</option>
+					<option>경북</option>
+					<option>전남</option>
+					<option>전북</option>
+					<option>제주</option>
+					<option>충남</option>
+					<option>충북</option>
+				</select><br />
+				<hr />
+				<span><b>Price</b></span>
+				<div class="moneyFilter">
+					<input type="number" name="minPrice" id="minPrice" min="0" placeholder="0"/>원~<input type="number" name="maxPrice" id="maxPrice" min="0" placeholder="999,999,999"/>원
+				</div><br />
+	        	<button type="submit" onclick="applyFilters()" class="filterBtn" id="subBtn">Apply Filters</button>
+	        	<button type="reset" onclick="resetFilters()" class="filterBtn" id="resetBtn">Clear Filter</button>
+    		</form>
 		</div>
 	</aside>
 	
 	<div class="itemContainer">
-		<div>
+		<div class="innerItemContainer">	
+			<!-- 상품리스트들 -->
 			<div class="itemMenu">
-			<div class="itemshow">
-				<button onclick="showAllBoards()">전체</button>
-				<button onclick="showSellBoards()">팔아요</button>
-				<button onclick="showBuyBoards()">구해요</button>
-				<button onclick="location.href='boardInsert.do'">글쓰기</button>
-			</div>
-				
+			<a href="boardSelectAll.do?category=all" style="margin-left: 10px; font-weight: bold;" id="allcount">전체(${fn:length(countVos)})</a><br />
 			<div  class="itemSort">
 				Sort By: <select id="sortType" onchange="sortChange()">
-					<option value="latest">최신순</option>
-					<option value="views">인기순</option>
+					<option value="latest" ${param.sortType == 'latest' ? 'selected' : ''}>최신순</option>
+					<option value="views" ${param.sortType == 'views' ? 'selected' : ''}>인기순</option>
 				</select>
+			<a href="boardInsert.do" id="writeBtn"><img width="25px" src="resources/img/write.png" alt="" />글쓰기</a>
 			</div>
 			</div>
-			<!-- 상품리스트들 -->
 			<div class="sellingItemsContainer">
 			<c:choose>
 				<c:when test="${empty vos}">
@@ -269,7 +371,7 @@ aside .filterBtn{
 				      <c:if test="${vo.board_status != 3}">
 				        <div class="sellingItems">
 				          <!-- 상품각각 -->
-				          <div class="sellingItem">
+				          <div class="sellingItem" data-board-status="${vo.board_status}">
 				            <div class="itemImage">
 				            <a href="boardSelectOne.do?board_num=${vo.board_num}">
 				                <img src="resources/img/${vo.board_savename1}" alt="" />
@@ -281,20 +383,20 @@ aside .filterBtn{
 								  <c:when test="${vo.board_type eq 2}">
 								     <c:choose>
                                         <c:when test="${vo.board_status eq 1}">
-                                         <span style="background:#d3d3d3;border-radius:3px;">판매중</span>
+                                         <span style="color:#33A1FD;font-weight:bold;">판매중</span>
                                         </c:when>
                                         <c:when test="${vo.board_status eq 2}">
-                                         <span style="background:#d3d3d3;border-radius:3px;">판매완료</span>
+                                         <span style="color:#33A1FD;font-weight:bold;">판매완료</span>
                                         </c:when>
                                      </c:choose>
 								  </c:when>
 								  <c:when test="${vo.board_type eq 1}">
 								    <c:choose>
                                      <c:when test="${vo.board_status eq 1}">
-                                       <span style="background:#d3d3d3;border-radius:3px;">구매중</span>
+                                       <span style="color:#33A1FD;font-weight:bold;">구매중</span>
                                       </c:when>
                                       <c:when test="${vo.board_status eq 2}">
-                                       <span style="background:#d3d3d3;border-radius:3px;">구매완료</span>
+                                       <span style="color:#33A1FD;font-weight:bold;">구매완료</span>
                                       </c:when>
                                     </c:choose>
 								  </c:when>
@@ -303,7 +405,8 @@ aside .filterBtn{
 				                <span><fmt:formatNumber value="${vo.price}" pattern="#,###" />원</span><br />
 				                <span>${vo.deal_region}</span><br />
 				                <span><img width="25px" src="resources/img/view_count.png" alt="" /></span><span>${vo.view_count}</span>
-				                <span>♡ ${vo.likecount}</span>
+				                <span>♡${vo.likecount} </span>
+				                <span><img width="18px" src="resources/img/chat.png" alt=""/></span><span> ${vo.chatcount}</span>
 				              </a>
 				            </div>
 				          </div>
@@ -313,51 +416,77 @@ aside .filterBtn{
 				</c:otherwise>
 			</c:choose>
 			</div>
+			<button id="listMoreBtn">더보기</button>
+		</div>
+		<div class="go-btn" onclick="window.scrollTo(0, 0);">
+			<span><img width="25px" src="resources/img/up.png" alt="" /></span>
 		</div>
 	</div>
 </main>
 
 <script type="text/javascript">
+//게시글목록 더보기
+$(function(){
+    $(".sellingItem").slice(0, 20).show();//처음보여주는거
 
-	//최신순,조회수순
-	function sortChange() {
-		 var sortType = document.getElementById("sortType").value;
-		location.href = "boardSelectAll.do?sortType=" + sortType;
-	 }
-	
-	//필터버튼
-	function applyFilters() {
-		  document.getElementById("filterForm").submit();
-		}
+    $("#listMoreBtn").hide();
 
-	function resetFilters() {
-		 document.getElementById("filterForm").reset();
-		 applyFilters(); 
-	}
-	
-	//팔아요,구해요
-	function showAllBoards() {
-   		 window.location.href = "boardSelectAll.do";
- 	 }
-	
-	function showSellBoards() {
-	    window.location.href = "boardSelectAll.do?board_type=2";
-	  }
+    $("#listMoreBtn").click(function(e){
+        e.preventDefault();
 
-	 function showBuyBoards() {
-	   window.location.href = "boardSelectAll.do?board_type=1";
-	 }
-	 
-	 //카테고리 더보기 토글
-	$(function(){
-	    $("#loadBtn").click(function(e){
-	        e.preventDefault();
-	        $(".category:hidden").slice(0, 5).show(); // 클릭시 더보기 갯수 지저정
-	        if($(".category:hidden").length == 0){
-	        	$(this).hide();
-	        }
-	    });
-	});
+        $(".sellingItem:hidden").slice(0, 20).show();//추가로보여주는거
+
+        if ($(".sellingItem:hidden").length === 0) {
+            $("#listMoreBtn").hide();
+        }
+    });
+    // 남은 게시글이 있을 때만 더보기 버튼을 보이게 함
+    if ($(".sellingItem:hidden").length > 0) {
+        $("#listMoreBtn").show();
+    }
+});
+
+//최신순,인기순
+function sortChange() {
+	applyFilters();
+ }
+ 
+//필터버튼
+function applyFilters() {
+       var sortType = document.getElementById("sortType").value;
+       //현재 URL을 가져옴.
+       var currentURL = window.location.href;
+       var filteredURL = updateStringParam(currentURL, 'sortType', sortType);
+       window.location.href = filteredURL;
+   }
+
+   // URL의 문자열에 파라미터값 업데이트..
+   function updateStringParam(currentURL, key, sortType) {
+       var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+       var separator = currentURL.indexOf('?') !== -1 ? "&" : "?";
+       if (currentURL.match(re)) {
+           return currentURL.replace(re, '$1' + key + "=" + sortType + '$2');
+       }
+       else {
+           return currentURL + separator + key + "=" + sortType;
+       }
+   }
+
+function resetFilters() {
+	 document.getElementById("filterForm").reset();
+	 location.href= "boardSelectAll.do?category=all";
+}
+ 
+ //카테고리 더보기 토글
+$(function(){
+    $("#loadBtn").click(function(e){
+        e.preventDefault();
+        $(".category:hidden").slice(0, 5).show(); // 클릭시 더보기 갯수 지저정
+        if($(".category:hidden").length == 0){
+        	$(this).hide();
+        }
+    });
+});
 </script>
 </body>
 </html>

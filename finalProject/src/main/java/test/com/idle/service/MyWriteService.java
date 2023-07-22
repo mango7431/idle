@@ -22,4 +22,29 @@ public class MyWriteService {
 		return dao.myWriteSellSelectAll(userId);
 	}
 
+	public int dateupdate(int board_num) {
+		return dao.dateupdate(board_num);
+	}
+
+	public int statusupdate(int board_num, int board_status) {
+		return dao.statusupdate(board_num,board_status);
+	}
+
+	//board_status를 2로 변경
+	public void updateBoardStatus(int board_num, int board_status) {
+		dao.updateBoardStatus(board_num,board_status);
+	}
+
+	public int doneinsert(int board_num, String buyer) {
+		return dao.doneinsert(board_num,buyer);
+	}
+
+	public int donesellinsert(int board_num, String buyer) {
+		return dao.donesellinsert(board_num,buyer);
+	}
+
+	public int delete(int board_num) {
+		return dao.delete(board_num);
+	}
+
 }

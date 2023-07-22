@@ -14,7 +14,7 @@
 	margin: 5px 10px;
 }
 .myButton:hover {
-	background-color:#eaeaea;
+	background: #33A1FD;
 }
 .myButton:active {
 	position:relative;

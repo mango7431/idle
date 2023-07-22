@@ -11,6 +11,7 @@ import test.com.idle.vo.MemberVO;
 @Slf4j
 @Repository
 public class MemberDAOimpl implements MemberDAO {
+	
 
 	@Autowired
 	SqlSession sqlSession;

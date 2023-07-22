@@ -22,16 +22,20 @@
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+<style type="text/css">
+.leaveBigContainer {
+	width: 60%;
+	margin: 0 auto;
+}
+</style>
 </head>
 <body>
 
 	<jsp:include page="../top_menu.jsp"></jsp:include>
-	<div class="container">
+	<div class="leaveBigContainer">
 		<div class="breadcrumb fs-5 fw-bold px-4">회원탈퇴</div>
 		<div class="row my-3">
 			<div class="col-md-3 col-lg-2">
-				
 			</div>
 			<div class="col-md-9 col-lg-10 px-5">
 				<div class="row">
@@ -41,7 +45,6 @@
 					<p>그동안 이용해주셔서 감사합니다.</p>
 					
 					<a href="home.do">메인으로</a>
-
 				</div>
 			</div>
 		</div>

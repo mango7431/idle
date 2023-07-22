@@ -133,3 +133,7 @@
 	color: white;
 }
 
+#noticeList td.text-left {
+  text-align: left;
+}
+

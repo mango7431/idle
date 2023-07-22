@@ -20,16 +20,20 @@ public class BoardService {
 		log.info("BoardService()...");
 	}
 
-	public List<BoardVO> boardSelectAll(String category, Integer minPrice, Integer maxPrice, Integer board_type) {
-		return dao.boardSelectAll(category, minPrice, maxPrice, board_type);
+	public List<BoardVO> boardSelectAll(String category, Integer minPrice, Integer maxPrice, Integer board_type, String deal_region) {
+		return dao.boardSelectAll(category, minPrice, maxPrice, board_type,deal_region);
 	}
 
-	public List<BoardVO> boardSelectAll(Integer minPrice, Integer maxPrice, Integer board_type) {
-		return dao.boardSelectAll(minPrice, maxPrice, board_type);
+	public List<BoardVO> boardSelectAll(Integer minPrice, Integer maxPrice, Integer board_type, String deal_region) {
+		return dao.boardSelectAll(minPrice, maxPrice, board_type,deal_region);
 	}
 
-	public List<BoardVO> boardSelectAllViews(Integer minPrice, Integer maxPrice, Integer board_type) {
-		return dao.boardSelectAllViews(minPrice, maxPrice, board_type);
+	public List<BoardVO> boardSelectAllViews(Integer minPrice, Integer maxPrice, Integer board_type, String deal_region) {
+		return dao.boardSelectAllViews(minPrice, maxPrice, board_type,deal_region);
+	}	
+
+	public List<BoardVO> searchList(String searchWord) {
+		return dao.searchList(searchWord);
 	}	
 
 	public BoardVO selectOne(BoardVO vo) {
@@ -54,6 +58,18 @@ public class BoardService {
 
 	public int changeStatus(BoardVO vo) {
 		return dao.changeStatus(vo);
+	}
+
+	public List<BoardVO> selectAllMain() {
+		return dao.selectAllMain();
+	}
+
+	public List<BoardVO> selectAllBuy() {
+		return dao.selectAllBuy();
+	}
+
+	public List<BoardVO> selectAllSell() {
+		return dao.selectAllSell();
 	}
 
 }

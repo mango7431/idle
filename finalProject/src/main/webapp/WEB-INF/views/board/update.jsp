@@ -42,7 +42,7 @@
 <body>
 	<jsp:include page="../top_menu.jsp"></jsp:include>
 <section style="padding-left: 100px; padding-right: 100px;">
-	<h1 id="board_type" style="margin-left: 60px">상품 등록</h1>
+	<h1 id="board_type" style="margin-left: 60px">상품 수정</h1>
 <div style="max-width: 1000px; margin: 0 auto;">
 	<form class="row g-3" action="boardUpdateOK.do" method="post" enctype="multipart/form-data" name="board_form">
 		<div class="col-12">
@@ -55,7 +55,7 @@
 		</div>
 		<div class="col-12">
 			<label for="writer" class="form-label">작성자</label> 
-			<input type="text" name="writer" class="form-control" id="writer" value="tester1" readonly value="${vo2.writer }">
+			<input type="text" name="writer" class="form-control" id="writer" readonly value="${vo2.writer }">
 		</div>
 		<div class="col-12">
 			<label for="board_content" class="form-label">내용</label> 
@@ -64,59 +64,53 @@
 		<div class="col-md-4">
 			<label for="category" class="form-label">카테고리</label> 
 			<select id="category" name="category" class="form-select">
-				<option selected>디지털기기</option>
-				<option>생활가전</option>
-				<option>가구</option>
-				<option>주방용품</option>
-				<option>유아동</option>
-				<option>의류</option>
-				<option>잡화</option>
-				<option>미용</option>
-				<option>스포츠</option>
-				<option>게임/음반</option>
-				<option>도서</option>
-				<option>티켓</option>
-				<option>가공식품</option>
-				<option>반려동물</option>
-				<option>식물</option>
+				<option <c:if test="${vo2.category == '디지털기기'}">selected</c:if>>디지털기기</option>
+				<option <c:if test="${vo2.category == '생활가전'}">selected</c:if>>생활가전</option>
+				<option <c:if test="${vo2.category == '가구'}">selected</c:if>>가구</option>
+				<option <c:if test="${vo2.category == '주방용품'}">selected</c:if>>주방용품</option>
+				<option <c:if test="${vo2.category == '유아동'}">selected</c:if>>유아동</option>
+				<option <c:if test="${vo2.category == '의류'}">selected</c:if>>의류</option>
+				<option <c:if test="${vo2.category == '잡화'}">selected</c:if>>잡화</option>
+				<option <c:if test="${vo2.category == '미용'}">selected</c:if>>미용</option>
+				<option <c:if test="${vo2.category == '스포츠'}">selected</c:if>>스포츠</option>
+				<option <c:if test="${vo2.category == '게임/음반'}">selected</c:if>>게임/음반</option>
+				<option <c:if test="${vo2.category == '도서'}">selected</c:if>>도서</option>
+				<option <c:if test="${vo2.category == '티켓'}">selected</c:if>>티켓</option>
+				<option <c:if test="${vo2.category == '가공식품'}">selected</c:if>>가공식품</option>
+				<option <c:if test="${vo2.category == '반려동물'}">selected</c:if>>반려동물</option>
+				<option <c:if test="${vo2.category == '식물'}">selected</c:if>>식물</option>
 			</select>
 		</div>
 
 		<div class="col-md-4">
 			<label for="deal_region" class="form-label">거래지역</label> 
 			<select id="deal_region" name="deal_region" class="form-select">
-				<option selected>서울</option>
-				<option>부산</option>
-				<option>대구</option>
-				<option>인천</option>
-				<option>광주</option>
-				<option>대전</option>
-				<option>울산</option>
-				<option>강원</option>
-				<option>경기</option>
-				<option>경남</option>
-				<option>경북</option>
-				<option>전남</option>
-				<option>전북</option>
-				<option>제주</option>
-				<option>충남</option>
-				<option>충북</option>
+				<option <c:if test="${vo2.deal_region == '서울'}">selected</c:if>>서울</option>
+				<option <c:if test="${vo2.deal_region == '부산'}">selected</c:if>>부산</option>
+				<option <c:if test="${vo2.deal_region == '대구'}">selected</c:if>>대구</option>
+				<option <c:if test="${vo2.deal_region == '인천'}">selected</c:if>>인천</option>
+				<option <c:if test="${vo2.deal_region == '광주'}">selected</c:if>>광주</option>
+				<option <c:if test="${vo2.deal_region == '대전'}">selected</c:if>>대전</option>
+				<option <c:if test="${vo2.deal_region == '울산'}">selected</c:if>>울산</option>
+				<option <c:if test="${vo2.deal_region == '강원'}">selected</c:if>>강원</option>
+				<option <c:if test="${vo2.deal_region == '경기'}">selected</c:if>>경기</option>
+				<option <c:if test="${vo2.deal_region == '경남'}">selected</c:if>>경남</option>
+				<option <c:if test="${vo2.deal_region == '경북'}">selected</c:if>>경북</option>
+				<option <c:if test="${vo2.deal_region == '전남'}">selected</c:if>>전남</option>
+				<option <c:if test="${vo2.deal_region == '전북'}">selected</c:if>>전북</option>
+				<option <c:if test="${vo2.deal_region == '제주'}">selected</c:if>>제주</option>
+				<option <c:if test="${vo2.deal_region == '충남'}">selected</c:if>>충남</option>
+				<option <c:if test="${vo2.deal_region == '충북'}">selected</c:if>>충북</option>
 			</select>
 		</div>
 		<div class="col-12">
-			<input type="radio" name="board_type" id="board_type" value="1" />구해요
-			<input type="radio" name="board_type" id="board_type" value="2" checked="checked" />팔아요
+			<input type="radio" name="board_type" id="board_type" value="1" <c:if test="${vo2.board_type == 1}">checked="checked"</c:if> />구해요
+			<input type="radio" name="board_type" id="board_type" value="2" <c:if test="${vo2.board_type == 2}">checked="checked"</c:if> />팔아요
 		</div>
 		
 		<div class="col-12">
 			<label for="multipartFiles" class="form-label">이미지사진</label> 
-			<input type="file" name="multipartFiles" id="multipartFiles" multiple="multiple" />
-		</div>
-		
-		<div class="col-12">
-			<input type="radio" name="board_status" id="board_status" value="1" checked="checked" />거래중
-			<input type="radio" name="board_status" id="board_status" value="2" />거래완료
-			<input type="radio" name="board_status" id="board_status" value="3" />숨기기
+			<input type="file" name="multipartFiles" id="multipartFiles" multiple="multiple" class="form-control form-control-sm"/>
 		</div>
 		
 		<div class="col-12">

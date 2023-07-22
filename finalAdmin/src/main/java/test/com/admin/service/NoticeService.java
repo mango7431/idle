@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import test.com.admin.dao.NoticeDAO;
+import test.com.admin.vo.Criteria;
 import test.com.admin.vo.NoticeVO;
 
 @Slf4j
@@ -34,6 +35,7 @@ public class NoticeService {
 	
 	public List<NoticeVO> selectAll(int cpage){
 		return dao.selectAll(cpage);
+		
 	}
 	
 	public NoticeVO selectOne(NoticeVO vo) {
@@ -47,4 +49,6 @@ public class NoticeService {
 	public int noticeRowCount() {
 		return dao.noticeRowCount();
 	}
+
+	
 }

@@ -1,5 +1,7 @@
 package test.com.idle.daoimpl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,7 +13,7 @@ import test.com.idle.vo.LikesVO;
 @Repository
 @Slf4j
 public class LikesDAOimpl implements LikesDAO {
-	
+
 	@Autowired
 	SqlSession sqlSession;
 	
@@ -46,4 +48,11 @@ public class LikesDAOimpl implements LikesDAO {
 		return flag;
 	}
 
+	@Override
+	public List<LikesVO> selectAll(String user_id) {
+		log.info("selectAll...{}",user_id);
+		List<LikesVO> vos = sqlSession.selectList("L_SELECT_ALL",user_id);
+		log.info("vos:{}",vos);
+		return vos;
+	}
 }

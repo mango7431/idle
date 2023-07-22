@@ -61,11 +61,11 @@ public class MemberController {
 			log.info("adminRealPath : {}", adminRealPath);
 			
 			// 관리자 프로젝트쪽에도 이미지 생성
-			File adminf = new File(adminRealPath+"\\"+vo.getMember_savename());
+			File adminf = new File(adminRealPath+"/"+vo.getMember_savename());
 			FileCopyUtils.copy(vo.getMultipartFile().getBytes(),adminf);
 
 			// 오리지날 사진저장
-			File f = new File(realPath + "\\" + vo.getMember_savename());
+			File f = new File(realPath + "/" + vo.getMember_savename());
 			vo.getMultipartFile().transferTo(f);
 
 			// 썸네일 사진저장
@@ -137,11 +137,11 @@ public class MemberController {
 			log.info("adminRealPath : {}", adminRealPath);
 			
 			// 관리자 프로젝트쪽에도 이미지 생성
-			File adminf = new File(adminRealPath+"\\"+vo.getMember_savename());
+			File adminf = new File(adminRealPath+"/"+vo.getMember_savename());
 			FileCopyUtils.copy(vo.getMultipartFile().getBytes(),adminf);
 
 			// 오리지날 사진저장
-			File f = new File(realPath + "\\" + vo.getMember_savename());
+			File f = new File(realPath + "/" + vo.getMember_savename());
 			vo.getMultipartFile().transferTo(f);
 			
 			// 썸네일 사진저장
@@ -211,7 +211,8 @@ public class MemberController {
 			return "redirect:login.do?message=fail";
 		} else {
 			session.setAttribute("user_id", vo2.getId());
-			session.setAttribute("address", vo2.getAddress());			
+			session.setAttribute("address", vo2.getAddress());	
+			session.setAttribute("name", vo2.getName());	
 			return "redirect:home.do";
 		}
 

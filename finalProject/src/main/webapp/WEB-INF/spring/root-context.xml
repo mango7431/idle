@@ -35,9 +35,9 @@
 				<value>classpath:jdbc/sqlMapper_member.xml</value>
 				<value>classpath:jdbc/sqlMapper_qna.xml</value>
 				<value>classpath:jdbc/sqlMapper_black.xml</value>
-				<value>classpath:jdbc/sqlMapper_mywite.xml</value>
+				<value>classpath:jdbc/sqlMapper_mywrite.xml</value>
+				<value>classpath:jdbc/sqlMapper_notice.xml</value>
 				<value>classpath:jdbc/sqlMapper_notification.xml</value>
-				
 			</list>
 		</property>
 	</bean>

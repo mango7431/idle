@@ -1,0 +1,116 @@
+@charset "UTF-8";
+body {
+	margin: 0;
+	padding: 0;
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+p {
+	white-space: nowrap;
+}
+
+ul, li {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+main {
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+}
+
+.headerTitle {
+	margin: 50px 0 50px 50px;
+}
+
+.reportContainer{
+	width: 70%;
+	margin: 0 auto;
+}
+
+table{
+	width: 100%;
+	border-top: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+
+th, td{
+	text-align: center;
+}
+
+td:nth-child(4){
+	padding-left: 80px;
+	text-align: left;
+}
+
+
+.ReportOne:hover{
+	color : #33A1FD;
+	font-weight: bold;
+}
+
+.statusBtn{
+	background: none;
+	border: none;
+	color: #33A1FD;
+}
+
+.statusBtn:hover{
+	font-weight: bold;
+	color: #33A1FD;
+}
+
+.delBtn{
+	background-color: #33A1FD;
+	border: none;
+	color: white;
+}
+
+.warningBtn{
+	background-color: white;
+	border: 1px solid #33A1FD;
+	color: #33A1FD;
+}
+
+/*페이징*/
+.pageOn{
+	background-color: #33A1FD;
+	font-weight: bold;
+}
+
+.pageOn span{
+	color: white;
+}
+
+.pagination {
+    margin: 20px;
+    font-size: 15px;
+	display: flex;
+	justify-content: center;
+}
+
+.pagination a{
+	padding: 3px 8px;
+	margin: 5px 10px;
+	color: #33A1FD;
+}
+
+.go-btn {
+	position: fixed;
+	width: 40px;
+	bottom: 20px;
+	right: 25px;
+	z-index: 2;
+	cursor: pointer;
+}
