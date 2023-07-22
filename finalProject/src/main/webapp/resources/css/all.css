@@ -1,0 +1,31 @@
+a, a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+/* 마이페이지 breadcrumb */
+.breadcrumb {
+	padding-top: 35px;
+	padding-bottom: 35px;
+}
+
+/* 마이페이지 서브메뉴 */
+.mypage-floating-menu { /* 마이페이지 통일시키기 */
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border: 2px solid #33A1FD;
+}
+
+.mypage-floating-menu li {
+	list-style-type: none;
+}
+
+.mypage-floating-menu li a {
+	display: block;
+	text-align: center;
+	padding: 14px 16px;
+}
+
+.mypage-floating-menu li a:hover{
+	color: #33A1FD;
+}

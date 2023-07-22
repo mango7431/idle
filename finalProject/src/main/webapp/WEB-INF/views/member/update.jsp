@@ -79,6 +79,7 @@
 	});//end onload
 </script>
 <style type="text/css">
+/*
 .myPageSidenav {
 	z-index: 1;
 	top: 20px;
@@ -94,7 +95,7 @@
 	font-size: 18px;
 	color: black;
 	display: block;
-}
+}*/
 
 /* 마우스 오버(마우스 올렸을때) */
 .myPageSidenav a:hover {
@@ -157,7 +158,7 @@
 			</div>
 			<div class="col-md-9 col-lg-10 px-5">
 				<div class="row">
-					<h4>${user_id}님회원정보수정</h4>
+					<h4>${user_id}님 회원정보수정</h4>
 					<form action="memberUpdateOK.do" method="post"
 						enctype="multipart/form-data" id="update_form"
 						class="myPageUpdateForm">

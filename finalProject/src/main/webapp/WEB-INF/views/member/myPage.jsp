@@ -62,7 +62,7 @@
 
 </script>
 <style type="text/css">
-.myPageSidenav {
+/*.myPageSidenav {
 	z-index: 1;
 	top: 20px;
 	left: 10px;
@@ -77,7 +77,7 @@
 	font-size: 18px;
 	color: black;
 	display: block;
-}
+}*/
 
 /* 마우스 오버(마우스 올렸을때) */
 .myPageSidenav a:hover {
