@@ -187,22 +187,22 @@
 							<div class="memberUpdateContainer">
 								<label for="address"><b>주소</b></label> <br> <select
 									id="address" name="address" class="memberUpdateItem">
-									<option selected>서울</option>
-									<option>부산</option>
-									<option>대구</option>
-									<option>인천</option>
-									<option>광주</option>
-									<option>대전</option>
-									<option>울산</option>
-									<option>강원</option>
-									<option>경기</option>
-									<option>경남</option>
-									<option>경북</option>
-									<option>전남</option>
-									<option>전북</option>
-									<option>제주</option>
-									<option>충남</option>
-									<option>충북</option>
+									<option <c:if test="${vo2.address == '서울'}">selected</c:if>>서울</option>
+									<option <c:if test="${vo2.address == '부산'}">selected</c:if>>부산</option>
+									<option <c:if test="${vo2.address == '대구'}">selected</c:if>>대구</option>
+									<option <c:if test="${vo2.address == '인천'}">selected</c:if>>인천</option>
+									<option <c:if test="${vo2.address == '광주'}">selected</c:if>>광주</option>
+									<option <c:if test="${vo2.address == '대전'}">selected</c:if>>대전</option>
+									<option <c:if test="${vo2.address == '울산'}">selected</c:if>>울산</option>
+									<option <c:if test="${vo2.address == '강원'}">selected</c:if>>강원</option>
+									<option <c:if test="${vo2.address == '경기'}">selected</c:if>>경기</option>
+									<option <c:if test="${vo2.address == '경남'}">selected</c:if>>경남</option>
+									<option <c:if test="${vo2.address == '경북'}">selected</c:if>>경북</option>
+									<option <c:if test="${vo2.address == '전남'}">selected</c:if>>전남</option>
+									<option <c:if test="${vo2.address == '전북'}">selected</c:if>>전북</option>
+									<option <c:if test="${vo2.address == '제주'}">selected</c:if>>제주</option>
+									<option <c:if test="${vo2.address == '충남'}">selected</c:if>>충남</option>
+									<option <c:if test="${vo2.address == '충북'}">selected</c:if>>충북</option>
 								</select>
 							</div>
 							<br>
